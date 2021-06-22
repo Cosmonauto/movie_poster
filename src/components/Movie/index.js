@@ -18,14 +18,16 @@ import GradeIcon from "@material-ui/icons/Grade";
 import { useHistory } from "react-router";
 const useStyles = makeStyles({
   root: {
-    maxWidth: 400,
+    maxWidth: 340,
+
     background: "rgb(227,227,241)",
     background:
       "linear-gradient(90deg, rgba(227,227,241,1) 27%, rgba(168,220,231,1) 100%)",
     boxShadow: "0px -1px 12px 5px rgba(0,0,0,0.57)",
+    height: "400px",
   },
   media: {
-    height: 170,
+    height: 250,
   },
   description: {
     height: 100,
@@ -83,7 +85,7 @@ export default function Movie({ data }) {
       <CardActionArea>
         <CardMedia className={classes.media} image={images[0]} title={title} />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="p" component="h5">
             <Truncate
               lines={2}
               ellipsis={"..."}
@@ -93,21 +95,10 @@ export default function Movie({ data }) {
             </Truncate>
           </Typography>
 
-          <Typography variant="h6">{price} руб</Typography>
-          <Typography variant="h6">Страна: {country}</Typography>
-          <Typography variant="h6">Длительность: {duration}</Typography>
-          <Typography variant="h6">Длительность: {producer}</Typography>
-
-          <Typography
-            className={classes.description}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            <Truncate lines={3} ellipsis={"..."}>
-              {description}
-            </Truncate>
-          </Typography>
+          <Typography variant="p">{price} руб</Typography>
+          <Typography variant="p">{country}</Typography>
+          <Typography variant="p">{duration}</Typography>
+          <Typography variant="p">{producer}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
