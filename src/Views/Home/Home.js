@@ -1,13 +1,10 @@
 import React from 'react'
-const Home = () => {
-  return (
-    <div className="container">
+import Navbar from '../../components/Navbar/Navbar'
 
-      <h1 className="text-center" style={{ paddingTop: "30%" }}>
-        Home
-      </h1>
-
-    </div>
-  )
+export default function Home() {
+    return (
+        <div>
+            <Navbar />
+        </div>
+    )
 }
-export default Home;
