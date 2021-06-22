@@ -1,0 +1,36 @@
+.heroImg {
+  /* width: 90%; */
+}
+.heroImg img {
+  /* object-fit: cover; */
+  width: 100%;
+
+  height: 90vh !important;
+  /* object-fit: cover; */
+  border-radius: 20px;
+  /* object-position: top; */
+}
+
+.sliderIcons {
+  width: 30px;
+}
+@media only screen and (max-width: 768px) {
+  .heroImg img {
+    height: 500px !important;
+  }
+}
+.heroCarousel {
+  width: 85%;
+  margin-top: 50px;
+}
+.heroDiv {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.heroText {
+  color: #fff;
+  position: absolute;
+  margin-top: 370px;
+  margin-left: 30px;
+}
