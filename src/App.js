@@ -1,11 +1,13 @@
 import React from "react";
-import Button from "./components/DecodeToken.js";
-import HeroCarousel from "./components/HeroCarousel/HeroCarousel.js";
-import MainPage from "./Views/MainPage/MainPage.js";
+import Routes from "./Routes";
+
+import MovieContextProvider from "./contexts/MovieContext";
 function App() {
   return (
     <div className="App">
-      <MainPage />
+      <MovieContextProvider>
+        <Routes />
+      </MovieContextProvider>
     </div>
   );
 }

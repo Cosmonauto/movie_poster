@@ -39,11 +39,20 @@ const useStyles = makeStyles({
   // },
 });
 
-export default function ProductItem({ data }) {
+export default function Movie({ data }) {
   const classes = useStyles();
 
-  const { title, images, price, description, id, duration, country, brand } =
-    data;
+  const {
+    title,
+    images,
+    price,
+    description,
+    id,
+    duration,
+    country,
+    genre,
+    producer,
+  } = data;
   const {
     addProductToCart,
     cart,
@@ -87,6 +96,7 @@ export default function ProductItem({ data }) {
           <Typography variant="h6">{price} руб</Typography>
           <Typography variant="h6">Страна: {country}</Typography>
           <Typography variant="h6">Длительность: {duration}</Typography>
+          <Typography variant="h6">Длительность: {producer}</Typography>
 
           <Typography
             className={classes.description}
@@ -105,7 +115,7 @@ export default function ProductItem({ data }) {
           onClick={(e) => {
             addProductToCart(data);
             // setCartState("secondary");
-            cart.products.forEach((product) => {
+            cart.movies.forEach((product) => {
               product.item.id === id
                 ? setCartState("primary")
                 : setCartState("secondary");
@@ -120,7 +130,7 @@ export default function ProductItem({ data }) {
           onClick={(e) => {
             addProductToFavorite(data);
             // setCartState("secondary");
-            favorite.products.forEach((product) => {
+            favorite.movies.forEach((product) => {
               product.item.id === id
                 ? setFavoriteState("primary")
                 : setFavoriteState("secondary");
@@ -132,7 +142,7 @@ export default function ProductItem({ data }) {
           <GradeIcon />
         </IconButton>
         <Button
-          onClick={() => history.push(`/products/${id}`)}
+          onClick={() => history.push(`/movies/${id}`)}
           size="small"
           color="primary"
         >

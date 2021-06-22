@@ -3,8 +3,8 @@ import React, { useReducer, useState } from "react";
 import { calcSubPrice, calcTotalPrice } from "../helpers/calcPrice";
 
 const INIT_STATE = {
-  products: [],
-  brands: [],
+  movies: [],
+  menuItems: [],
 
   brandDetail: null,
 
@@ -18,10 +18,10 @@ const INIT_STATE = {
 
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case "SET_PRODUCTS":
+    case "SET_movies":
       return {
         ...state,
-        products: action.payload.data,
+        movies: action.payload.data,
         total: action.payload.total,
       };
     case "SET_PRODUCT_DETAIL":
@@ -32,14 +32,12 @@ const reducer = (state = INIT_STATE, action) => {
     case "ADD_PRODUCT":
       return {
         ...state,
-        products: [...state.products, action.payload],
+        movies: [...state.movies, action.payload],
       };
     case "REMOVE_PRODUCT":
       return {
         ...state,
-        products: state.products.filter(
-          (product) => product.id !== action.payload
-        ),
+        movies: state.movies.filter((product) => product.id !== action.payload),
       };
     case "CLEAR_PRODUCT":
       return {
@@ -47,10 +45,10 @@ const reducer = (state = INIT_STATE, action) => {
         productDetail: null,
       };
 
-    case "SET_BRANDS":
+    case "SET_menuItems":
       return {
         ...state,
-        brands: action.payload,
+        menuItems: action.payload,
       };
 
     case "SET_BRAND_DETAIL":
@@ -92,18 +90,18 @@ export default function StoreContextProvider(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const fetchProducts = async (page = 0) => {
+  const fetchmovies = async (page = 0) => {
     try {
       const response = await axios.get(
-        `${URL}/products?_start=${page * 3}&_end=${3 * (page + 1)}`
+        `${URL}/movies?_start=${page * 3}&_end=${3 * (page + 1)}`
       );
-      const products = response.data;
+      const movies = response.data;
       const total = response.headers["x-total-count"];
 
       dispatch({
-        type: "SET_PRODUCTS",
+        type: "SET_movies",
         payload: {
-          data: products,
+          data: movies,
           total,
         },
       });
@@ -112,24 +110,24 @@ export default function StoreContextProvider(props) {
     }
   };
 
-  const fetchSearchProducts = async (value) => {
-    const response = await axios.get(`${URL}/products/?q=${value}`);
-    const products = response.data;
+  const fetchSearchmovies = async (value) => {
+    const response = await axios.get(`${URL}/movies/?q=${value}`);
+    const movies = response.data;
 
     const total = response.headers["x-total-count"];
 
     dispatch({
-      type: "SET_PRODUCTS",
+      type: "SET_movies",
 
       payload: {
-        data: products,
+        data: movies,
         total,
       },
     });
   };
 
   const fetchProductDetail = async (id) => {
-    const response = await axios.get(`${URL}/products/${id}`);
+    const response = await axios.get(`${URL}/movies/${id}`);
     const productDetail = response.data;
     dispatch({
       type: "SET_PRODUCT_DETAIL",
@@ -138,7 +136,7 @@ export default function StoreContextProvider(props) {
   };
 
   const createProduct = async (product) => {
-    const response = await axios.post(`${URL}/products`, product);
+    const response = await axios.post(`${URL}/movies`, product);
     const createdProduct = response.data;
 
     dispatch({
@@ -150,7 +148,7 @@ export default function StoreContextProvider(props) {
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(`${URL}/products/${id}`);
+    await axios.delete(`${URL}/movies/${id}`);
     dispatch({
       type: "REMOVE_PRODUCT",
       payload: id,
@@ -158,36 +156,36 @@ export default function StoreContextProvider(props) {
   };
 
   const updateProduct = async (id, data) => {
-    await axios.patch(`${URL}/products/${id}`, data);
+    await axios.patch(`${URL}/movies/${id}`, data);
     dispatch({
       type: "CLEAR_PRODUCT",
     });
   };
-  const fetchBrands = async () => {
-    const response = await axios.get(`${URL}/brands`);
-    const brands = response.data;
+  const fetchmenuItems = async () => {
+    const response = await axios.get(`${URL}/menuItems`);
+    const menuItems = response.data;
     dispatch({
-      type: "SET_BRANDS",
-      payload: brands,
+      type: "SET_menuItems",
+      payload: menuItems,
     });
   };
 
-  const fetchBrandProducts = async (brandId) => {
-    const response = await axios.get(`${URL}/products/?brand=${brandId}`);
-    const products = response.data;
+  const fetchBrandmovies = async (brandId) => {
+    const response = await axios.get(`${URL}/movies/?brand=${brandId}`);
+    const movies = response.data;
     const total = response.headers["x-total-count"];
 
     dispatch({
-      type: "SET_PRODUCTS",
+      type: "SET_movies",
       payload: {
-        data: products,
+        data: movies,
         total,
       },
     });
   };
 
   const fetchBrandDetail = async (brandId) => {
-    const response = await axios.get(`${URL}/brands/${brandId}`);
+    const response = await axios.get(`${URL}/menuItems/${brandId}`);
     const brand = response.data;
 
     dispatch({
@@ -199,7 +197,7 @@ export default function StoreContextProvider(props) {
     let cart = JSON.parse(localStorage.getItem("cart"));
     if (!cart) {
       cart = {
-        products: [],
+        movies: [],
         totalPrice: 0,
       };
     }
@@ -210,7 +208,7 @@ export default function StoreContextProvider(props) {
     let cart = JSON.parse(localStorage.getItem("cart"));
     if (!cart) {
       cart = {
-        products: [],
+        movies: [],
         totalPrice: 0,
       };
     }
@@ -229,31 +227,29 @@ export default function StoreContextProvider(props) {
     };
 
     //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
-    let filteredCart = cart.products.filter(
+    let filteredCart = cart.movies.filter(
       (elem) => elem.item.id === product.id
     );
     if (filteredCart.length > 0) {
-      cart.products = cart.products.filter(
-        (elem) => elem.item.id !== product.id
-      );
+      cart.movies = cart.movies.filter((elem) => elem.item.id !== product.id);
     } else {
-      cart.products.push(newProduct);
+      cart.movies.push(newProduct);
     }
 
     newProduct.subPrice = calcSubPrice(newProduct);
-    cart.totalPrice = calcTotalPrice(cart.products);
+    cart.totalPrice = calcTotalPrice(cart.movies);
     localStorage.setItem("cart", JSON.stringify(cart));
   };
   const changeProductCount = (count, id) => {
     let cart = JSON.parse(localStorage.getItem("cart"));
-    cart.products = cart.products.map((elem) => {
+    cart.movies = cart.movies.map((elem) => {
       if (elem.item.id === id) {
         elem.count = count;
         elem.subPrice = calcSubPrice(elem);
       }
       return elem;
     });
-    cart.totalPrice = calcTotalPrice(cart.products);
+    cart.totalPrice = calcTotalPrice(cart.movies);
     localStorage.setItem("cart", JSON.stringify(cart));
     getCart();
   };
@@ -281,7 +277,7 @@ export default function StoreContextProvider(props) {
     let favorite = JSON.parse(localStorage.getItem("favorite"));
     if (!favorite) {
       favorite = {
-        products: [],
+        movies: [],
       };
     }
     dispatch({ type: "GET_FAVORITE", payload: favorite });
@@ -291,7 +287,7 @@ export default function StoreContextProvider(props) {
     let favorite = JSON.parse(localStorage.getItem("favorite"));
     if (!favorite) {
       favorite = {
-        products: [],
+        movies: [],
       };
     }
     //     const saveToCartBtn = (id) => `<button onclick="saveProductToCart(this)" class="btn btn-success" data-id="${id}">
@@ -309,15 +305,15 @@ export default function StoreContextProvider(props) {
     };
 
     //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
-    let filteredFavorite = favorite.products.filter(
+    let filteredFavorite = favorite.movies.filter(
       (elem) => elem.item.id === product.id
     );
     if (filteredFavorite.length > 0) {
-      favorite.products = favorite.products.filter(
+      favorite.movies = favorite.movies.filter(
         (elem) => elem.item.id !== product.id
       );
     } else {
-      favorite.products.push(newProduct);
+      favorite.movies.push(newProduct);
     }
 
     newProduct.subPrice = calcSubPrice(newProduct);
@@ -328,20 +324,20 @@ export default function StoreContextProvider(props) {
   return (
     <movieContext.Provider
       value={{
-        products: state.products,
+        movies: state.movies,
         total: state.total,
         productDetail: state.productDetail,
-        brands: state.brands,
+        menuItems: state.menuItems,
         brandDetail: state.brandDetail,
-        fetchProducts,
+        fetchmovies,
         fetchProductDetail,
         createProduct,
         deleteProduct,
         updateProduct,
-        fetchSearchProducts,
-        fetchBrands,
+        fetchSearchmovies,
+        fetchmenuItems,
 
-        fetchBrandProducts,
+        fetchBrandmovies,
         fetchBrandDetail,
         getFavorite,
         addProductToFavorite,

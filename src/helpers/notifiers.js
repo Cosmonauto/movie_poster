@@ -1,4 +1,4 @@
-import { toast } from "react-toas";
+import { toast } from "react-toastify";
 
 export const notifySuccess = (msg) =>
   toast(<p style={{ fontSize: 16 }}>{msg}</p>, {

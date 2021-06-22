@@ -52,15 +52,21 @@
     margin-top: 70px;
   }
   .heroText h1 {
-    margin-top: 130px !important;
+    font-size: 15px;
+    margin-top: 110px !important;
   }
   .heroText h3 {
-    margin-top: 160px !important;
+    font-size: 10px;
+    margin-top: 140px !important;
+  }
+  .heroCarousel {
+    width: 85%;
+    margin-top: 2px !important;
   }
 }
 .heroCarousel {
   width: 85%;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .heroDiv {
   align-items: center;

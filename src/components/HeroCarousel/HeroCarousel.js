@@ -1,8 +1,6 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@material-ui/core";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { classes } from "istanbul-lib-coverage";
+import { Paper } from "@material-ui/core";
 import classesCss from "./heroCarousel.module.css";
 import NextIcon from "../../assets/icons/forward-button.png";
 import PrevIcon from "../../assets/icons/rewind-button.png";
@@ -12,12 +10,12 @@ export default function HeroCarousel(props) {
     {
       name: "Random Name #1",
       description: "Probably the most random thing you have ever seen!",
-      img: "https://cdn.mos.cms.futurecdn.net/w78sdW5ewM62ZzSCbue3N.jpg",
+      img: "https://free4kwallpapers.com/uploads/originals/2019/11/20/bladerunner--movie-scene-wallpaper.jpg",
     },
     {
       name: "Random Name #2",
       description: "Hello World!",
-      img: "https://ichef.bbci.co.uk/images/ic/640x360/p09c88sz.jpg",
+      img: "https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1584638663178-SW29SW31WBZ7NSNB0CKW/ke17ZwdGBToddI8pDm48kNvT88LknE-K9M4pGNO0Iqd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1USOFn4xF8vTWDNAUBm5ducQhX-V3oVjSmr829Rco4W2Uo49ZdOtO_QXox0_W7i2zEA/image-asset.jpeg?format=2500w",
     },
   ];
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MoviesPagination from "../../components/MoviesPagination/MoviesPagination";
-import ProductsList from "../../components/ProductsList";
+import moviesList from "../../components/moviesList";
 
 function MainPage(props) {
   const initialState = {
@@ -9,7 +9,7 @@ function MainPage(props) {
   const [state, setState] = useState(initialState);
   return (
     <div>
-      <ProductsList />
+      <moviesList />
       <MoviesPagination state={state} setState={setState} total={18} />
     </div>
   );
