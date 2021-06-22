@@ -2,26 +2,71 @@
   /* width: 90%; */
 }
 .heroImg img {
-  /* object-fit: cover; */
   width: 100%;
 
-  height: 90vh !important;
-  /* object-fit: cover; */
+  /* height: 90vh !important; */
+  height: auto;
   border-radius: 20px;
-  /* object-position: top; */
 }
 
 .sliderIcons {
   width: 30px;
 }
-@media only screen and (max-width: 768px) {
-  .heroImg img {
+
+@media only screen and (max-width: 960px) {
+  .heroText {
+    font-size: 11px;
+  }
+  .heroText h1 {
+    margin-top: 300px !important;
+  }
+  .heroText h3 {
+    /* position: absolute; */
+    margin-top: 350px !important;
+    /* margin-left: 30px; */
+  }
+}
+@media only screen and (max-width: 815px) {
+  /* .heroImg img {
     height: 500px !important;
+
+    width: auto;
+    padding-right: 70px;
+  } */
+  .heroText {
+    font-size: 11px;
+    margin-top: 70px;
+  }
+  .heroText h1 {
+    margin-top: 220px !important;
+  }
+  .heroText h3 {
+    /* position: absolute; */
+    margin-top: 270px !important;
+    /* margin-left: 30px; */
+  }
+}
+@media only screen and (max-width: 640px) {
+  .heroText {
+    font-size: 10px;
+    margin-top: 70px;
+  }
+  .heroText h1 {
+    font-size: 15px;
+    margin-top: 110px !important;
+  }
+  .heroText h3 {
+    font-size: 10px;
+    margin-top: 140px !important;
+  }
+  .heroCarousel {
+    width: 85%;
+    margin-top: 2px !important;
   }
 }
 .heroCarousel {
   width: 85%;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .heroDiv {
   align-items: center;
@@ -30,7 +75,14 @@
 }
 .heroText {
   color: #fff;
+}
+.heroText h1 {
   position: absolute;
   margin-top: 370px;
+  margin-left: 30px;
+}
+.heroText h3 {
+  position: absolute;
+  margin-top: 420px;
   margin-left: 30px;
 }

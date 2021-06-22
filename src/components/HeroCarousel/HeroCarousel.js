@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import classesCss from "./heroCarousel.module.css";
 import NextIcon from "../../assets/icons/forward-button.png";
 import PrevIcon from "../../assets/icons/rewind-button.png";
