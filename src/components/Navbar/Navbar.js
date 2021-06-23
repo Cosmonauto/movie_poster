@@ -8,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
+import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -138,7 +138,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar style={{ backgroundColor: "#053742" }} position="static">
+      <AppBar style={{ backgroundColor: "#ff9900" }} position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -148,9 +148,11 @@ export default function PrimarySearchAppBar() {
           >
             <Drawer />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <img width="100px" src="https://i.pinimg.com/originals/af/ee/7f/afee7f902e65a98c2c2c5537f4d45b45.png" alt="logo of Movie Poster" />
-          </Typography>
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" noWrap>
+              <img width="100px" src="https://i.pinimg.com/originals/af/ee/7f/afee7f902e65a98c2c2c5537f4d45b45.png" alt="logo of Movie Poster" />
+            </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
