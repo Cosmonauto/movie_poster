@@ -7,23 +7,23 @@ import { movieContext } from '../../contexts/MovieContext';
 
 
 export default function Showing() {
-    // const { id } = useParams();
-    // const { movies, fetchMovies, fetchSearchmovies, fetchbrandDetail } =
-    //     useContext(movieContext);
+    const { id } = useParams();
+    const { movies, fetchMovies, fetchSearchMovies, fetchbrandDetail } =
+        useContext(movieContext);
 
-    // useEffect(() => {
-    //     fetchMovies(id);
-    //     fetchSearchmovies(id);
-    // }, [id]);
+    useEffect(() => {
+        fetchMovies(id);
+        fetchSearchMovies(id);
+    }, [id]);
     return (
         <div>
-            {/* <Navbar />
+            <Navbar />
             {movies.length && fetchbrandDetail && (
                 <>
 
                     <MoviesList movies={movies} />
                 </>
-            )} */}
+            )}
         </div>
     )
 }
