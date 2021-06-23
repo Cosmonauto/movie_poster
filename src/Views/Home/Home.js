@@ -6,9 +6,9 @@ import MoviesPagination from "../../components/MoviesPagination/MoviesPagination
 import { movieContext } from "../../contexts/MovieContext";
 
 export default function Home() {
-  const { fetchmovies, movies } = useContext(movieContext);
+  const { fetchMovies, movies } = useContext(movieContext);
   useEffect(() => {
-    fetchmovies();
+    fetchMovies();
   }, []);
 
   const initialState = {

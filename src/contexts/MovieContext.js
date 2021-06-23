@@ -90,7 +90,7 @@ export default function StoreContextProvider(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const fetchmovies = async (page = 0) => {
+  const fetchMovies = async (page = 0) => {
     try {
       const response = await axios.get(
         `${URL}/movies?_start=${page * 3}&_end=${3 * (page + 1)}`
@@ -110,7 +110,7 @@ export default function StoreContextProvider(props) {
     }
   };
 
-  const fetchSearchmovies = async (value) => {
+  const fetchSearchMovies = async (value) => {
     const response = await axios.get(`${URL}/movies/?q=${value}`);
     const movies = response.data;
 
@@ -329,12 +329,12 @@ export default function StoreContextProvider(props) {
         productDetail: state.productDetail,
         menuItems: state.menuItems,
         brandDetail: state.brandDetail,
-        fetchmovies,
+        fetchMovies,
         fetchProductDetail,
         createProduct,
         deleteProduct,
         updateProduct,
-        fetchSearchmovies,
+        fetchSearchMovies,
         fetchmenuItems,
 
         fetchBrandmovies,
