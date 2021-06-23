@@ -68,8 +68,7 @@ const { REACT_APP_API_URL: URL } = process.env;
 
 export default function StoreContextProvider(props) {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
   const fetchMovies = async (page = 0) => {
     try {
