@@ -27,7 +27,8 @@ const useStyles = makeStyles({
     height: "500px",
   },
   media: {
-    height: 250,
+    width: "300px",
+    height: "auto",
   },
   description: {
     height: 200,
@@ -73,12 +74,6 @@ export default function Movie({ data }) {
     getOrderHistory();
     getFavorite();
   }, []);
-  const saveToCartBtn = () => {
-    setCartState("secondary");
-  };
-  const rmvFromCartBtn = () => {
-    setCartState("primary");
-  };
 
   return (
     <Card className={classes.root}>
