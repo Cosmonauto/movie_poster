@@ -24,13 +24,13 @@ const useStyles = makeStyles({
     background:
       "linear-gradient(90deg, rgba(227,227,241,1) 27%, rgba(168,220,231,1) 100%)",
     boxShadow: "0px -1px 12px 5px rgba(0,0,0,0.57)",
-    height: "400px",
+    height: "500px",
   },
   media: {
     height: 250,
   },
   description: {
-    height: 100,
+    height: 200,
     marginTop: 20,
   },
   // cartIconActive: {
@@ -58,7 +58,7 @@ export default function Movie({ data }) {
   const {
     addProductToCart,
     cart,
-    getCart,
+    getOrderHistory,
     changeProductCount,
     addProductToFavorite,
     favorite,
@@ -70,7 +70,7 @@ export default function Movie({ data }) {
   const [favoriteState, setFavoriteState] = useState("primary");
 
   useEffect(() => {
-    getCart();
+    getOrderHistory();
     getFavorite();
   }, []);
   const saveToCartBtn = () => {
