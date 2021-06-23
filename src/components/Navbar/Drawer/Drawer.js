@@ -6,9 +6,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import TheatersIcon from '@material-ui/icons/Theaters';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
+import { Link } from 'react-router-dom';
+import MovieFilterIcon from '@material-ui/icons/MovieFilter';
+import InfoIcon from '@material-ui/icons/Info';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 
 const useStyles = makeStyles({
     list: {
@@ -43,12 +47,50 @@ export default function TemporaryDrawer() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+
+                <Link to='/showing' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Showing" />
+                        <ListItemIcon>
+                            <TheatersIcon />
+                        </ListItemIcon>
                     </ListItem>
-                ))}
+                </Link>
+                <Link to='/sessions' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Sessions" />
+                        <ListItemIcon>
+                            <MovieFilterIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+                <Link to='/promotions' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Promotions and Discounts" />
+                        <ListItemIcon>
+                            <OfflineBoltIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+                <Link to='/about' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="About Us" />
+                        <ListItemIcon>
+                            <InfoIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+                <Link to='/contacts' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Contacts" />
+                        <ListItemIcon>
+                            <ContactPhoneIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+
+
+
             </List>
         </div>
     );
@@ -57,7 +99,7 @@ export default function TemporaryDrawer() {
         <div>
             {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
-                    <MenuOpenIcon onClick={toggleDrawer(anchor, true)}/>
+                    <MenuOpenIcon onClick={toggleDrawer(anchor, true)} />
                     <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
                         {list(anchor)}
                     </Drawer>
