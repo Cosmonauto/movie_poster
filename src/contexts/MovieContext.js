@@ -6,57 +6,48 @@ const INIT_STATE = {
   movies: [],
   menuItems: [],
 
-  brandDetail: null,
-
   productDetail: null,
   total: 0,
-  cart: {},
+  orderHistory: {},
   favorite: {},
-  users: [],
-  lastUser: {},
 };
 
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case "SET_movies":
+    case "SET_MOVIES":
       return {
         ...state,
         movies: action.payload.data,
         total: action.payload.total,
       };
-    case "SET_PRODUCT_DETAIL":
+    case "SET_MOVIE_DETAIL":
       return {
         ...state,
         productDetail: action.payload,
       };
-    case "ADD_PRODUCT":
+    case "ADD_MOVIE":
       return {
         ...state,
         movies: [...state.movies, action.payload],
       };
-    case "REMOVE_PRODUCT":
+    case "REMOVE_MOVIE":
       return {
         ...state,
         movies: state.movies.filter((product) => product.id !== action.payload),
       };
-    case "CLEAR_PRODUCT":
+    case "CLEAR_MOVIE":
       return {
         ...state,
         productDetail: null,
       };
 
-    case "SET_menuItems":
+    case "SET_MENUITEMS":
       return {
         ...state,
         menuItems: action.payload,
       };
 
-    case "SET_BRAND_DETAIL":
-      return {
-        ...state,
-        brandDetail: action.payload,
-      };
-    case "GET_CART":
+    case "GET_ORDERHISTORY":
       return {
         ...state,
         cart: action.payload,
@@ -65,16 +56,6 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         favorite: action.payload,
-      };
-    case "ADD_USER":
-      return {
-        ...state,
-        users: action.payload,
-      };
-    case "GET_LAST_USER":
-      return {
-        ...state,
-        lastUser: action.payload,
       };
 
     default:
@@ -99,7 +80,7 @@ export default function StoreContextProvider(props) {
       const total = response.headers["x-total-count"];
 
       dispatch({
-        type: "SET_movies",
+        type: "SET_MOVIES",
         payload: {
           data: movies,
           total,
@@ -117,7 +98,7 @@ export default function StoreContextProvider(props) {
     const total = response.headers["x-total-count"];
 
     dispatch({
-      type: "SET_movies",
+      type: "SET_MOVIES",
 
       payload: {
         data: movies,
@@ -126,88 +107,65 @@ export default function StoreContextProvider(props) {
     });
   };
 
-  const fetchProductDetail = async (id) => {
+  const fetchMovieDetail = async (id) => {
     const response = await axios.get(`${URL}/movies/${id}`);
-    const productDetail = response.data;
+    const movieDetail = response.data;
     dispatch({
-      type: "SET_PRODUCT_DETAIL",
-      payload: productDetail,
+      type: "SET_MOVIE_DETAIL",
+      payload: movieDetail,
     });
   };
 
-  const createProduct = async (product) => {
-    const response = await axios.post(`${URL}/movies`, product);
-    const createdProduct = response.data;
+  const createMovie = async (movie) => {
+    const response = await axios.post(`${URL}/movies`, movie);
+    const createdMovie = response.data;
 
     dispatch({
-      type: "ADD_PRODUCT",
-      payload: createdProduct,
+      type: "ADD_MOVIE",
+      payload: createdMovie,
     });
 
-    return createdProduct.id;
+    return createdMovie.id;
   };
 
-  const deleteProduct = async (id) => {
+  const deleteMovie = async (id) => {
     await axios.delete(`${URL}/movies/${id}`);
     dispatch({
-      type: "REMOVE_PRODUCT",
+      type: "REMOVE_MOVIE",
       payload: id,
     });
   };
 
-  const updateProduct = async (id, data) => {
+  const updateMovie = async (id, data) => {
     await axios.patch(`${URL}/movies/${id}`, data);
     dispatch({
-      type: "CLEAR_PRODUCT",
+      type: "CLEAR_MOVIE",
     });
   };
-  const fetchmenuItems = async () => {
+  const fetchMenuItems = async () => {
     const response = await axios.get(`${URL}/menuItems`);
     const menuItems = response.data;
     dispatch({
-      type: "SET_menuItems",
+      type: "SET_MENUITEMS",
       payload: menuItems,
     });
   };
 
-  const fetchBrandmovies = async (brandId) => {
-    const response = await axios.get(`${URL}/movies/?brand=${brandId}`);
-    const movies = response.data;
-    const total = response.headers["x-total-count"];
-
-    dispatch({
-      type: "SET_movies",
-      payload: {
-        data: movies,
-        total,
-      },
-    });
-  };
-
-  const fetchBrandDetail = async (brandId) => {
-    const response = await axios.get(`${URL}/menuItems/${brandId}`);
-    const brand = response.data;
-
-    dispatch({
-      type: "SET_BRAND_DETAIL",
-      payload: brand,
-    });
-  };
-  const getCart = () => {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    if (!cart) {
-      cart = {
+  const getOrderHistory = () => {
+    let orderHistory = JSON.parse(localStorage.getItem("orderHistory"));
+    if (!orderHistory) {
+      orderHistory = {
         movies: [],
         totalPrice: 0,
       };
     }
-    dispatch({ type: "GET_CART", payload: cart });
+    dispatch({ type: "GET_ORDERHISTORY", payload: orderHistory });
   };
-  const addProductToCart = (product) => {
-    console.log(product);
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    if (!cart) {
-      cart = {
+  const addMovieToOrderHistory = (movie) => {
+    console.log(movie);
+    let orderHistory = JSON.parse(localStorage.getItem("orderHistory"));
+    if (!orderHistory) {
+      orderHistory = {
         movies: [],
         totalPrice: 0,
       };
@@ -220,59 +178,42 @@ export default function StoreContextProvider(props) {
     // <img src="./assets/icons/cart.png" alt="cart-icon">
     // </button>`;
 
-    let newProduct = {
-      item: product,
+    let newMovie = {
+      item: movie,
       count: 1,
       subPrice: 0,
     };
 
     //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
-    let filteredCart = cart.movies.filter(
-      (elem) => elem.item.id === product.id
+    let filteredOrderHistory = orderHistory.movies.filter(
+      (elem) => elem.item.id === movie.id
     );
-    if (filteredCart.length > 0) {
-      cart.movies = cart.movies.filter((elem) => elem.item.id !== product.id);
+    if (filteredOrderHistory.length > 0) {
+      orderHistory.movies = orderHistory.movies.filter(
+        (elem) => elem.item.id !== movie.id
+      );
     } else {
-      cart.movies.push(newProduct);
+      orderHistory.movies.push(newMovie);
     }
 
-    newProduct.subPrice = calcSubPrice(newProduct);
-    cart.totalPrice = calcTotalPrice(cart.movies);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    newMovie.subPrice = calcSubPrice(newMovie);
+    orderHistory.totalPrice = calcTotalPrice(orderHistory.movies);
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
   };
-  const changeProductCount = (count, id) => {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    cart.movies = cart.movies.map((elem) => {
+  const changeMovieCount = (count, id) => {
+    let orderHistory = JSON.parse(localStorage.getItem("orderHistory"));
+    orderHistory.movies = orderHistory.movies.map((elem) => {
       if (elem.item.id === id) {
         elem.count = count;
         elem.subPrice = calcSubPrice(elem);
       }
       return elem;
     });
-    cart.totalPrice = calcTotalPrice(cart.movies);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    getCart();
+    orderHistory.totalPrice = calcTotalPrice(orderHistory.movies);
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
+    getOrderHistory();
   };
-  const handleAddUser = async (email, password) => {
-    const response = await axios.post(`${URL}/users`, { email, password });
-    const addedUser = response.data;
 
-    dispatch({
-      type: "ADD_USER",
-      payload: addedUser,
-    });
-  };
-  const handlefetchInfo = async () => {
-    const response = await axios.get("http://localhost:8000/users");
-    const lastUserData = response.data;
-
-    const lastUser = lastUserData[lastUserData.length - 1];
-    console.log(lastUser);
-    dispatch({
-      type: "GET_LAST_USER",
-      payload: lastUser,
-    });
-  };
   const getFavorite = () => {
     let favorite = JSON.parse(localStorage.getItem("favorite"));
     if (!favorite) {
@@ -282,41 +223,33 @@ export default function StoreContextProvider(props) {
     }
     dispatch({ type: "GET_FAVORITE", payload: favorite });
   };
-  const addProductToFavorite = (product) => {
-    console.log(product);
+  const addProductToFavorite = (movie) => {
     let favorite = JSON.parse(localStorage.getItem("favorite"));
     if (!favorite) {
       favorite = {
         movies: [],
       };
     }
-    //     const saveToCartBtn = (id) => `<button onclick="saveProductToCart(this)" class="btn btn-success" data-id="${id}">
-    //     <img src="./assets/icons/cart.png" alt="cart-icon">
-    //     </button>`;
 
-    // const rmvFromCartBtn = (id) => `<button onclick="rmvProductFromCart(this)" class="btn btn-danger" data-id="${id}">
-    // <img src="./assets/icons/cart.png" alt="cart-icon">
-    // </button>`;
-
-    let newProduct = {
-      item: product,
+    let newMovie = {
+      item: movie,
 
       subPrice: 0,
     };
 
     //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
     let filteredFavorite = favorite.movies.filter(
-      (elem) => elem.item.id === product.id
+      (elem) => elem.item.id === movie.id
     );
     if (filteredFavorite.length > 0) {
       favorite.movies = favorite.movies.filter(
-        (elem) => elem.item.id !== product.id
+        (elem) => elem.item.id !== movie.id
       );
     } else {
-      favorite.movies.push(newProduct);
+      favorite.movies.push(newMovie);
     }
 
-    newProduct.subPrice = calcSubPrice(newProduct);
+    newMovie.subPrice = calcSubPrice(newMovie);
 
     localStorage.setItem("favorite", JSON.stringify(favorite));
   };
@@ -328,6 +261,7 @@ export default function StoreContextProvider(props) {
         total: state.total,
         productDetail: state.productDetail,
         menuItems: state.menuItems,
+<<<<<<< HEAD
         brandDetail: state.brandDetail,
         fetchMovies,
         fetchProductDetail,
@@ -339,21 +273,24 @@ export default function StoreContextProvider(props) {
 
         fetchBrandmovies,
         fetchBrandDetail,
+=======
+
+        fetchMovies,
+        fetchMovieDetail,
+        createMovie,
+        deleteMovie,
+        updateMovie,
+        fetchSearchMovies,
+        fetchMenuItems,
+
+>>>>>>> b544d63bd5d54f21e9f88e5faf5a2aec4e3def15
         getFavorite,
         addProductToFavorite,
         favorite: state.favorite,
-        getCart,
-        addProductToCart,
-        changeProductCount,
-        cart: state.cart,
-        email,
-        setEmail,
-        password,
-        setPassword,
-        handleAddUser,
-        users: state.users,
-        handlefetchInfo,
-        lastUser: state.lastUser,
+        getOrderHistory,
+        addMovieToOrderHistory,
+        changeMovieCount,
+        orderHistory: state.orderHistory,
       }}
     >
       {props.children}
