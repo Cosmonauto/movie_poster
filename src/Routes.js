@@ -1,3 +1,4 @@
+import Favorite from "../src/components/Favorite/Favorite";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import About from "./Views/About/About";
@@ -18,6 +19,7 @@ export default function Routes() {
         <Router>
             <AuthProvider>
                 <Switch>
+                   <Route path="/favorite" component={Favorite} />
                     <Route path="/signup" component={Signup} exact />
                     <Route path="/login" component={Login} />
                     <Route path="/forgot-password" component={ForgotPassword} exact />

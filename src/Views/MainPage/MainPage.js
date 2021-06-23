@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MoviesPagination from "../../components/MoviesPagination/MoviesPagination";
-import moviesList from "../../components/moviesList";
+import moviesList from "../../components/MoviesList";
 
 function MainPage(props) {
   const initialState = {

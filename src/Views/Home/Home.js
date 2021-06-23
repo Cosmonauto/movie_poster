@@ -4,11 +4,12 @@ import HeroCaousel from "../../components/HeroCarousel/HeroCarousel";
 import MoviesList from "../../components/MoviesList/index";
 import MoviesPagination from "../../components/MoviesPagination/MoviesPagination";
 import { movieContext } from "../../contexts/MovieContext";
+// import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
 export default function Home() {
-  const { fetchmovies, movies } = useContext(movieContext);
+  const { fetchMovies, movies } = useContext(movieContext);
   useEffect(() => {
-    fetchmovies();
+    fetchMovies();
   }, []);
 
   const initialState = {
@@ -20,7 +21,10 @@ export default function Home() {
       <Navbar />
       <HeroCaousel />
       <MoviesList movies={movies} />
+
       <MoviesPagination state={state} setState={setState} total={18} />
+      {/* <PaginationSlider /> */}
+      {/* <OwlPagination /> */}
     </div>
   );
 }
