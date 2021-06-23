@@ -99,6 +99,13 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   const menuId = 'primary-search-account-menu';
 
@@ -176,19 +183,33 @@ export default function PrimarySearchAppBar() {
                 </Badge>
               </IconButton>
             </Link>
-            <Link to="/login">
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
 
-                <AccountCircle />
-              </IconButton>
-            </Link>
+            <IconButton
+
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleClick}
+              color="inherit"
+            >
+
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem onClick={handleClose}>Login with Firebase</MenuItem>
+              </Link>
+              <MenuItem onClick={handleClose}>Login with Server</MenuItem>
+
+            </Menu>
+
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
