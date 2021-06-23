@@ -115,22 +115,23 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton color="inherit">
-          <Badge color="secondary">
-            <StarsIcon />
-          </Badge>
-        </IconButton>
-        <p>Cart</p>
+        <Link to="/favorite">
+          <IconButton color="inherit">
+            <Badge color="primary">
+              <StarsIcon />
+            </Badge>
+          </IconButton>
+        </Link>
+        <p>Favorite</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
+        <Link to="/login">
+          <IconButton color="inherit">
+            <Badge color="primary">
+              <AccountCircle />
+            </Badge>
+          </IconButton>
+        </Link>
         <p>Profile</p>
       </MenuItem>
     </Menu>
@@ -168,11 +169,13 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <StarsIcon />
-              </Badge>
-            </IconButton>
+            <Link to="/favorite">
+              <IconButton color="inherit">
+                <Badge color="primary">
+                  <StarsIcon />
+                </Badge>
+              </IconButton>
+            </Link>
             <Link to="/login">
               <IconButton
                 edge="end"

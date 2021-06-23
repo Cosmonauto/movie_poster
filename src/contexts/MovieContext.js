@@ -261,19 +261,6 @@ export default function StoreContextProvider(props) {
         total: state.total,
         productDetail: state.productDetail,
         menuItems: state.menuItems,
-<<<<<<< HEAD
-        brandDetail: state.brandDetail,
-        fetchMovies,
-        fetchProductDetail,
-        createProduct,
-        deleteProduct,
-        updateProduct,
-        fetchSearchMovies,
-        fetchmenuItems,
-
-        fetchBrandmovies,
-        fetchBrandDetail,
-=======
 
         fetchMovies,
         fetchMovieDetail,
@@ -283,7 +270,6 @@ export default function StoreContextProvider(props) {
         fetchSearchMovies,
         fetchMenuItems,
 
->>>>>>> b544d63bd5d54f21e9f88e5faf5a2aec4e3def15
         getFavorite,
         addProductToFavorite,
         favorite: state.favorite,
