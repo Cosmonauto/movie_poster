@@ -11,6 +11,8 @@ import Signup from "./components/authentication/Firebase/SignupFirebase/SignupFi
 import Login from "./components/authentication/Firebase/Login/Login";
 import ForgotPassword from "./components/authentication/Firebase/ForgotPassword/ForgotPassword";
 import { AuthProvider } from "./contexts/AuthContext";
+import SignUp from "./components/authentication/Server/SignUpWithServer/SignUpWithServer";
+import SignIn from "./components/authentication/Server/SignInWithServer/SignInWithServer";
 
 export default function Routes() {
   return (
@@ -27,6 +29,8 @@ export default function Routes() {
           <Route path="/sessions" component={Sessions} exact />
           <Route path="/contacts" component={Contacts} exact />
           <Route path="/promotions" component={Promotions} exact />
+          <Route path="/signUpServer" component={SignUp} exact />
+          <Route path="/signInServer" component={SignIn} exact />
         </Switch>
       </AuthProvider>
     </Router>

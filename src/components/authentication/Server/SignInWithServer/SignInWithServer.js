@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
-import { notifySuccess } from "../../../../helpers/notifiers";
 import Navbar from "../../../Navbar/Navbar";
 import LoginIcon from "../../../../assets/icons/login.png";
 
@@ -50,21 +49,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [first_name, setFirst_name] = useState("");
-  const [last_name, setLast_name] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const addUser = async (email, first_name, last_name, password, password2) => {
-    await axios.post("http://35.234.80.217/api/v1/accounts/register/", {
-      email,
-      first_name,
-      last_name,
-      password,
-      password2,
-    });
+
+  const addUser = async (email, password) => {
+    const data = await axios
+      .post("http://35.234.80.217/api/v1/accounts/login/", {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.access) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          console.log("working");
+        }
+
+        return response.data;
+      });
+    console.log(data);
   };
 
   return (
@@ -77,15 +82,14 @@ export default function SignUp() {
             <img src={LoginIcon} alt="login" />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Sign in
           </Typography>
           <form
             className={classes.form}
             noValidate
             onSubmit={(e) => {
               e.preventDefault();
-              addUser(email, first_name, last_name, password, password2);
-              notifySuccess("Вы успешно зарегестрировались!");
+              addUser(email, password);
             }}
           >
             <TextField
@@ -102,32 +106,7 @@ export default function SignUp() {
                 setEmail(e.target.value);
               }}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="firstName"
-              label="First Name"
-              type="text"
-              id="first_name"
-              onChange={(e) => {
-                setFirst_name(e.target.value);
-              }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="lastName"
-              label="Last Name"
-              type="text"
-              id="last_name"
-              onChange={(e) => {
-                setLast_name(e.target.value);
-              }}
-            />
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -142,20 +121,7 @@ export default function SignUp() {
                 setPassword(e.target.value);
               }}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password2"
-              label="Password2"
-              type="password"
-              id="password2"
-              autoComplete="current-password"
-              onChange={(e) => {
-                setPassword2(e.target.value);
-              }}
-            />
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -167,11 +133,16 @@ export default function SignUp() {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              Sign In
             </Button>
             <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
               <Grid item>
-                <Link to="/signInServer">Already have an account? Sign In</Link>
+                <Link to="/signUpServer">Don't have an account? Sign Up</Link>
               </Grid>
             </Grid>
           </form>
