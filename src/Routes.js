@@ -11,6 +11,8 @@ import Signup from './components/authentication/Signup/Signup';
 import Login from './components/authentication/Login/Login';
 import ForgotPassword from './components/authentication/ForgotPassword/ForgotPassword'
 import { AuthProvider } from './contexts/AuthContext';
+import CreateMovie from './Views/CreateMovie/CreateMovie'
+import MovieDetailPage from './Views/MovieDetailPage/MovieDetailPage'
 
 
 
@@ -19,7 +21,7 @@ export default function Routes() {
         <Router>
             <AuthProvider>
                 <Switch>
-                   <Route path="/favorite" component={Favorite} />
+                    <Route path="/favorite" component={Favorite} />
                     <Route path="/signup" component={Signup} exact />
                     <Route path="/login" component={Login} />
                     <Route path="/forgot-password" component={ForgotPassword} exact />
@@ -29,6 +31,8 @@ export default function Routes() {
                     <Route path="/sessions" component={Sessions} exact />
                     <Route path="/contacts" component={Contacts} exact />
                     <Route path="/promotions" component={Promotions} exact />
+                    <Route path="/create-movie" component={CreateMovie} exact />
+                    <Route path="/movies/:id" component={MovieDetailPage} exact />
                 </Switch>
             </AuthProvider>
         </Router>
