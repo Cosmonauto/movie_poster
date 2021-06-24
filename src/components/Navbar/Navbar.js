@@ -179,7 +179,7 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link to="/favorite">
+            <Link style={{ color: "#fff" }} to="/favorite">
               <IconButton color="inherit">
                 <Badge color="primary">
                   <StarsIcon />

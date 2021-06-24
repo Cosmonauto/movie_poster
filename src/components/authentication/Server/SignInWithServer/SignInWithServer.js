@@ -72,6 +72,33 @@ export default function SignIn() {
     console.log(data);
   };
 
+  const refreshToken = async () => {
+    // console.log(JSON.parse(`${localStorage.getItem("user")}`));
+    const getRefresh = JSON.parse(`${localStorage.getItem("user")}`);
+    // console.log(getRefresh)
+    const strRefresh = JSON.stringify(getRefresh.refresh);
+    console.log(strRefresh);
+
+    const headers = {
+      "Content-Type": "application/json",
+      data: { refresh: strRefresh },
+    };
+    const data = await axios.post(
+      "http://7b4c8012f3f6.ngrok.io/api/v1/token/refresh/",
+      headers
+    );
+    console.log(data);
+    return data;
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("user");
+  };
+
+  const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
+  };
+
   return (
     <>
       <Navbar />
