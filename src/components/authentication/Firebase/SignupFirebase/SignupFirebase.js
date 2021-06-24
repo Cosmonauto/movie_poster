@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import classes from '../authentication.module.css'
+
 
 export default function Signup() {
   const emailRef = useRef();
@@ -34,7 +36,7 @@ export default function Signup() {
   return (
     <>
       <Card>
-        <Card.Body>
+        <Card.Body className={classes.authetication_components}>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -50,18 +52,18 @@ export default function Signup() {
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
-            <Button disabled={loading} className="btn4" type="submit">
+            <Button style={{ marginTop: "30px" }} disabled={loading} className="btn4" type="submit">
               Sign Up
             </Button>
           </Form>
+          <div className="w-100 text-center mt-2">
+            Already have an account? <Link to="/login">Log In</Link>
+          </div>
+          <div className="w-100 text-center mt-2">
+            Don't want to? <Link to="/">Go Back</Link>
+          </div>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
-      </div>
-      <div className="w-100 text-center mt-2">
-        Don't want to? <Link to="/">Go Back</Link>
-      </div>
     </>
   );
 }
