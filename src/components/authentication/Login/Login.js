@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import classes from '../../authentication/authentication.module.css';
+
+
 
 export default function Login() {
     const emailRef = useRef();
@@ -27,9 +30,9 @@ export default function Login() {
     }
 
     return (
-        <>
+        <div>
             <Card>
-                <Card.Body>
+                <Card.Body className={classes.authetication_components}>
                     <h2 className="text-center mb-4">Log In</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
@@ -41,21 +44,21 @@ export default function Login() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
-                        <Button disabled={loading} className="btn4" type="submit">
+                        <Button style={{ marginTop: '30px' }} disabled={loading} className="btn4" type="submit">
                             Log In
                         </Button>
                     </Form>
                     <div className="w-100 text-center mt-3">
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </div>
+                    <div className="w-100 text-center mt-2">
+                        Need an account? <Link to="/signup">Sign Up</Link>
+                    </div>
+                    <div className="w-100 text-center mt-2">
+                        Don't want to? <Link to="/">Go Back</Link>
+                    </div>
                 </Card.Body>
             </Card>
-            <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/signup">Sign Up</Link>
-            </div>
-            <div className="w-100 text-center mt-2">
-                Don't want to? <Link to="/">Go Back</Link>
-            </div>
-        </>
+        </div>
     );
 }
