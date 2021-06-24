@@ -114,6 +114,7 @@ export default function StoreContextProvider(props) {
   };
 
   const createMovie = async (movie) => {
+    console.log("ASKAT");
     const response = await axios.post(`${URL}/movies`, movie);
     const createdMovie = response.data;
     console.log(createdMovie);
