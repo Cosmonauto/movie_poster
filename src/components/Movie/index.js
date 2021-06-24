@@ -21,8 +21,6 @@ const useStyles = makeStyles({
     maxWidth: 340,
 
     background: "rgb(227,227,241)",
-    background:
-      "linear-gradient(90deg, rgba(227,227,241,1) 27%, rgba(168,220,231,1) 100%)",
     boxShadow: "0px -1px 12px 5px rgba(0,0,0,0.57)",
     height: "500px",
   },

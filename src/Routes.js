@@ -15,6 +15,7 @@ import CreateMovie from "./Views/CreateMovie/CreateMovie";
 import MovieDetailPage from "./Views/MovieDetailPage/MovieDetailPage";
 import SignupFirebase from "./components/authentication/Firebase/SignupFirebase/SignupFirebase";
 import SignIn from "./components/authentication/Server/SignInWithServer/SignInWithServer";
+import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 
 export default function Routes() {
   return (
@@ -35,6 +36,11 @@ export default function Routes() {
           <Route path="/promotions" component={Promotions} exact />
           <Route path="/createMovie" component={CreateMovie} exact />
           <Route path="/movies/:id" component={MovieDetailPage} exact />
+          <Route
+            path="/forgotPasswordServer"
+            component={ForgotPasswordServer}
+            exact
+          />
         </Switch>
       </AuthProvider>
     </Router>
