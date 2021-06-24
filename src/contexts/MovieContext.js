@@ -116,13 +116,13 @@ export default function StoreContextProvider(props) {
   const createMovie = async (movie) => {
     const response = await axios.post(`${URL}/movies`, movie);
     const createdMovie = response.data;
-    console.log(createdMovie)
-    // dispatch({
-    //   type: "ADD_MOVIE",
-    //   payload: createdMovie,
-    // });
+    console.log(createdMovie);
+    dispatch({
+      type: "ADD_MOVIE",
+      payload: createdMovie,
+    });
 
-    // return createdMovie.id;
+    return createdMovie.id;
   };
 
   // const createProduct = async (product) => {
@@ -136,7 +136,6 @@ export default function StoreContextProvider(props) {
 
   //   return createdProduct.id;
   // };
-
 
   const deleteMovie = async (id) => {
     await axios.delete(`${URL}/movies/${id}`);

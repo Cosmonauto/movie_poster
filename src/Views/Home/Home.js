@@ -42,7 +42,7 @@ export default function Home() {
       {/* <PaginationSlider /> */}
       {/* <OwlPagination /> */}
       <Fab
-        onClick={() => history.push("/create-movie")}
+        onClick={() => history.push("/createMovie")}
         className={classes.addBtn}
         color="primary"
         aria-label="add"

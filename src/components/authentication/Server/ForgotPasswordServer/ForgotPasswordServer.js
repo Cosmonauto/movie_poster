@@ -5,7 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
@@ -49,27 +49,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function ForgotPasswordServer() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const [ok, setOk] = useState(false);
 
-  const addUser = async (email, password) => {
-    const data = await axios
-      .post("http://35.234.80.217/api/v1/accounts/login/", {
+  const addNewPassword = async (email) => {
+    await axios
+      .post("35.234.80.217/api/v1/accounts/password_reset/", {
         email,
-        password,
       })
-      .then((response) => {
-        console.log(response);
-        if (response.data.access) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          console.log("working");
-        }
-
-        return response.data;
-      });
-    console.log(data);
+      .then(setOk(true));
   };
 
   return (
@@ -82,14 +73,14 @@ export default function SignIn() {
             <img src={LoginIcon} alt="login" />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           <form
             className={classes.form}
             noValidate
             onSubmit={(e) => {
               e.preventDefault();
-              addUser(email, password);
+              addNewPassword(email);
             }}
           >
             <TextField
@@ -107,21 +98,6 @@ export default function SignIn() {
               }}
             />
 
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -133,16 +109,21 @@ export default function SignIn() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Reset Password
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link to="/forgotPasswordServer">Forgot password?</Link>
-              </Grid>
               <Grid item>
                 <Link to="/signUpServer">Don't have an account? Sign Up</Link>
               </Grid>
+              <Grid item>
+                <Link to="/signInServer">Already have an account? Sign In</Link>
+              </Grid>
             </Grid>
+            {ok === true ? (
+              <a href="http://35.234.80.217/api/v1/accounts/password_reset/done/">
+                Go
+              </a>
+            ) : null}
           </form>
         </div>
         <Box mt={8}>
