@@ -143,107 +143,94 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar
-        style={{
-          // backgroundColor: "#393E46",
-          backgroundColor: "transparent",
-          // borderRadius: "100% 50%",
-          // borderBottomRightRadius: "70px",
-          // borderBottomLeftRadius: "40px",
-        }}
-        position="static"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
-            fill="#0099ff"
-            fill-opacity="1"
-            d="M0,320L34.3,320C68.6,320,137,320,206,282.7C274.3,245,343,171,411,160C480,149,549,203,617,229.3C685.7,256,754,256,823,240C891.4,224,960,192,1029,192C1097.1,192,1166,224,1234,229.3C1302.9,235,1371,213,1406,202.7L1440,192L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"
+      <AppBar style={{ backgroundColor: "#47597E" }} position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
           >
-            <Toolbar style={{ position: "absolute" }}>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="open drawer"
-              >
-                <Drawer />
+            <Drawer />
+          </IconButton>
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" noWrap>
+              <img
+                width="100px"
+                src="https://i.pinimg.com/originals/af/ee/7f/afee7f902e65a98c2c2c5537f4d45b45.png"
+                alt="logo of Movie Poster"
+              />
+            </Typography>
+          </Link>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ "aria-label": "search" }}
+            />
+          </div>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            <Link to="/favorite">
+              <IconButton color="inherit">
+                <Badge color="primary">
+                  <StarsIcon />
+                </Badge>
               </IconButton>
-              <Link to="/">
-                <Typography className={classes.title} variant="h6" noWrap>
-                  <img
-                    width="100px"
-                    src="https://i.pinimg.com/originals/af/ee/7f/afee7f902e65a98c2c2c5537f4d45b45.png"
-                    alt="logo of Movie Poster"
-                  />
-                </Typography>
+            </Link>
+
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleClick}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem onClick={handleClose}>Login with Firebase</MenuItem>
               </Link>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </div>
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-                <Link to="/favorite">
-                  <IconButton color="inherit">
-                    <Badge color="primary">
-                      <StarsIcon />
-                    </Badge>
-                  </IconButton>
-                </Link>
-
-                <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    <MenuItem onClick={handleClose}>
-                      Login with Firebase
-                    </MenuItem>
-                  </Link>
-                  <Link to="/signInServer" style={{ textDecoration: "none" }}>
-                    <MenuItem onClick={handleClose}>Login with Server</MenuItem>
-                  </Link>
-                </Menu>
-              </div>
-              <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </div>
-            </Toolbar>
-          </path>
-        </svg>
+              <Link to="/signInServer" style={{ textDecoration: "none" }}>
+                <MenuItem onClick={handleClose}>Login with Server</MenuItem>
+              </Link>
+            </Menu>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
       </AppBar>
-
       {renderMobileMenu}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 1440 320">
+        <path
+          fill="#47597E"
+          fill-opacity="1"
+          d="M0,128L26.7,149.3C53.3,171,107,213,160,202.7C213.3,192,267,128,320,112C373.3,96,427,128,480,133.3C533.3,139,587,117,640,101.3C693.3,85,747,75,800,64C853.3,53,907,43,960,74.7C1013.3,107,1067,181,1120,202.7C1173.3,224,1227,192,1280,170.7C1333.3,149,1387,139,1413,133.3L1440,128L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z"
+        ></path>
+      </svg>
     </div>
   );
 }

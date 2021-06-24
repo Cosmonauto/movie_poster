@@ -1,130 +1,156 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+
 import React, { useContext } from "react";
-import MainLayout from "../../Layouts/MainLayout";
+import Navbar from "../../components/Navbar/Navbar";
 import * as Yup from "yup";
-import { Button, FormControl, TextField, Typography } from "@material-ui/core";
-import classes from "./productCreate.module.css";
-import TextError from "../../components/TextError";
-import { storeContext } from "../../contexts/StoreContext";
+import { Button, TextField, Typography } from "@material-ui/core";
+import classes from "./createMovie.module.css";
+import TextError from "../../components/TextError/index";
+import { movieContext } from "../../contexts/MovieContext";
 import { notifySuccess } from "../../helpers/notifiers";
 import { useHistory } from "react-router";
 
 export default function ProductCreatePage() {
-  const { createProduct } = useContext(storeContext);
-
+  const { createMovie } = useContext(movieContext);
   const history = useHistory();
 
   const initialValues = {
     title: "",
+    genre: "",
+    duration: "",
     price: "",
     description: "",
     images: "",
-    duration: "",
-    country: "",
     year: "",
     producer: "",
     ageLimit: "",
-    genre: "",
   };
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Обязательное поле!"),
+    genre: Yup.string().required("Обязательное поле!"),
+    duration: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
     price: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
     description: Yup.string().required("Обязательное поле!"),
     images: Yup.string().required("Обязательное поле!"),
-    duration: Yup.string().required("Обязательное поле!"),
-    country: Yup.string().required("Обязательное поле!"),
-    country: Yup.string().required("Обязательное поле!"),
+    year: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
+    producer: Yup.string().required("Обязательное поле!"),
+    ageLimit: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
   });
 
   const onSubmit = (values, actions) => {
-    createProduct({
+    createMovie({
       ...values,
       images: [values.images],
     }).then((id) => {
       actions.resetForm();
       notifySuccess("Продукт был создан!");
-      history.push(`/products/${id}`);
+      history.push(`/movie/${id}`);
     });
   };
 
   return (
-    <MainLayout>
-      <div>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {({ values }) => (
-            <Form className={classes.form}>
-              <Typography variant="h4">Создание продукта</Typography>
-              <label>Название</label>
-              <Field
-                className={classes.input}
-                name="title"
-                variant="outlined"
-                as={TextField}
-              />
+    <div>
+      <Navbar />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({ values }) => (
+          <Form className={classes.form}>
+            <Typography variant="h4">Add a Movie</Typography>
+            <label>Movie Name</label>
+            <Field
+              className={classes.input}
+              name="title"
+              variant="outlined"
+              as={TextField}
+            />
 
-              <ErrorMessage component={TextError} name="title" />
+            <ErrorMessage component={TextError} name="title" />
 
-              <label>Цена</label>
-              <Field
-                className={classes.input}
-                name="price"
-                variant="outlined"
-                as={TextField}
-              />
-              <ErrorMessage component={TextError} name="price" />
+            <label>Genre</label>
+            <Field
+              className={classes.input}
+              name="genre"
+              variant="outlined"
+              as={TextField}
+            />
 
-              <label>Описание</label>
-              <Field
-                variant="outlined"
-                className={classes.input}
-                rows={8}
-                multiline
-                name="description"
-                as={TextField}
-              />
-              <ErrorMessage component={TextError} name="description" />
-              <label>Страна</label>
-              <Field
-                className={classes.input}
-                name="country"
-                variant="outlined"
-                as={TextField}
-              />
+            <ErrorMessage component={TextError} name="genre" />
 
-              <ErrorMessage component={TextError} name="country" />
-              <label>Длительность</label>
-              <Field
-                className={classes.input}
-                name="duration"
-                variant="outlined"
-                as={TextField}
-              />
+            <label>Price</label>
+            <Field
+              className={classes.input}
+              name="price"
+              variant="outlined"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="price" />
 
-              <ErrorMessage component={TextError} name="title" />
+            <label>Description</label>
+            <Field
+              variant="outlined"
+              className={classes.input}
+              rows={8}
+              multiline
+              name="description"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="description" />
 
-              <label>Изображение</label>
-              <Field
-                className={classes.input}
-                name="images"
-                variant="outlined"
-                as={TextField}
-              />
-              <ErrorMessage component={TextError} name="images" />
+            <label>Image(s)</label>
+            <Field
+              className={classes.input}
+              name="images"
+              variant="outlined"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="images" />
+            <label>Year</label>
+            <Field
+              className={classes.input}
+              name="year"
+              variant="outlined"
+              as={TextField}
+            />
 
-              <Button type="submit" color="primary" variant="contained">
-                Создать
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </MainLayout>
+            <ErrorMessage component={TextError} name="year" />
+
+            <label>Producer</label>
+            <Field
+              className={classes.input}
+              name="producer"
+              variant="outlined"
+              as={TextField}
+            />
+
+            <ErrorMessage component={TextError} name="producer" />
+            <label>Age Limit</label>
+            <Field
+              className={classes.input}
+              name="ageLimit"
+              variant="outlined"
+              as={TextField}
+            />
+
+            <ErrorMessage component={TextError} name="ageLimit" />
+
+            <Button type="submit" color="primary" variant="contained">
+              Create
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 }
