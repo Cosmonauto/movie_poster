@@ -11,7 +11,6 @@ import { useHistory } from "react-router";
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
-
 const useStyles = makeStyles((theme) => ({
   addBtn: {
     position: "fixed",
@@ -29,9 +28,8 @@ export default function Home() {
     fetchMovies();
   }, []);
 
-
-
   const initialState = {
+    movies: movies,
     currentPage: 1,
   };
   const [state, setState] = useState(initialState);

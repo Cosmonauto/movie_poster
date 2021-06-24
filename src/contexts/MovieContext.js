@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import { calcSubPrice, calcTotalPrice } from "../helpers/calcPrice";
 
 const INIT_STATE = {
@@ -67,7 +67,6 @@ const { REACT_APP_API_URL: URL } = process.env;
 
 export default function StoreContextProvider(props) {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-
 
   const fetchMovies = async (page = 0) => {
     try {
