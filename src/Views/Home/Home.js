@@ -44,7 +44,7 @@ export default function Home() {
       <Fab
         onClick={() => history.push("/createMovie")}
         className={classes.addBtn}
-        color="primary"
+        style={{ backgroundColor: "#47597e", color: "#fff" }}
         aria-label="add"
       >
         <AddIcon />
