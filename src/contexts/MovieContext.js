@@ -5,8 +5,7 @@ import { calcSubPrice, calcTotalPrice } from "../helpers/calcPrice";
 const INIT_STATE = {
   movies: [],
   menuItems: [],
-
-  productDetail: null,
+  movieDetail: null,
   total: 0,
   orderHistory: {},
   favorite: {},
@@ -23,7 +22,7 @@ const reducer = (state = INIT_STATE, action) => {
     case "SET_MOVIE_DETAIL":
       return {
         ...state,
-        productDetail: action.payload,
+        movieDetail: action.payload,
       };
     case "ADD_MOVIE":
       return {
@@ -38,7 +37,7 @@ const reducer = (state = INIT_STATE, action) => {
     case "CLEAR_MOVIE":
       return {
         ...state,
-        productDetail: null,
+        movieDetail: null,
       };
 
     case "SET_MENUITEMS":
@@ -118,14 +117,27 @@ export default function StoreContextProvider(props) {
   const createMovie = async (movie) => {
     const response = await axios.post(`${URL}/movies`, movie);
     const createdMovie = response.data;
+    console.log(createdMovie)
+    // dispatch({
+    //   type: "ADD_MOVIE",
+    //   payload: createdMovie,
+    // });
 
-    dispatch({
-      type: "ADD_MOVIE",
-      payload: createdMovie,
-    });
-
-    return createdMovie.id;
+    // return createdMovie.id;
   };
+
+  // const createProduct = async (product) => {
+  //   const response = await axios.post(`${URL}/products`, product);
+  //   const createdProduct = response.data;
+
+  //   dispatch({
+  //     type: "ADD_PRODUCT",
+  //     payload: createdProduct,
+  //   });
+
+  //   return createdProduct.id;
+  // };
+
 
   const deleteMovie = async (id) => {
     await axios.delete(`${URL}/movies/${id}`);
@@ -260,7 +272,6 @@ export default function StoreContextProvider(props) {
         total: state.total,
         productDetail: state.productDetail,
         menuItems: state.menuItems,
-
         fetchMovies,
         fetchMovieDetail,
         createMovie,
@@ -268,7 +279,6 @@ export default function StoreContextProvider(props) {
         updateMovie,
         fetchSearchMovies,
         fetchMenuItems,
-
         getFavorite,
         addProductToFavorite,
         favorite: state.favorite,
