@@ -14,6 +14,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import StarsIcon from "@material-ui/icons/Stars";
 import Drawer from "./Drawer/Drawer";
+import moviePosterLogo from '../../assets/icons/movieLOGO.png'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -157,8 +158,9 @@ export default function PrimarySearchAppBar() {
             <Typography className={classes.title} variant="h6" noWrap>
               <img
                 width="100px"
-                src="https://i.pinimg.com/originals/af/ee/7f/afee7f902e65a98c2c2c5537f4d45b45.png"
+                src={moviePosterLogo}
                 alt="logo of Movie Poster"
+                style={{ width: '150px' }}
               />
             </Typography>
           </Link>
