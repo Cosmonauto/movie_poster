@@ -3,11 +3,12 @@ import Navbar from "../../components/Navbar/Navbar";
 import HeroCaousel from "../../components/HeroCarousel/HeroCarousel";
 import { makeStyles } from "@material-ui/core/styles";
 import MoviesList from "../../components/MoviesList/index";
-import MoviesPagination from "../../components/MoviesPagination/MoviesPagination";
+// import MoviesPagination from "../../components/MoviesPagination/MoviesPagination";
 import { movieContext } from "../../contexts/MovieContext";
 import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router";
+import MoviesPagination from "../../components/MoviesPaginationOriginal";
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
@@ -22,25 +23,35 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
   const history = useHistory();
-
-  const { fetchMovies, movies } = useContext(movieContext);
+  const [page, setPage] = useState(1);
+  const { fetchMovies, movies, total, fetchGenres, genres } =
+    useContext(movieContext);
   useEffect(() => {
-    fetchMovies();
+    fetchMovies(page - 1);
+  }, [page]);
+  useEffect(() => {
+    fetchGenres();
+    // console.log(genres);
   }, []);
 
-  const initialState = {
-    movies: movies,
-    currentPage: 1,
-  };
-  const [state, setState] = useState(initialState);
+  // const initialState = {
+  //   movies: movies,
+  //   currentPage: 1,
+  // };
+
   return (
     <div>
       <Navbar />
       <HeroCaousel />
       <MoviesList movies={movies} />
-      <MoviesPagination state={state} setState={setState} total={18} />
+      {/* <MoviesPagination state={state} setState={setState} total={18} /> */}
       {/* <PaginationSlider /> */}
       {/* <OwlPagination /> */}
+      <MoviesPagination
+        setPage={setPage}
+        page={page}
+        count={Math.ceil(total / 3)}
+      />
       <Fab
         onClick={() => history.push("/createMovie")}
         className={classes.addBtn}
@@ -49,6 +60,7 @@ export default function Home() {
       >
         <AddIcon />
       </Fab>
+      {/* <h1>{genres[0].name}</h1> */}
     </div>
   );
 }

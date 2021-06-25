@@ -12,24 +12,14 @@ import { calcTotalPrice } from "../../helpers/calcPrice";
 // import { storeContext } from "../../contexts/StoreContext";
 import { Link } from "react-router-dom";
 // import MainLayout from "../../Layouts/MainLayout";
+import MovieCard from "../Movie/MovieCard/MovieCard";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { movieContext } from "../../contexts/MovieContext";
 import Navbar from "../Navbar/Navbar";
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-    background: "rgb(238,174,202)",
-    background:
-      "radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
-  },
-  paper: {
-    maxWidth: 1000,
-    margin: "40px auto",
-  },
-});
+import classes from "./favorite.module.css";
+import { bottom } from "@popperjs/core";
 
-export default function Cart() {
-  const classes = useStyles();
+export default function Favorite() {
   const { favorite, getFavorite } = useContext(movieContext);
 
   useEffect(() => {
@@ -38,87 +28,18 @@ export default function Cart() {
 
   return (
     <>
-      {/* <MainLayout> */}
-      <Navbar />
-      <TableContainer component={Paper} className={classes.paper}>
-        <Table className={classes.table} aria-label="spanning table">
-          <TableHead>
-            <TableRow>
-              <TableCell
-                style={{
-                  fontSize: "20px",
-                  color: "#005a8d",
-                  fontWeight: "bold",
-                }}
-              >
-                Image
-              </TableCell>
-              <TableCell
-                align="right"
-                style={{
-                  fontSize: "20px",
-                  color: "#005a8d",
-                  fontWeight: "bold",
-                }}
-              >
-                Title
-              </TableCell>
-              <TableCell
-                align="right"
-                style={{
-                  fontSize: "20px",
-                  color: "#005a8d",
-                  fontWeight: "bold",
-                }}
-              >
-                Price
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {favorite.products ? (
-              <>
-                {favorite.products.map((elem) => (
-                  <TableRow key={elem.item.id}>
-                    <TableCell>
-                      <img
-                        style={{
-                          width: "120px",
-                          border: "2px solid #005a8d",
-                        }}
-                        src={elem.item.images[0]}
-                        alt=""
-                      />{" "}
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      style={{
-                        fontSize: "15px",
-                        color: "#005a8d",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {elem.item.title}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        fontSize: "20px",
-                        color: "#005a8d",
-                        fontWeight: "bold",
-                      }}
-                      align="right"
-                    >
-                      {elem.item.agLimit}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </>
-            ) : null}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* </MainLayout> */}
+      <div className={classes.font}>
+        <Navbar />
+        <h2 style={{ marginBottom: "40px" }}>Избранное</h2>
+        <h4 style={{ marginBottom: "40px" }}>
+          Лайкайте понравившиеся вам фильмы и добавляйте сюда
+        </h4>
+        <div className={classes.cards}>
+          {favorite.movies
+            ? favorite.movies.map((elem) => <MovieCard data={elem.item} />)
+            : null}
+        </div>
+      </div>
     </>
   );
 }

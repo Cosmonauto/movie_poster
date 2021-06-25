@@ -16,20 +16,23 @@ export default function CreateMovie() {
 
   const initialValues = {
     title: "",
-    description: "",
+    descriptions: "",
     genre: "",
     duration: "",
     price: "",
     images: [],
     year: "",
     producer: "",
-    ageLimit: "",
+    age_limit: "",
     country: "",
+    rating: [],
+    quantity: null,
+    likes: [],
   };
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Обязательное поле!"),
-    description: Yup.string().required("Обязательное поле!"),
+    descriptions: Yup.string().required("Обязательное поле!"),
     genre: Yup.string().required("Обязательное поле!"),
     duration: Yup.number()
       .typeError("Введите число!")
@@ -42,28 +45,31 @@ export default function CreateMovie() {
       .typeError("Введите число!")
       .required("Обязательное поле!"),
     producer: Yup.string().required("Обязательное поле!"),
-    ageLimit: Yup.number()
+    age_limit: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
     country: Yup.string().required("Обязательное поле!"),
+    rating: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
+    quantity: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
+    likes: Yup.number()
+      .typeError("Введите число!")
+      .required("Обязательное поле!"),
   });
 
   const onSubmit = (values, actions) => {
-    const token = localStorage.getItem("user");
-    const acces = JSON.parse(token);
-    // console.log(acces);
-    if (acces.acess) {
-      createMovie({
-        ...values,
-        images: [values.images],
-      });
-      // .then(() => {
-      //   actions.resetForm();
-      //   notifySuccess("Продукт был создан!");
-      // });
-    } else {
-      console.log("LOGIN!");
-    }
+    createMovie({
+      ...values,
+      images: [values.images],
+      likes: [values.likes],
+      rating: [values.rating],
+    }).then(() => {
+      actions.resetForm();
+      notifySuccess("Продукт был создан!");
+    });
   };
 
   return (
@@ -95,7 +101,7 @@ export default function CreateMovie() {
               className={classes.input}
               rows={8}
               multiline
-              name="description"
+              name="descriptions"
               as={TextField}
             />
             <ErrorMessage component={TextError} name="description" />
@@ -159,7 +165,7 @@ export default function CreateMovie() {
             <label>Age Limit</label>
             <Field
               className={classes.input}
-              name="ageLimit"
+              name="age_limit"
               variant="outlined"
               as={TextField}
             />
@@ -173,6 +179,30 @@ export default function CreateMovie() {
               as={TextField}
             />
             <ErrorMessage component={TextError} name="country" />
+            <label>Rating</label>
+            <Field
+              className={classes.input}
+              name="rating"
+              variant="outlined"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="rating" />
+            <label>Quantity</label>
+            <Field
+              className={classes.input}
+              name="quantity"
+              variant="outlined"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="quantity" />
+            <label>Likes</label>
+            <Field
+              className={classes.input}
+              name="likes"
+              variant="outlined"
+              as={TextField}
+            />
+            <ErrorMessage component={TextError} name="likes" />
 
             <Button type="submit" color="primary" variant="contained">
               Create
