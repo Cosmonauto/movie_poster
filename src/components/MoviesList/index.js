@@ -1,8 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Movie from "../Movie";
-import MovieCard from "../Movie/MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
 
 const useStyles = makeStyles(() => ({
   root: {

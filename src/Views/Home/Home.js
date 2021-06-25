@@ -29,10 +29,10 @@ export default function Home() {
   useEffect(() => {
     fetchMovies(page - 1);
   }, [page]);
-  useEffect(() => {
-    fetchGenres();
-    // console.log(genres);
-  }, []);
+  // useEffect(() => {
+  // fetchGenres();
+  // console.log(genres);
+  // }, []);
 
   // const initialState = {
   //   movies: movies,
