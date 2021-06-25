@@ -12,7 +12,7 @@ import { calcTotalPrice } from "../../helpers/calcPrice";
 // import { storeContext } from "../../contexts/StoreContext";
 import { Link } from "react-router-dom";
 // import MainLayout from "../../Layouts/MainLayout";
-import MovieCard from "../Movie/MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { movieContext } from "../../contexts/MovieContext";
 import Navbar from "../Navbar/Navbar";
