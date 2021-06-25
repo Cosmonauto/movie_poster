@@ -226,7 +226,7 @@ export default function PrimarySearchAppBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 1440 320">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 1340 180">
         <path
           fill="#47597E"
           fill-opacity="1"

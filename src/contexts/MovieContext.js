@@ -107,6 +107,7 @@ export default function StoreContextProvider(props) {
   const fetchMovieDetail = async (id) => {
     const response = await axios.get(`${URL}/movies/${id}`);
     const movieDetail = response.data;
+    console.log(movieDetail);
     dispatch({
       type: "SET_MOVIE_DETAIL",
       payload: movieDetail,
@@ -271,7 +272,7 @@ export default function StoreContextProvider(props) {
       value={{
         movies: state.movies,
         total: state.total,
-        productDetail: state.productDetail,
+        movieDetail: state.movieDetail,
         menuItems: state.menuItems,
         fetchMovies,
         fetchMovieDetail,
