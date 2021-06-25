@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     maxWidth: 500,
 
     background: "rgb(227,227,241)",
-    boxShadow: "0px -1px 12px 5px rgba(0,0,0,0.57)",
+    boxShadow: "4px 1px 46px -6px rgba(34, 60, 80, 0.16)",
     height: "520px",
   },
   media: {

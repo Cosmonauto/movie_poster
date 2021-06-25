@@ -9,6 +9,7 @@ const INIT_STATE = {
   total: 0,
   orderHistory: {},
   favorite: {},
+  genres: [],
 };
 
 const reducer = (state = INIT_STATE, action) => {
@@ -55,6 +56,11 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         favorite: action.payload,
+      };
+    case "GET_GENRES":
+      return {
+        ...state,
+        genres: action.payload,
       };
 
     default:
@@ -114,12 +120,21 @@ export default function StoreContextProvider(props) {
   };
 
   const createMovie = async (movie) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    const token = user.acces;
+
     const response = await axios.post(
       "http://35.234.80.217/api/v1/movie/create",
-      movie
+      movie,
+      {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      }
     );
     const createdMovie = response.data;
-
+    // console.log(createdMovie);
     dispatch({
       type: "ADD_MOVIE",
       payload: createdMovie,
@@ -235,7 +250,7 @@ export default function StoreContextProvider(props) {
     }
     dispatch({ type: "GET_FAVORITE", payload: favorite });
   };
-  const addProductToFavorite = (movie) => {
+  const addMovieToFavorite = (movie) => {
     let favorite = JSON.parse(localStorage.getItem("favorite"));
     if (!favorite) {
       favorite = {
@@ -265,6 +280,25 @@ export default function StoreContextProvider(props) {
 
     localStorage.setItem("favorite", JSON.stringify(favorite));
   };
+  const fetchGenres = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    const token = user.acces;
+    const response = await axios.get(
+      "http://35.234.80.217/api/v1/movie/genre/",
+      {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      }
+    );
+    const genres = response.data;
+    console.log(genres);
+    dispatch({
+      type: "GET_GENRES",
+      payload: genres,
+    });
+  };
 
   return (
     <movieContext.Provider
@@ -281,12 +315,14 @@ export default function StoreContextProvider(props) {
         fetchSearchMovies,
         fetchMenuItems,
         getFavorite,
-        addProductToFavorite,
+        addMovieToFavorite,
         favorite: state.favorite,
         getOrderHistory,
         addMovieToOrderHistory,
         changeMovieCount,
         orderHistory: state.orderHistory,
+        fetchGenres,
+        genres: state.genres,
       }}
     >
       {props.children}
