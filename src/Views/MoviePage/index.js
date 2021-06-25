@@ -1,29 +1,27 @@
-import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router";
-import Movie from "../../components/Movie";
+// import React, { useContext, useEffect } from "react";
+// import { useParams } from "react-router";
+// import Movie from "../../components/Movie/index";
+// import MoviesList from "../../components/MoviesList/index";
+// import { chocolateContext } from "../../context/ChocolateContext";
 
-import MoviesList from "../../components/MoviesList/index";
-import { chocolateContext } from "../../context/ChocolateContext";
-import MainLayout from "../../Layouts/MainLayout";
+// export default function BrandPage() {
+//     const { id } = useParams();
+//     const { movies, fetchBrandProducts, fetchMovieDetail, menuItems } =
+//         useContext(chocolateContext);
 
-export default function BrandPage() {
-    const { id } = useParams();
-    const { products, fetchBrandProducts, fetchBrandDetail, brandDetail } =
-        useContext(chocolateContext);
+//     useEffect(() => {
+//         fetchBrandProducts(id);
+//         fetchMovieDetail(id);
+//     }, [id]);
 
-    useEffect(() => {
-        fetchBrandProducts(id);
-        fetchBrandDetail(id);
-    }, [id]);
+//     return (
+//         <>
+//             {movies.length && menuItems && (
+//                 <>
 
-    return (
-        <MainLayout>
-            {products.length && brandDetail && (
-                <>
-
-                    <MoviesList products={products} />
-                </>
-            )}
-        </MainLayout>
-    );
-}
+//                     <MoviesList movies={movies} />
+//                 </>
+//             )}
+//         </>
+//     );
+// }
