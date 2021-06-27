@@ -15,6 +15,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import StarsIcon from "@material-ui/icons/Stars";
 import Drawer from "./Drawer/Drawer";
 import moviePosterLogo from '../../assets/icons/movieLOGO.png'
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -127,7 +128,6 @@ export default function PrimarySearchAppBar() {
             </Badge>
           </IconButton>
         </Link>
-        <p>Favorite</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <Link to="/login">
@@ -137,7 +137,6 @@ export default function PrimarySearchAppBar() {
             </Badge>
           </IconButton>
         </Link>
-        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -179,6 +178,13 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Link to="/">
+          <IconButton color="inherit">
+            <Badge>
+              <HomeIcon />
+            </Badge>
+          </IconButton>
+          </Link>
             <Link style={{ color: "#fff" }} to="/favorite">
               <IconButton color="inherit">
                 <Badge color="primary">
@@ -213,6 +219,13 @@ export default function PrimarySearchAppBar() {
             </Menu>
           </div>
           <div className={classes.sectionMobile}>
+            <Link to="/">
+          <IconButton color="inherit">
+            <Badge>
+              <HomeIcon />
+            </Badge>
+          </IconButton>
+        </Link>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -224,7 +237,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
           </div>
         </Toolbar>
-      </AppBar>
+      </AppBar>      
       {renderMobileMenu}
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 1340 180">
         <path

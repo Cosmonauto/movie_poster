@@ -2,8 +2,8 @@
   width: 320px;
   margin: 0 auto;
   padding: 10px 10px 5px 10px;
-  border: 1px solid #eee;
-  background: white;
+  border: 1px solid rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
   font-family: "Open Sans";
   overflow: hidden;
   transition: 0.4s linear;

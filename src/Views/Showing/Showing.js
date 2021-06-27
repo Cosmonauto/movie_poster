@@ -3,27 +3,26 @@ import Navbar from '../../components/Navbar/Navbar'
 import { useParams } from "react-router";
 import MoviesList from '../../components/MoviesList';
 import { movieContext } from '../../contexts/MovieContext';
+import Carousal from './3dCarousal/Carousal';
 
 
 
 export default function Showing() {
     const { id } = useParams();
-    const { movies, fetchMovies, fetchSearchMovies, fetchbrandDetail } =
+    const { movies, fetchMovies } =
         useContext(movieContext);
 
     useEffect(() => {
         fetchMovies(id);
-        fetchSearchMovies(id);
     }, [id]);
     return (
         <div>
             <Navbar />
-            {movies.length && fetchbrandDetail && (
-                <>
-
-                    <MoviesList movies={movies} />
-                </>
-            )}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: "50px" }}>
+                <p>NOW SHOWING</p>
+            </div>
+            <Carousal style={{ marginBottom: "40px" }} />
+            <MoviesList movies={movies} />
         </div>
     )
 }

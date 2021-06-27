@@ -4,6 +4,7 @@ import { useAuth } from "../../../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import classes from '../authentication.module.css'
 
+
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -30,7 +31,7 @@ export default function Login() {
   return (
     <>
       <Card>
-        <Card.Body className={classes.authetication_components}>
+        <Card.Body style={{ backgroundColor: "white" }} className={classes.authetication_components}>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
