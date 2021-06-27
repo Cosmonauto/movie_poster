@@ -8,7 +8,7 @@
   overflow: hidden;
   transition: 0.4s linear;
   margin-top: 26px;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 .productImg {
   transition: 1s ease-in-out;
@@ -107,3 +107,6 @@
 .compare:after {
   content: "\f079";
 }
+/* @media only screen a { */
+
+/* } */

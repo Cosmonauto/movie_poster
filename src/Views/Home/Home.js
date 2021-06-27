@@ -9,6 +9,7 @@ import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router";
 import MoviesPagination from "../../components/MoviesPaginationOriginal";
+import Footer from "../Footer/Footer";
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
@@ -60,6 +61,7 @@ export default function Home() {
       >
         <AddIcon />
       </Fab>
+      <Footer />
       {/* <h1>{genres[0].name}</h1> */}
     </div>
   );

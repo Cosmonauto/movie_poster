@@ -123,14 +123,17 @@ export default function StoreContextProvider(props) {
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
 
-    const token = user.acces;
+    const token = user.access;
+    console.log(token);
+    console.log(movie);
 
     const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/create",
+      "http://35.234.80.217/api/v1/movie/create/",
       movie,
       {
         headers: {
-          Authorization: `Basic ${token}`,
+          Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
