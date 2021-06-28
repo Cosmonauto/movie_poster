@@ -22,7 +22,7 @@ import MovieCard from "./components/MovieCard/MovieCard";
 import FormPage from './components/PaymentForm/FormOrder/FormPage'
 import PaymentForm from './components/PaymentForm/CreditCard/PaymentForm'
 import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
-
+import FilterResultPage from "./components/FilterResultPage/FilterResultPage";
 import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
 
@@ -56,6 +56,7 @@ export default function Routes() {
                     <Route path='/checkout' component={FormPage} exact />
                     <Route path='/payment' component={PaymentForm} exact />
                     <Route path="/movie/search/:searchValue" component={SearchResultPage} exact />
+                    <Route path="/movie/filter/:filterValue" component={FilterResultPage} exact />
                 </Switch>
             </AuthProvider>
         </Router>
