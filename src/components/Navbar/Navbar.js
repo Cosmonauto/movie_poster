@@ -161,7 +161,7 @@ export default function PrimarySearchAppBar() {
                 width="100px"
                 src={moviePosterLogo}
                 alt="logo of Movie Poster"
-                style={{ width: '150px' }}
+                style={{ width: "150px" }}
               />
             </Typography>
           </Link>
@@ -181,7 +181,7 @@ export default function PrimarySearchAppBar() {
           <SearchBar />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link to="/">
+            <Link to="/" style={{ color: "#fff" }}>
               <IconButton color="inherit">
                 <Badge>
                   <HomeIcon />

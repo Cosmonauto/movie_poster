@@ -1,14 +1,24 @@
 import React from "react";
 import Routes from "./Routes";
+import { ConfirmProvider } from "material-ui-confirm";
+import { toast } from "react-toastify";
 
 import MovieContextProvider from "./contexts/MovieContext";
+toast.configure();
+const defaultConfirmOptions = {
+  title: "Вы уверены?",
+  confirmationText: "Да",
+  cancellationText: "Отмена",
+};
 function App() {
   return (
-    <div className="App">
+    // <div className="App">
+    <ConfirmProvider defaultOptions={defaultConfirmOptions}>
       <MovieContextProvider>
         <Routes />
       </MovieContextProvider>
-    </div>
+    </ConfirmProvider>
+    // </div>
   );
 }
 
