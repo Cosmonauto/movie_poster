@@ -19,8 +19,9 @@ function MovieCard({ data }) {
     country,
     genre,
     producer,
+    // images,
   } = data;
-  console.log(image)
+  console.log(image);
 
   const history = useHistory();
 

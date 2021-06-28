@@ -148,11 +148,14 @@ export default function StoreContextProvider(props) {
   const fetchSearchMovies = async (value) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     const token = user.access;
-    const response = await axios.get(`http://35.234.80.217/api/v1/movie/?search=${value}`, {
-      headers: {
-        Authorization: ` Token ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `http://35.234.80.217/api/v1/movie/?search=${value}`,
+      {
+        headers: {
+          Authorization: ` Token ${token}`,
+        },
+      }
+    );
     const movies = response.data.results;
     console.log(movies);
     dispatch({
@@ -194,7 +197,7 @@ export default function StoreContextProvider(props) {
       {
         headers: {
           Authorization: `Token ${token}`,
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
         },
       }
     );

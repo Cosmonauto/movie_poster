@@ -76,11 +76,7 @@ export default function SearchBar() {
     setSearchValue(e.target.value);
   };
 
-  useEffect(() => {
-    fetchSearchMovies(searchValue).then((movies) =>
-      setFetchedMovies(movies)
-    );
-  }, [searchValue]);
+  useEffect(() => {}, [searchValue]);
 
   const history = useHistory();
 
@@ -90,6 +86,7 @@ export default function SearchBar() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    fetchSearchMovies(searchValue).then((movies) => setFetchedMovies(movies));
     setFetchedMovies([]);
     setSearchValue("");
     if (searchValue) {
