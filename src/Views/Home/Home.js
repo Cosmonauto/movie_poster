@@ -28,7 +28,7 @@ export default function Home() {
   const { fetchMovies, movies, total, fetchGenres, genres } =
     useContext(movieContext);
   useEffect(() => {
-    fetchMovies(page - 1);
+    fetchMovies(page);
   }, [page]);
   // useEffect(() => {
   // fetchGenres();
@@ -51,7 +51,7 @@ export default function Home() {
       <MoviesPagination
         setPage={setPage}
         page={page}
-        count={Math.ceil(total / 3)}
+        count={Math.ceil(total / 4)}
       />
       <Fab
         onClick={() => history.push("/createMovie")}

@@ -23,9 +23,9 @@ export default function Favorite() {
           Лайкайте понравившиеся вам фильмы и добавляйте сюда
         </h4>
         <div className={classes.cards}>
-          {favorite.movies
+          {/* {favorite.movies
             ? favorite.movies.map((elem) => <MovieCard data={elem.item} />)
-            : null}
+            : null} */}
         </div>
       </div>
     </>

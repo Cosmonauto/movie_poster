@@ -20,10 +20,10 @@ export default function MoviesPagination({ count, page, setPage }) {
 
   return (
     <Pagination
-      // change current page to clicked page
+      // change current page t o clicked page
 
       variant="h2"
-      onChange={(_, _page) => setPage(_page)}
+      onChange={(_, page) => setPage(page)}
       count={count}
       page={page}
       className={classes.pagination}

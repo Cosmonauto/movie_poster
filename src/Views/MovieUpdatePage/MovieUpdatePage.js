@@ -1,24 +1,18 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useContext, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import * as Yup from "yup";
-import { Button, TextField, Typography, Input } from "@material-ui/core";
-import classes from "./createMovie.module.css";
-import TextError from "../../components/TextError/index";
+import React, { useContext, useEffect, useState } from "react";
 import { movieContext } from "../../contexts/MovieContext";
+import * as Yup from "yup";
+import { Button, TextField, Typography } from "@material-ui/core";
+import classes from "./movieUpdate.module.css";
+import TextError from "../../components/TextError";
+import Navbar from "../../components/Navbar/Navbar";
 import { notifySuccess } from "../../helpers/notifiers";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 
-import ImageDropzone from "../../components/ImageDropzone";
-
-export default function CreateMovie() {
-  const { createMovie } = useContext(movieContext);
-
-  const history = useHistory();
-
-  const initialValues = {
+export default function MovieUpdatePage() {
+  const [initialValues, setInitialValues] = useState({
     title: "",
-    descriptions: "",
+    // descriptions: "",
 
     duration: "",
     price: null,
@@ -29,29 +23,33 @@ export default function CreateMovie() {
     country: "",
 
     quantity: null,
-    // likes: [],
-    // genre: "",
-    rating: [],
-    images: [],
+  });
 
-    // title: "1",
-    // descriptions: "",
-    // price: 1,
-    // country: "1",
-    // duration: "1",
-    // year: "1",
-    // producer: "1",
-    // age_limit: "1",
-    // quantity: 1,
-  };
+  const { id } = useParams();
+
+  const { fetchMovieDetail, movieDetail, updateMovie } =
+    useContext(movieContext);
+
+  useEffect(() => {
+    fetchMovieDetail(id);
+  }, []);
+
+  useEffect(() => {
+    if (movieDetail) {
+      setInitialValues({
+        ...movieDetail,
+        // images: movieDetail.images[0],
+      });
+    }
+  }, [movieDetail]);
+
+  const history = useHistory();
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Обязательное поле!"),
-    descriptions: Yup.string().required("Обязательное поле!"),
+    // descriptions: Yup.string().required("Обязательное поле!"),
     // genre: Yup.string().required("Обязательное поле!"),
-    duration: Yup.number()
-      .typeError("Введите число!")
-      .required("Обязательное поле!"),
+    duration: Yup.string().required("Обязательное поле!"),
     price: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
@@ -60,9 +58,7 @@ export default function CreateMovie() {
       .typeError("Введите число!")
       .required("Обязательное поле!"),
     producer: Yup.string().required("Обязательное поле!"),
-    age_limit: Yup.number()
-      .typeError("Введите число!")
-      .required("Обязательное поле!"),
+    age_limit: Yup.string().required("Обязательное поле!"),
     country: Yup.string().required("Обязательное поле!"),
     // rating: Yup.number()
     //   .typeError("Введите число!")
@@ -74,39 +70,30 @@ export default function CreateMovie() {
     //   .typeError("Введите число!")
     //   .required("Обязательное поле!"),
   });
-
-  const onSubmit = (values, actions) => {
-    const formData = new FormData();
-
-    // formData.append("title", values.title);
-    // formData.append("price", values.price);
-    // formData.append("description", values.description);
-    formData.append("images", values.images[0]);
-    createMovie({
+  const onSubmit = (values) => {
+    console.log(values);
+    updateMovie(id, {
       ...values,
-      images: formData,
-      // likes: [values.likes],
-      // rating: [values.rating],
+      // images: [values.images],
     }).then(() => {
-      actions.resetForm();
-      notifySuccess("Продукт был создан!");
+      notifySuccess("Продукт был изменен!");
+      history.push(`/movie/${id}`);
     });
   };
 
   return (
-    <div>
+    <>
       <Navbar />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        enableReinitialize
       >
-        {({ values, setFieldValue }) => (
+        {({}) => (
           <>
+            <Typography variant="h4">Изменение продукта</Typography>
             <Form className={classes.form}>
-              <Typography variant="h3" style={{ fontWeight: "bold" }}>
-                Create Movie
-              </Typography>
               <label>Movie Name</label>
               <Field
                 className={classes.input}
@@ -124,7 +111,7 @@ export default function CreateMovie() {
               as={FileReader}
             /> */}
 
-              <label>Description</label>
+              {/* <label>Description</label>
               <Field
                 variant="outlined"
                 className={classes.input}
@@ -133,7 +120,7 @@ export default function CreateMovie() {
                 name="descriptions"
                 as={TextField}
               />
-              <ErrorMessage component={TextError} name="description" />
+              <ErrorMessage component={TextError} name="description" /> */}
 
               {/* <label>Genre</label>
             <Field
@@ -240,21 +227,20 @@ export default function CreateMovie() {
               }}
             /> */}
               {/* <DropzoneDialog /> */}
-              <ImageDropzone
+              {/* <ImageDropzone
                 buttonText={"Загрузить"}
                 setFieldValue={setFieldValue}
                 name="images"
                 formikImages={values.images}
-              />
+              /> */}
 
               <Button type="submit" color="primary" variant="contained">
-                Create
+                Изменить
               </Button>
             </Form>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </>
         )}
       </Formik>
-    </div>
+    </>
   );
 }
