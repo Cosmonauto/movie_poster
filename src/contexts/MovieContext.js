@@ -1,6 +1,55 @@
 import axios from "axios";
 import React, { useReducer } from "react";
 import { calcSubPrice, calcTotalPrice } from "../helpers/calcPrice";
+// import LocalStorageService from "../helpers/LocalStorageService";
+// // LocalstorageService
+// const localStorageService = LocalStorageService.getService();
+
+// // Add a request interceptor
+// axios.interceptors.request.use(
+//    config => {
+//        const token = localStorageService.getAccessToken();
+//        if (token) {
+//            config.headers['Authorization'] = 'Token ' + token;
+//        }
+//        // config.headers['Content-Type'] = 'application/json';
+//        return config;
+//    },
+//    error => {
+//        Promise.reject(error)
+//    });
+
+// //Add a response interceptor
+
+// axios.interceptors.response.use((response) => {
+//    return response
+// }, function (error) {
+//    const originalRequest = error.config;
+
+//    if (error.response.status === 401 && originalRequest.url ===
+// 'http://35.234.80.217/api/v1/accounts/token/refresh/') {
+//        router.push('/login');
+//        return Promise.reject(error);
+//    }
+
+//    if (error.response.status === 401 && !originalRequest._retry) {
+
+//        originalRequest._retry = true;
+//        const refreshToken = localStorageService.getRefreshToken();
+//        return axios.post('/auth/token',
+//            {
+//                "refresh_token": refreshToken
+//            })
+//            .then(res => {
+//                if (res.status === 201) {
+//                    localStorageService.setToken(res.data);
+//                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorageService.getAccessToken();
+//                    return axios(originalRequest);
+//                }
+//            })
+//    }
+//    return Promise.reject(error);
+// });
 
 const INIT_STATE = {
   movies: [],
@@ -74,13 +123,15 @@ const { REACT_APP_API_URL: URL } = process.env;
 export default function StoreContextProvider(props) {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
-  const fetchMovies = async (page = 0) => {
+  const fetchMovies = async (page) => {
     try {
       const response = await axios.get(
-        `${URL}/movies?_start=${page * 3}&_end=${3 * (page + 1)}`
+        `http://35.234.80.217/api/v1/movie/?page=${page}`
       );
-      const movies = response.data;
-      const total = response.headers["x-total-count"];
+      console.log(response.data.results);
+      const movies = response.data.results;
+      const total = response.data.count;
+      // console.log(movies);
 
       dispatch({
         type: "SET_MOVIES",
@@ -93,7 +144,7 @@ export default function StoreContextProvider(props) {
       console.log(error.message);
     }
   };
-
+  // ?_start=${page * 3}&_end=${3 * (page + 1)}
   const fetchSearchMovies = async (value) => {
     const response = await axios.get(`${URL}/movies/?q=${value}`);
     const movies = response.data;
@@ -111,7 +162,19 @@ export default function StoreContextProvider(props) {
   };
 
   const fetchMovieDetail = async (id) => {
-    const response = await axios.get(`${URL}/movies/${id}`);
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    // console.log(user);
+    const token = user.access;
+    // console.log(token);
+    const response = await axios.get(
+      `http://35.234.80.217/api/v1/movie/${id}/`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     const movieDetail = response.data;
     console.log(movieDetail);
     dispatch({
@@ -123,14 +186,17 @@ export default function StoreContextProvider(props) {
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
 
-    const token = user.acces;
+    const token = user.access;
+    console.log(token);
+    console.log(movie);
 
     const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/create",
+      "http://35.234.80.217/api/v1/movie/create/",
       movie,
       {
         headers: {
-          Authorization: `Basic ${token}`,
+          Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
@@ -157,7 +223,15 @@ export default function StoreContextProvider(props) {
   // };
 
   const deleteMovie = async (id) => {
-    await axios.delete(`${URL}/movies/${id}`);
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    const token = user.access;
+    await axios.delete(`http://35.234.80.217/api/v1/movie/delete/${id}/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+        // "Content-Type": "multipart/form-data",
+      },
+    });
     dispatch({
       type: "REMOVE_MOVIE",
       payload: id,
@@ -165,7 +239,20 @@ export default function StoreContextProvider(props) {
   };
 
   const updateMovie = async (id, data) => {
-    await axios.patch(`${URL}/movies/${id}`, data);
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    // console.log(data);
+    const token = user.access;
+    await axios.patch(
+      `http://35.234.80.217/api/v1/movie/update/${id}/`,
+      data,
+
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     dispatch({
       type: "CLEAR_MOVIE",
     });
@@ -300,6 +387,19 @@ export default function StoreContextProvider(props) {
       payload: genres,
     });
   };
+  const fetchGenreMovies = async (genreId) => {
+    const response = await axios.get(`${URL}/movie/?genre=${genreId}`);
+    const movies = response.data.results;
+    const total = response.data.count;
+
+    dispatch({
+      type: "SET_MOVIES",
+      payload: {
+        data: movies,
+        total,
+      },
+    });
+  };
 
   return (
     <movieContext.Provider
@@ -324,6 +424,7 @@ export default function StoreContextProvider(props) {
         orderHistory: state.orderHistory,
         fetchGenres,
         genres: state.genres,
+        fetchGenreMovies,
       }}
     >
       {props.children}

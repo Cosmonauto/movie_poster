@@ -17,34 +17,38 @@ import SignupFirebase from "./components/authentication/Firebase/SignupFirebase/
 import SignIn from "./components/authentication/Server/SignInWithServer/SignInWithServer";
 import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 import MovieCard from "./components/MovieCard/MovieCard";
+import GenrePage from "./Views/GenrePage/GenrePage";
+import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
 
 export default function Routes() {
-    return (
-        <Router>
-            <AuthProvider>
-                <Switch>
-                    <Route path="/favorite" component={Favorite} exact />
-                    <Route path="/signup" component={SignupFirebase} exact />
-                    <Route path="/login" component={Login} exact />
-                    <Route path="/signUpServer" component={SignUpServer} exact />
-                    <Route path="/signInServer" component={SignIn} exact />
-                    <Route path="/forgot-password" component={ForgotPassword} exact />
-                    <Route path="/" component={Home} exact />
-                    <Route path="/showing" component={Showing} exact />
-                    <Route path="/about" component={About} exact />
-                    <Route path="/sessions" component={Sessions} exact />
-                    <Route path="/contacts" component={Contacts} exact />
-                    <Route path="/promotions" component={Promotions} exact />
-                    <Route path="/createMovie" component={CreateMovie} exact />
-                    <Route path="/movies/:id" component={MovieDetailPage} exact />
-                    <Route
-                        path="/forgotPasswordServer"
-                        component={ForgotPasswordServer}
-                        exact
-                    />
-                    <Route path="/movieCard" component={MovieCard} exact />
-                </Switch>
-            </AuthProvider>
-        </Router>
-    );
+  return (
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <Route path="/favorite" component={Favorite} exact />
+          <Route path="/signup" component={SignupFirebase} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/signUpServer" component={SignUpServer} exact />
+          <Route path="/signInServer" component={SignIn} exact />
+          <Route path="/forgot-password" component={ForgotPassword} exact />
+          <Route path="/" component={Home} exact />
+          <Route path="/showing" component={Showing} exact />
+          <Route path="/about" component={About} exact />
+          <Route path="/sessions" component={Sessions} exact />
+          <Route path="/contacts" component={Contacts} exact />
+          <Route path="/promotions" component={Promotions} exact />
+          <Route path="/createMovie" component={CreateMovie} exact />
+          <Route path="/movie/:id" component={MovieDetailPage} exact />
+          <Route
+            path="/forgotPasswordServer"
+            component={ForgotPasswordServer}
+            exact
+          />
+          <Route path="/movies/:id/update" component={MovieUpdatePage} exact />
+          <Route path="/movieCard" component={MovieCard} exact />
+          <Route path="/genre/:id" component={GenrePage} exact />
+        </Switch>
+      </AuthProvider>
+    </Router>
+  );
 }
