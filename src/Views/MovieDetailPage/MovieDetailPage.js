@@ -38,7 +38,7 @@ export default function MovieDetailPage() {
             <Navbar />
             {movieDetail ? (
                 <div className={classes.container}>
-                    <img height="600" src={movieDetail.images} alt="Of a movie poster" />
+                    <img height="600" src={movieDetail.image} alt="Of a movie poster" />
                     <div>
                         <IconButton onClick={handleMovieDelete}>
                             <DeleteIcon />
