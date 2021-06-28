@@ -94,21 +94,22 @@ export default function StoreContextProvider(props) {
     }
   };
 
-  const fetchSearchMovies = async (value) => {
-    const response = await axios.get(`${URL}/movies/?q=${value}`);
-    const movies = response.data;
-
-    const total = response.headers["x-total-count"];
-
-    dispatch({
-      type: "SET_MOVIES",
-
-      payload: {
-        data: movies,
-        total,
-      },
-    });
-  };
+  // const fetchSearchMovies = async (value) => {
+  //   const user = JSON.parse(`${localStorage.getItem("user")}`);
+  //   const token = user.access;
+  //   const response = await axios.get(`http://35.234.80.217/api/v1/movie/?search=${value}`, {
+  //     headers: {
+  //       Authorization: ` Token ${token}`,
+  //     },
+  //   });
+  //   const movies = response.data;
+  //   dispatch({
+  //     type: "SET_MOVIES",
+  //     payload: {
+  //       data: movies,
+  //     },
+  //   });
+  // };
 
   const fetchMovieDetail = async (id) => {
     const response = await axios.get(`${URL}/movies/${id}`);
@@ -122,9 +123,7 @@ export default function StoreContextProvider(props) {
 
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-
-    const token = user.acces;
-
+    const token = user.access;
     const response = await axios.post(
       "http://35.234.80.217/api/v1/movie/create",
       movie,
@@ -165,6 +164,10 @@ export default function StoreContextProvider(props) {
   };
 
   const updateMovie = async (id, data) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    // console.log(data);
+
+    const token = user.access;
     await axios.patch(`${URL}/movies/${id}`, data);
     dispatch({
       type: "CLEAR_MOVIE",
@@ -313,7 +316,7 @@ export default function StoreContextProvider(props) {
         createMovie,
         deleteMovie,
         updateMovie,
-        fetchSearchMovies,
+        // fetchSearchMovies,
         fetchMenuItems,
         getFavorite,
         addMovieToFavorite,

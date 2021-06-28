@@ -32,7 +32,7 @@ export default function CreateMovie() {
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Обязательное поле!"),
-    descriptions: Yup.string().required("Обязательное поле!"),
+    description: Yup.string().required("Обязательное поле!"),
     genre: Yup.string().required("Обязательное поле!"),
     duration: Yup.number()
       .typeError("Введите число!")
@@ -101,7 +101,7 @@ export default function CreateMovie() {
               className={classes.input}
               rows={8}
               multiline
-              name="descriptions"
+              name="description"
               as={TextField}
             />
             <ErrorMessage component={TextError} name="description" />

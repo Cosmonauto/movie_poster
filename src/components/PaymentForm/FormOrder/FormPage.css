@@ -1,0 +1,35 @@
+body {
+    height: 730px;
+}
+
+h2 {
+    font-size: 40px;
+    padding-top: 20px;
+    color: #9795f0;
+}
+
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 10px;
+}
+
+.form-section input,
+select {
+    margin-top: 7px;
+}
+
+.btn3 {
+    width: 150px;
+    height: 40px;
+    border-radius: 10;
+    border-style: none;
+    margin-top: 20px;
+}
+
+.btn3:hover {
+    transform: scale(1.1);
+}

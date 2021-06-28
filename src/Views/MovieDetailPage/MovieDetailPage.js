@@ -15,22 +15,16 @@ export default function MovieDetailPage() {
         useContext(movieContext);
 
     const { id } = useParams();
-    const confirm = useConfirm();
     const history = useHistory();
 
     useEffect(() => {
         fetchMovieDetail(id);
-        console.log(movieDetail);
     }, []);
 
     const handleMovieDelete = () => {
-        confirm({
-            description: 'Удалить данный товар?',
-        }).then(() => {
-            deleteMovie(id).then(() => {
-                notifySuccess('Товар был успешно удален!');
-                history.push('/');
-            });
+        deleteMovie(id).then(() => {
+            notifySuccess('The movie was deleted!');
+            history.push('/');
         });
     };
 
@@ -45,7 +39,7 @@ export default function MovieDetailPage() {
                             <DeleteIcon />
                         </IconButton>
 
-                        <IconButton onClick={() => history.push(`/movies/${id}`)}>
+                        <IconButton onClick={() => history.push(`/movies/${id}/update`)}>
                             <EditIcon />
                         </IconButton>
                     </div>

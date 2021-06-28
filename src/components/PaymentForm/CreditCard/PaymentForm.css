@@ -1,0 +1,27 @@
+.payment {
+ height: 80vh;
+}
+
+.payment__input {
+  width: 250px;
+  height: 40px;
+  margin: 10px;
+  /* border-radius: 5px; */
+  border-radius: 8px;
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+.pay__btn {
+  border-style: none;
+  width: 150px;
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 10;
+
+}
+
+.pay__btn:hover {
+  transform: scale(1.1);
+
+}

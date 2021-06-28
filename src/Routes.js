@@ -17,6 +17,10 @@ import SignupFirebase from "./components/authentication/Firebase/SignupFirebase/
 import SignIn from "./components/authentication/Server/SignInWithServer/SignInWithServer";
 import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 import MovieCard from "./components/MovieCard/MovieCard";
+import MovieUpdatePage from './Views/MovieUpdatePage/MovieUpdatePage';
+import FormPage from './components/PaymentForm/FormOrder/FormPage'
+import PaymentForm from './components/PaymentForm/CreditCard/PaymentForm'
+import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
 
 export default function Routes() {
     return (
@@ -29,11 +33,17 @@ export default function Routes() {
                     <Route path="/signUpServer" component={SignUpServer} exact />
                     <Route path="/signInServer" component={SignIn} exact />
                     <Route path="/forgot-password" component={ForgotPassword} exact />
+                    <Route path="movie/search/:searchValue" component={SearchResultPage} exact />
                     <Route path="/" component={Home} exact />
                     <Route path="/showing" component={Showing} exact />
                     <Route path="/about" component={About} exact />
                     <Route path="/sessions" component={Sessions} exact />
                     <Route path="/contacts" component={Contacts} exact />
+                    <Route
+                        path="/movies/:id/update"
+                        component={MovieUpdatePage}
+                        exact
+                    />
                     <Route path="/promotions" component={Promotions} exact />
                     <Route path="/createMovie" component={CreateMovie} exact />
                     <Route path="/movies/:id" component={MovieDetailPage} exact />
@@ -43,6 +53,8 @@ export default function Routes() {
                         exact
                     />
                     <Route path="/movieCard" component={MovieCard} exact />
+                    <Route path='/checkout' component={FormPage} exact />
+                    <Route path='/payment' component={PaymentForm} exact />
                 </Switch>
             </AuthProvider>
         </Router>
