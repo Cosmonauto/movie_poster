@@ -11,7 +11,7 @@ import axios from "axios";
 function MovieCard({ data }) {
   const {
     title,
-    images,
+    image,
     price,
     description,
     id,
@@ -20,6 +20,7 @@ function MovieCard({ data }) {
     genre,
     producer,
   } = data;
+  console.log(image)
 
   const history = useHistory();
 
@@ -42,7 +43,7 @@ function MovieCard({ data }) {
         onClick={() => history.push(`/movie/${id}`)}
         className={classes.productImg}
       >
-        <img src={images[0]} alt="movieCardImage" />
+        <img src={image} alt="movieCardImage" />
       </div>
       <div className={classes.productList}>
         <h2>{title}</h2>
@@ -52,7 +53,7 @@ function MovieCard({ data }) {
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <span className={classes.price}>{price} руб</span>
-        {favorite.movies.map((mov) => mov.item === data) ? (
+        {/* {favorite.movies.map((mov) => mov.item === data) ? (
           <img
             src={like}
             alt="like"
@@ -68,7 +69,7 @@ function MovieCard({ data }) {
               addMovieToFavorite(data);
             }}
           />
-        )}
+        )} */}
         <img
           src={cart}
           alt="cart"

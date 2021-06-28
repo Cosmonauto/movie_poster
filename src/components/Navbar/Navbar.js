@@ -14,8 +14,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import StarsIcon from "@material-ui/icons/Stars";
 import Drawer from "./Drawer/Drawer";
-import moviePosterLogo from "../../assets/icons/movieLOGO.png";
-import HomeIcon from "@material-ui/icons/Home";
+import moviePosterLogo from '../../assets/icons/movieLOGO.png'
+import HomeIcon from '@material-ui/icons/Home';
+import SearchBar from '../SearchBar/SearchBar'
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -163,7 +165,7 @@ export default function PrimarySearchAppBar() {
               />
             </Typography>
           </Link>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -175,7 +177,8 @@ export default function PrimarySearchAppBar() {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
+          <SearchBar />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link to="/" style={{ color: "#fff" }}>

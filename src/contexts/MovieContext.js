@@ -144,19 +144,21 @@ export default function StoreContextProvider(props) {
       console.log(error.message);
     }
   };
-  // ?_start=${page * 3}&_end=${3 * (page + 1)}
+
   const fetchSearchMovies = async (value) => {
-    const response = await axios.get(`${URL}/movies/?q=${value}`);
-    const movies = response.data;
-
-    const total = response.headers["x-total-count"];
-
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    const token = user.access;
+    const response = await axios.get(`http://35.234.80.217/api/v1/movie/?search=${value}`, {
+      headers: {
+        Authorization: ` Token ${token}`,
+      },
+    });
+    const movies = response.data.results;
+    console.log(movies);
     dispatch({
       type: "SET_MOVIES",
-
       payload: {
         data: movies,
-        total,
       },
     });
   };
@@ -185,11 +187,7 @@ export default function StoreContextProvider(props) {
 
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-
     const token = user.access;
-    console.log(token);
-    console.log(movie);
-
     const response = await axios.post(
       "http://35.234.80.217/api/v1/movie/create/",
       movie,

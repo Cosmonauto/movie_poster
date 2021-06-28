@@ -48,7 +48,7 @@ export default function CreateMovie() {
   const validationSchema = Yup.object({
     title: Yup.string().required("Обязательное поле!"),
     descriptions: Yup.string().required("Обязательное поле!"),
-    // genre: Yup.string().required("Обязательное поле!"),
+    genre: Yup.string().required("Обязательное поле!"),
     duration: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
@@ -255,6 +255,6 @@ export default function CreateMovie() {
           </>
         )}
       </Formik>
-    </div>
+    </div >
   );
 }
