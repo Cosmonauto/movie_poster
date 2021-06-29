@@ -64,7 +64,7 @@ export default function SignIn() {
         console.log(response);
         if (response.data.access) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log("working");
+          console.log(response.data);
         }
 
         return response.data;

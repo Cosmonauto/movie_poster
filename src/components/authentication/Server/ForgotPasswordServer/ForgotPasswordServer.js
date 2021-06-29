@@ -53,14 +53,13 @@ export default function ForgotPasswordServer() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const history = useHistory();
-  const [ok, setOk] = useState(false);
 
   const addNewPassword = async (email) => {
     await axios
-      .post("35.234.80.217/api/v1/accounts/password_reset/", {
+      .post("http://35.234.80.217/api/v1/accounts/password_reset/", {
         email,
       })
-      .then(setOk(true));
+      .then(console.log(email));
   };
 
   return (
@@ -119,11 +118,6 @@ export default function ForgotPasswordServer() {
                 <Link to="/signInServer">Already have an account? Sign In</Link>
               </Grid>
             </Grid>
-            {ok === true ? (
-              <a href="http://35.234.80.217/api/v1/accounts/password_reset/done/">
-                Go
-              </a>
-            ) : null}
           </form>
         </div>
         <Box mt={8}>

@@ -12,13 +12,14 @@ import { useHistory } from "react-router";
 import ImageDropzone from "../../components/ImageDropzone";
 
 export default function CreateMovie() {
-  const { createMovie } = useContext(movieContext);
+  const { createMovie, fetchGenres, genres } = useContext(movieContext);
 
   const history = useHistory();
 
   const initialValues = {
     title: "",
     descriptions: "",
+    genre: "",
 
     duration: "",
     price: null,
@@ -31,9 +32,9 @@ export default function CreateMovie() {
     quantity: null,
     // likes: [],
     // genre: "",
-    rating: [],
-    images: [],
-
+    // rating: [],
+    image: "",
+    // images: [],
     // title: "1",
     // descriptions: "",
     // price: 1,
@@ -55,7 +56,7 @@ export default function CreateMovie() {
     price: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
-    // images: Yup.string().required("Обязательное поле!"),
+    image: Yup.string().required("Обязательное поле!"),
     year: Yup.number()
       .typeError("Введите число!")
       .required("Обязательное поле!"),
@@ -78,16 +79,21 @@ export default function CreateMovie() {
   const onSubmit = (values, actions) => {
     const formData = new FormData();
 
-    // formData.append("title", values.title);
-    // formData.append("price", values.price);
-    // formData.append("description", values.description);
-    formData.append("images", values.images[0]);
-    createMovie({
-      ...values,
-      images: formData,
-      // likes: [values.likes],
-      // rating: [values.rating],
-    }).then(() => {
+    console.log(values.images);
+    formData.append("title", values.title);
+    formData.append("price", values.price);
+    formData.append("description", values.description);
+    // formData.append("images", values.images);
+    formData.append("image", values.image);
+    formData.append("descriptions", values.descriptions);
+    formData.append("genre", values.genre);
+    formData.append("duration", values.duration);
+    formData.append("year", values.year);
+    formData.append("producer", values.producer);
+    formData.append("age_limit", values.age_limit);
+    formData.append("country", values.country);
+    formData.append("quantity", values.quantity);
+    createMovie(formData).then(() => {
       actions.resetForm();
       notifySuccess("Продукт был создан!");
     });
@@ -115,14 +121,13 @@ export default function CreateMovie() {
                 as={TextField}
               />
               <ErrorMessage component={TextError} name="title" />
-              {/* <ErrorMessage component={TextError} name="title" />
-            <label>Image</label>
-            <Field
-              className={classes.input}
-              name="images"
-              variant="outlined"
-              as={FileReader}
-            /> */}
+              <label>Image</label>
+              <Field
+                className={classes.input}
+                name="image"
+                variant="outlined"
+                as={TextField}
+              />
 
               <label>Description</label>
               <Field
@@ -145,7 +150,21 @@ export default function CreateMovie() {
               as={TextField}
             />
             <ErrorMessage component={TextError} name="genre" /> */}
-
+              <label>Genre</label>
+              <Field
+                variant="outlined"
+                className={classes.input}
+                rows={8}
+                multiline
+                name="genre"
+                as="select"
+              >
+                <option value="Genre">Choose a genre</option>
+                {genres.map((genre) => (
+                  <option value={genre.slug}>{genre.slug}</option>
+                ))}
+              </Field>
+              <ErrorMessage component={TextError} name="genre" />
               <label>Duration</label>
               <Field
                 className={classes.input}
@@ -240,12 +259,12 @@ export default function CreateMovie() {
               }}
             /> */}
               {/* <DropzoneDialog /> */}
-              <ImageDropzone
+              {/* <ImageDropzone
                 buttonText={"Загрузить"}
                 setFieldValue={setFieldValue}
                 name="images"
                 formikImages={values.images}
-              />
+              /> */}
 
               <Button type="submit" color="primary" variant="contained">
                 Create
@@ -255,6 +274,6 @@ export default function CreateMovie() {
           </>
         )}
       </Formik>
-    </div >
+    </div>
   );
 }

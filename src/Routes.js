@@ -18,14 +18,14 @@ import SignIn from "./components/authentication/Server/SignInWithServer/SignInWi
 import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 import MovieCard from "./components/MovieCard/MovieCard";
 
-
-import FormPage from './components/PaymentForm/FormOrder/FormPage'
-import PaymentForm from './components/PaymentForm/CreditCard/PaymentForm'
+import FormPage from "./components/PaymentForm/FormOrder/FormPage";
+import PaymentForm from "./components/PaymentForm/CreditCard/PaymentForm";
 import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
 import FilterResultPage from "./components/FilterResultPage/FilterResultPage";
 import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
-import Chat from "./components/FirebaseChat/Chat(Experimental)/Chat";
+import CommentsCreate from "./components/Comments/CommentsCreate";
+import CommentsPage from "./components/Comments/CommentsPage";
 
 export default function Routes() {
     return (
@@ -54,11 +54,24 @@ export default function Routes() {
                     <Route path="/movies/:id/update" component={MovieUpdatePage} exact />
                     <Route path="/movieCard" component={MovieCard} exact />
                     <Route path="/genre/:id" component={GenrePage} exact />
-                    <Route path='/checkout' component={FormPage} exact />
-                    <Route path='/payment' component={PaymentForm} exact />
-                    <Route path="/movie/search/:searchValue" component={SearchResultPage} exact />
-                    <Route path="/movie/filter/:filterValue" component={FilterResultPage} exact />
-                    {/* <Route path="/chat" component={Chat} exact /> */}
+                    <Route path="/checkout" component={FormPage} exact />
+                    <Route path="/payment" component={PaymentForm} exact />
+                    <Route
+                        path="/movie/search/:searchValue"
+                        component={SearchResultPage}
+                        exact
+                    />
+                    <Route
+                        path="/movie/filter/:filterValue"
+                        component={FilterResultPage}
+                        exact
+                    />
+                    <Route
+                        path="/movie/comments/create"
+                        component={CommentsCreate}
+                        exact
+                    />
+                    <Route path="/movie/comments" component={CommentsPage} exact />
                 </Switch>
             </AuthProvider>
         </Router>
