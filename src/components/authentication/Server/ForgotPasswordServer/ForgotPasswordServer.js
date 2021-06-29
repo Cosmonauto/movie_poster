@@ -80,6 +80,7 @@ export default function ForgotPasswordServer() {
             onSubmit={(e) => {
               e.preventDefault();
               addNewPassword(email);
+              history.push("/movie/password_reset/confirm/");
             }}
           >
             <TextField

@@ -17,7 +17,6 @@ import SignupFirebase from "./components/authentication/Firebase/SignupFirebase/
 import SignIn from "./components/authentication/Server/SignInWithServer/SignInWithServer";
 import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 import MovieCard from "./components/MovieCard/MovieCard";
-
 import FormPage from "./components/PaymentForm/FormOrder/FormPage";
 import PaymentForm from "./components/PaymentForm/CreditCard/PaymentForm";
 import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
@@ -26,6 +25,7 @@ import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
 import CommentsCreate from "./components/Comments/CommentsCreate";
 import CommentsPage from "./components/Comments/CommentsPage";
+import ForgotPasswordSecondPage from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordSecondPage";
 
 export default function Routes() {
     return (
@@ -51,6 +51,7 @@ export default function Routes() {
                         component={ForgotPasswordServer}
                         exact
                     />
+                    <Route path="/movie/password_reset/confirm/" component={ForgotPasswordSecondPage} exact />
                     <Route path="/movies/:id/update" component={MovieUpdatePage} exact />
                     <Route path="/movieCard" component={MovieCard} exact />
                     <Route path="/genre/:id" component={GenrePage} exact />

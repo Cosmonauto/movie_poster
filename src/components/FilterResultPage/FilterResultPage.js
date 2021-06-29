@@ -28,6 +28,12 @@ export default function FilterResultPage() {
             <Typography className={classes.title} variant="h4">
                 Фильмы по жанру "{filterValue}"
             </Typography>
+            <MoviesList movies={movies} />
+            <MoviesPagination
+                setPage={setPage}
+                page={page}
+                count={Math.ceil(total / 4)}
+            />
         </>
     );
 }
