@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import * as Yup from "yup";
 import { Button, TextField, Typography, Input } from "@material-ui/core";
@@ -15,6 +15,9 @@ export default function CreateMovie() {
   const { createMovie, fetchGenres, genres } = useContext(movieContext);
 
   const history = useHistory();
+  useEffect(() => {
+    fetchGenres();
+  }, []);
 
   const initialValues = {
     title: "",
