@@ -304,12 +304,27 @@ export default function StoreContextProvider(props) {
 
   const updateMovie = async (id, data) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    // console.log(data);
+    console.log(data);
     const token = user.access;
-    await axios.put(
+    await axios.patch(
       `http://35.234.80.217/api/v1/movie/update/${id}/`,
-      data,
-
+      {
+        id: data.id,
+        title: data.title,
+        descriptions: data.descriptions,
+        price: data.price,
+        country: data.country,
+        duration: data.duration,
+        images: data.images,
+        year: data.year,
+        producer: data.producer,
+        genre: data.genre,
+        age_limit: data.age_limit,
+        comments: data.comments,
+        quantity: data.quantity,
+        likes: data.likes,
+        image: data.image,
+      },
       {
         headers: {
           Authorization: `Token ${token}`,
