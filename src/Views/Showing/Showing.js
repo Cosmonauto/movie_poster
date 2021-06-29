@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { useHistory, useParams } from "react-router";
-import MoviesList from "../../components/MoviesList";
 import { movieContext } from "../../contexts/MovieContext";
 import Carousal from "./3dCarousal/Carousal";
 import FilterSelect from "../../components/FilterSelect/FilterSelect.js";
@@ -41,7 +40,6 @@ export default function Showing() {
       })}
       <button /> */}
       <Carousal style={{ marginBottom: "40px" }} />
-      <MoviesList movies={movies} />
       <FilterSelect />
     </>
   );
