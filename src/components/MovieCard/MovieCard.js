@@ -80,6 +80,13 @@ function MovieCard({ data }) {
           }}
         />
         В корзину
+        <h5
+          onClick={() => {
+            history.push("/movie/comments");
+          }}
+        >
+          comments
+        </h5>
       </div>
     </div>
   );

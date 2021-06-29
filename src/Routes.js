@@ -21,9 +21,11 @@ import MovieCard from "./components/MovieCard/MovieCard";
 import FormPage from "./components/PaymentForm/FormOrder/FormPage";
 import PaymentForm from "./components/PaymentForm/CreditCard/PaymentForm";
 import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
-
+import FilterResultPage from "./components/FilterResultPage/FilterResultPage";
 import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
+import CommentsCreate from "./components/Comments/CommentsCreate";
+import CommentsPage from "./components/Comments/CommentsPage";
 
 export default function Routes() {
   return (
@@ -59,6 +61,17 @@ export default function Routes() {
             component={SearchResultPage}
             exact
           />
+          <Route
+            path="/movie/filter/:filterValue"
+            component={FilterResultPage}
+            exact
+          />
+          <Route
+            path="/movie/comments/create"
+            component={CommentsCreate}
+            exact
+          />
+          <Route path="/movie/comments" component={CommentsPage} exact />
         </Switch>
       </AuthProvider>
     </Router>

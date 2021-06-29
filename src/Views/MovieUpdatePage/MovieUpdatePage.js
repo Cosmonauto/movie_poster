@@ -27,7 +27,7 @@ export default function MovieUpdatePage() {
 
   const { id } = useParams();
 
-  const { fetchMovieDetail, movieDetail, updateMovie } =
+  const { fetchMovieDetail, movieDetail, updateMovie, fetchGenres, genres } =
     useContext(movieContext);
 
   useEffect(() => {
@@ -130,7 +130,12 @@ export default function MovieUpdatePage() {
                 multiline
                 name="genre"
                 as="select"
-              />
+              >
+                <option value="Genre">Choose a genre</option>
+                {genres.map((genre) => (
+                  <option value={genre.slug}>{genre.slug}</option>
+                ))}
+              </Field>
               <ErrorMessage component={TextError} name="genre" />
 
               <label>Duration</label>

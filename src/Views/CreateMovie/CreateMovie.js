@@ -12,7 +12,7 @@ import { useHistory } from "react-router";
 import ImageDropzone from "../../components/ImageDropzone";
 
 export default function CreateMovie() {
-  const { createMovie } = useContext(movieContext);
+  const { createMovie, fetchGenres, genres } = useContext(movieContext);
 
   const history = useHistory();
 
@@ -157,14 +157,13 @@ export default function CreateMovie() {
                 rows={8}
                 multiline
                 name="genre"
-                as={TextField}
-              />
-              {/* <option value="Comedy">Comedy</option>
-                <option value="Drama">Drama</option>
-                <option value="Action">Action</option>
-                <option value="Horror">Horror</option>
-                <option value="Romance">Romance</option>
-              </Field> */}
+                as="select"
+              >
+                <option value="Genre">Choose a genre</option>
+                {genres.map((genre) => (
+                  <option value={genre.slug}>{genre.slug}</option>
+                ))}
+              </Field>
               <ErrorMessage component={TextError} name="genre" />
               <label>Duration</label>
               <Field
