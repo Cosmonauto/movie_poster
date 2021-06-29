@@ -30,8 +30,11 @@ export default function MovieUpdatePage() {
   const { fetchMovieDetail, movieDetail, updateMovie, fetchGenres, genres } =
     useContext(movieContext);
 
+  console.log(movieDetail);
+
   useEffect(() => {
     fetchMovieDetail(id);
+    fetchGenres();
   }, []);
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export default function MovieUpdatePage() {
         onSubmit={onSubmit}
         enableReinitialize
       >
-        {({}) => (
+        {({ values }) => (
           <>
             <Typography variant="h4">Изменение продукта</Typography>
             <Form className={classes.form}>
