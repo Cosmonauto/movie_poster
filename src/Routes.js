@@ -25,6 +25,7 @@ import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
 import FilterResultPage from "./components/FilterResultPage/FilterResultPage";
 import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
+import Chat from "./components/FirebaseChat/Chat(Experimental)/Chat";
 
 export default function Routes() {
     return (
@@ -57,6 +58,7 @@ export default function Routes() {
                     <Route path='/payment' component={PaymentForm} exact />
                     <Route path="/movie/search/:searchValue" component={SearchResultPage} exact />
                     <Route path="/movie/filter/:filterValue" component={FilterResultPage} exact />
+                    {/* <Route path="/chat" component={Chat} exact /> */}
                 </Switch>
             </AuthProvider>
         </Router>
