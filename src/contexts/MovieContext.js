@@ -134,7 +134,7 @@ const { REACT_APP_API_URL: URL } = process.env;
 export default function StoreContextProvider(props) {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
-  const fetchMovies = async (page) => {
+  const fetchMovies = async (page = 1) => {
     try {
       const response = await axios.get(
         `http://35.234.80.217/api/v1/movie/?page=${page}`
@@ -237,6 +237,26 @@ export default function StoreContextProvider(props) {
       payload: movieDetail,
     });
   };
+  const giveRating = async (rating, id) => {
+    let page = localStorage.getItem("page");
+    console.log(page);
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    const token = user.access;
+    const response = await axios.post(
+      "http://35.234.80.217/api/v1/movie/rating/",
+      {
+        rating_field: rating,
+        movie: id,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    fetchMovies(page);
+  };
 
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
@@ -261,7 +281,7 @@ export default function StoreContextProvider(props) {
     return createdMovie.id;
   };
 
-  const createComment = async (comment) => {
+  const createComment = async (comment, id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     const token = user.access;
     console.log(comment);
@@ -269,6 +289,7 @@ export default function StoreContextProvider(props) {
       "http://35.234.80.217/api/v1/movie/comments/",
       {
         body: comment,
+        movie: id,
       },
       {
         headers: {
@@ -507,6 +528,7 @@ export default function StoreContextProvider(props) {
         createComment,
         fetchComments,
         comments: state.comments,
+        giveRating,
       }}
     >
       {props.children}

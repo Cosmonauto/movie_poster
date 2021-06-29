@@ -19,6 +19,7 @@ function MovieCard({ data }) {
     country,
     genre,
     producer,
+    rating,
     // images,
   } = data;
   console.log(image);
@@ -37,6 +38,7 @@ function MovieCard({ data }) {
     addMovieToFavorite,
     favorite,
     getFavorite,
+    giveRating,
   } = useContext(movieContext);
   return (
     <div className={classes.productItem}>
@@ -48,11 +50,44 @@ function MovieCard({ data }) {
       </div>
       <div className={classes.productList}>
         <h2>{title}</h2>
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
+        {/* {useEffect(() => (rating ? <h3>{rating}</h3> : null), [rating])} */}
+        {rating ? <h3>{rating}</h3> : null}
+        <img
+          src={star}
+          alt="star"
+          onClick={() => {
+            giveRating(1, id);
+            console.log(rating);
+          }}
+        />
+        <img
+          src={star}
+          alt="star"
+          onClick={() => {
+            giveRating(2, id);
+          }}
+        />
+        <img
+          src={star}
+          alt="star"
+          onClick={() => {
+            giveRating(3, id);
+          }}
+        />
+        <img
+          src={star}
+          alt="star"
+          onClick={() => {
+            giveRating(4, id);
+          }}
+        />
+        <img
+          src={star}
+          alt="star"
+          onClick={() => {
+            giveRating(5, id);
+          }}
+        />
         <span className={classes.price}>{price} руб</span>
         {/* {favorite.movies.map((mov) => mov.item === data) ? (
           <img
@@ -82,7 +117,7 @@ function MovieCard({ data }) {
         В корзину
         <h5
           onClick={() => {
-            history.push("/movie/comments");
+            history.push(`/movie/comments/${id}`);
           }}
         >
           comments
