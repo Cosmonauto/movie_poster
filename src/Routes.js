@@ -18,47 +18,62 @@ import SignIn from "./components/authentication/Server/SignInWithServer/SignInWi
 import ForgotPasswordServer from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordServer";
 import MovieCard from "./components/MovieCard/MovieCard";
 
-
-import FormPage from './components/PaymentForm/FormOrder/FormPage'
-import PaymentForm from './components/PaymentForm/CreditCard/PaymentForm'
+import FormPage from "./components/PaymentForm/FormOrder/FormPage";
+import PaymentForm from "./components/PaymentForm/CreditCard/PaymentForm";
 import SearchResultPage from "./components/SearchResultPage/SearchResultPage";
 import FilterResultPage from "./components/FilterResultPage/FilterResultPage";
 import GenrePage from "./Views/GenrePage/GenrePage";
 import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
+import CommentsCreate from "./components/Comments/CommentsCreate";
+import CommentsPage from "./components/Comments/CommentsPage";
 
 export default function Routes() {
-    return (
-        <Router>
-            <AuthProvider>
-                <Switch>
-                    <Route path="/favorite" component={Favorite} exact />
-                    <Route path="/signup" component={SignupFirebase} exact />
-                    <Route path="/login" component={Login} exact />
-                    <Route path="/signUpServer" component={SignUpServer} exact />
-                    <Route path="/signInServer" component={SignIn} exact />
-                    <Route path="/forgot-password" component={ForgotPassword} exact />
-                    <Route path="/" component={Home} exact />
-                    <Route path="/showing" component={Showing} exact />
-                    <Route path="/about" component={About} exact />
-                    <Route path="/sessions" component={Sessions} exact />
-                    <Route path="/contacts" component={Contacts} exact />
-                    <Route path="/promotions" component={Promotions} exact />
-                    <Route path="/createMovie" component={CreateMovie} exact />
-                    <Route path="/movie/:id" component={MovieDetailPage} exact />
-                    <Route
-                        path="/forgotPasswordServer"
-                        component={ForgotPasswordServer}
-                        exact
-                    />
-                    <Route path="/movies/:id/update" component={MovieUpdatePage} exact />
-                    <Route path="/movieCard" component={MovieCard} exact />
-                    <Route path="/genre/:id" component={GenrePage} exact />
-                    <Route path='/checkout' component={FormPage} exact />
-                    <Route path='/payment' component={PaymentForm} exact />
-                    <Route path="/movie/search/:searchValue" component={SearchResultPage} exact />
-                    <Route path="/movie/filter/:filterValue" component={FilterResultPage} exact />
-                </Switch>
-            </AuthProvider>
-        </Router>
-    );
+  return (
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <Route path="/favorite" component={Favorite} exact />
+          <Route path="/signup" component={SignupFirebase} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/signUpServer" component={SignUpServer} exact />
+          <Route path="/signInServer" component={SignIn} exact />
+          <Route path="/forgot-password" component={ForgotPassword} exact />
+          <Route path="/" component={Home} exact />
+          <Route path="/showing" component={Showing} exact />
+          <Route path="/about" component={About} exact />
+          <Route path="/sessions" component={Sessions} exact />
+          <Route path="/contacts" component={Contacts} exact />
+          <Route path="/promotions" component={Promotions} exact />
+          <Route path="/createMovie" component={CreateMovie} exact />
+          <Route path="/movie/:id" component={MovieDetailPage} exact />
+          <Route
+            path="/forgotPasswordServer"
+            component={ForgotPasswordServer}
+            exact
+          />
+          <Route path="/movies/:id/update" component={MovieUpdatePage} exact />
+          <Route path="/movieCard" component={MovieCard} exact />
+          <Route path="/genre/:id" component={GenrePage} exact />
+          <Route path="/checkout" component={FormPage} exact />
+          <Route path="/payment" component={PaymentForm} exact />
+          <Route
+            path="/movie/search/:searchValue"
+            component={SearchResultPage}
+            exact
+          />
+          <Route
+            path="/movie/filter/:filterValue"
+            component={FilterResultPage}
+            exact
+          />
+          <Route
+            path="/movie/comments/create"
+            component={CommentsCreate}
+            exact
+          />
+          <Route path="/movie/comments" component={CommentsPage} exact />
+        </Switch>
+      </AuthProvider>
+    </Router>
+  );
 }

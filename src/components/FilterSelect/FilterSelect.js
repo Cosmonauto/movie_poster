@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { fetchSearchMovies } from "./api";
+import { fetchFilterMovies } from "./api";
 import { Paper, Typography } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { Field } from "formik";
+import { movieContext } from "../../contexts/MovieContext";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -20,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       width: "40%",
     },
+    marginTop: "150px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -64,68 +70,62 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#EBEEF0",
     },
   },
+  select: {
+    width: "70%",
+    height: "50px",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "row",
+  },
 }));
 
-export default function SearchBar() {
+export default function FilterSelect() {
   const classes = useStyles();
 
-  const [searchValue, setSearchValue] = useState("");
+  const [filterValue, setFilterValue] = useState("");
   const [fetchedMovies, setFetchedMovies] = useState([]);
-
+  const { fetchGenres, genres } = useContext(movieContext);
   const handleSearchChange = (e) => {
-    setSearchValue(e.target.value);
+    setFilterValue(e.target.value);
   };
 
-  useEffect(() => {}, [searchValue]);
+  useEffect(() => {
+    fetchGenres();
+  }, []);
 
   const history = useHistory();
 
-  const handleSearchItemClick = (id) => {
-    history.push(`/movie/${id}`);
-  };
-
-  const handleSearchSubmit = (e) => {
+  const handleFilterSubmit = (e) => {
     e.preventDefault();
-    fetchSearchMovies(searchValue).then((movies) => setFetchedMovies(movies));
+    fetchFilterMovies(filterValue).then((movies) => setFetchedMovies(movies));
     setFetchedMovies([]);
-    setSearchValue("");
-    if (searchValue) {
-      console.log(searchValue);
-      history.push(`/movie/search/${searchValue}`);
+    setFilterValue("");
+    if (filterValue) {
+      console.log(filterValue);
+      history.push(`/movie/filter/${filterValue}`);
     }
   };
 
   return (
     <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
+      <div>
+        <form onSubmit={handleFilterSubmit} className={classes.form}>
+          <select
+            name="genre"
+            onChange={(e) => {
+              setFilterValue(e.target.value);
+            }}
+            className={classes.select}
+          >
+            <option value="Genre">Genre</option>
+            {genres.map((genre) => (
+              <option value={genre.slug}>{genre.slug}</option>
+            ))}
+          </select>
+          <button type="submit">filter</button>
+        </form>
       </div>
-      <form onSubmit={handleSearchSubmit}>
-        <InputBase
-          onChange={handleSearchChange}
-          value={searchValue}
-          placeholder="Search…"
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ "aria-label": "search" }}
-        />
-      </form>
-
-      {fetchedMovies.length ? (
-        <Paper className={classes.searchList}>
-          {fetchedMovies.map((movie) => (
-            <Typography
-              onClick={() => handleSearchItemClick(movie.id)}
-              key={movie.id}
-              className={classes.searchItem}
-            >
-              {movie.title}
-            </Typography>
-          ))}
-        </Paper>
-      ) : null}
     </div>
   );
 }

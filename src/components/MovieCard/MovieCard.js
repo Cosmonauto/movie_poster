@@ -19,8 +19,9 @@ function MovieCard({ data }) {
     country,
     genre,
     producer,
+    // images,
   } = data;
-  console.log(image)
+  console.log(image);
 
   const history = useHistory();
 
@@ -79,6 +80,13 @@ function MovieCard({ data }) {
           }}
         />
         В корзину
+        <h5
+          onClick={() => {
+            history.push("/movie/comments");
+          }}
+        >
+          comments
+        </h5>
       </div>
     </div>
   );

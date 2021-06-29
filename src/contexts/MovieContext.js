@@ -59,6 +59,7 @@ const INIT_STATE = {
   orderHistory: {},
   favorite: {},
   genres: [],
+  comments: [],
 };
 
 const reducer = (state = INIT_STATE, action) => {
@@ -69,6 +70,11 @@ const reducer = (state = INIT_STATE, action) => {
         movies: action.payload.data,
         total: action.payload.total,
       };
+    case "SET_COMMENTS":
+      return {
+        ...state,
+        comments: action.payload.data,
+      };
     case "SET_MOVIE_DETAIL":
       return {
         ...state,
@@ -78,6 +84,11 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         movies: [...state.movies, action.payload],
+      };
+    case "ADD_COMMENT":
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
       };
     case "REMOVE_MOVIE":
       return {
@@ -144,15 +155,36 @@ export default function StoreContextProvider(props) {
       console.log(error.message);
     }
   };
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`http://35.234.80.217/api/v1/comments/`);
+      console.log(response.data.results);
+      const comments = response.data.results;
+
+      // console.log(movies);
+
+      dispatch({
+        type: "SET_COMMENTS",
+        payload: {
+          data: comments,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const fetchSearchMovies = async (value) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     const token = user.access;
-    const response = await axios.get(`http://35.234.80.217/api/v1/movie/?search=${value}`, {
-      headers: {
-        Authorization: ` Token ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `http://35.234.80.217/api/v1/movie/?search=${value}`,
+      {
+        headers: {
+          Authorization: ` Token ${token}`,
+        },
+      }
+    );
     const movies = response.data.results;
     dispatch({
       type: "SET_MOVIES",
@@ -162,19 +194,24 @@ export default function StoreContextProvider(props) {
     });
   };
 
-  const fetchFilterMovies = async (value) => {
+  const fetchFilterMovies = async (value, page) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     const token = user.access;
-    const response = await axios.get(`http://35.234.80.217/api/v1/movie/?genre=${value}`, {
-      headers: {
-        Authorization: ` Token ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `http://35.234.80.217/api/v1/movie/?genre=${value}&page=${page}`,
+      {
+        headers: {
+          Authorization: ` Token ${token}`,
+        },
+      }
+    );
     const movies = response.data.results;
+    const total = response.data.count;
     dispatch({
       type: "SET_MOVIES",
       payload: {
         data: movies,
+        total,
       },
     });
   };
@@ -210,7 +247,7 @@ export default function StoreContextProvider(props) {
       {
         headers: {
           Authorization: `Token ${token}`,
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
         },
       }
     );
@@ -224,18 +261,31 @@ export default function StoreContextProvider(props) {
     return createdMovie.id;
   };
 
-  // const createProduct = async (product) => {
-  //   const response = await axios.post(`${URL}/products`, product);
-  //   const createdProduct = response.data;
+  const createComment = async (comment) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    const token = user.access;
+    console.log(comment);
+    const response = await axios.post(
+      "http://35.234.80.217/api/v1/movie/comments/",
+      {
+        body: comment,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    const createdComment = response.data;
+    // console.log(createdMovie);
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: createdComment,
+    });
 
-  //   dispatch({
-  //     type: "ADD_PRODUCT",
-  //     payload: createdProduct,
-  //   });
-
-  //   return createdProduct.id;
-  // };
-
+    return createdComment.id;
+  };
   const deleteMovie = async (id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
 
@@ -256,7 +306,7 @@ export default function StoreContextProvider(props) {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     // console.log(data);
     const token = user.access;
-    await axios.patch(
+    await axios.put(
       `http://35.234.80.217/api/v1/movie/update/${id}/`,
       data,
 
@@ -439,6 +489,9 @@ export default function StoreContextProvider(props) {
         fetchGenres,
         genres: state.genres,
         fetchGenreMovies,
+        createComment,
+        fetchComments,
+        comments: state.comments,
       }}
     >
       {props.children}
