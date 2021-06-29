@@ -1,14 +1,17 @@
 import React, { useContext, useState } from "react";
+import { useParams } from "react-router";
 import { movieContext } from "../../contexts/MovieContext";
 
 function CommentsCreate(props) {
   const { createComment } = useContext(movieContext);
   const [comment, setComment] = useState("");
+  const { id } = useParams();
+  console.log(id);
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        createComment(comment);
+        createComment(comment, id).then("cool!");
       }}
     >
       <input

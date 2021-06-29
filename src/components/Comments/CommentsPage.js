@@ -1,28 +1,35 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { movieContext } from "../../contexts/MovieContext";
 
 function CommentsPage(props) {
-  const { fetchComments, comments } = useContext(movieContext);
+  const { id } = useParams();
   useEffect(() => {
-    fetchComments();
+    fetchMovieDetail(id);
   }, []);
+  const { fetchMovieDetail, movieDetail } = useContext(movieContext);
+
   const history = useHistory();
+
+  console.log(movieDetail);
   return (
     <div>
+      {movieDetail
+        ? movieDetail.comments.map((comment) => (
+            <>
+              <h1>{comment.owner}</h1>
+
+              <p>{comment.body}</p>
+            </>
+          ))
+        : null}
       <h3
         onClick={() => {
-          history.push("movie/comments/create");
+          history.push(`/movie/comments/create/${id}`);
         }}
       >
         Create Comment
       </h3>
-      {comments.map((comment) => (
-        <>
-          <h3>{comment.owner}</h3>
-          <p>{comment.body}</p>
-        </>
-      ))}
     </div>
   );
 }
