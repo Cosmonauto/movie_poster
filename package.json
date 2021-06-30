@@ -1,9 +1,9 @@
 {
+  "homepage": "http://Cosmonauto.github.io/movie_poster.github.io/",
   "name": "movie_poster",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "3d-react-carousal": "^3.1.0",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@zendeskgarden/react-pagination": "^8.37.1",
     "@zendeskgarden/react-theming": "^8.37.1",
+    "3d-react-carousal": "^3.1.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "firebase": "^8.6.8",
@@ -37,6 +38,8 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -60,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
