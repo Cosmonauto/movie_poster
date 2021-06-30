@@ -14,7 +14,14 @@ const useStyles = makeStyles(() => ({
 
 export default function MoviesPagination({ count, page, setPage }) {
   const classes = useStyles();
-
+  function localStoragePageSet(page) {
+    let data = localStorage.getItem("page");
+    if (!data) {
+      localStorage.setItem("page", 1);
+    }
+    data = localStorage.getItem("page");
+    localStorage.setItem("page", page);
+  }
   // count - amount of pages in pagination
   // page - currentPage
 
@@ -23,7 +30,10 @@ export default function MoviesPagination({ count, page, setPage }) {
       // change current page t o clicked page
 
       variant="h2"
-      onChange={(_, page) => setPage(page)}
+      onChange={(_, page) => {
+        setPage(page);
+        localStoragePageSet(page);
+      }}
       count={count}
       page={page}
       className={classes.pagination}

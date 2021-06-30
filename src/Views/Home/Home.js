@@ -10,6 +10,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router";
 import MoviesPagination from "../../components/MoviesPaginationOriginal";
 import Footer from "../Footer/Footer";
+import BestMovies from "../../components/BestMovies/BestMovies";
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
@@ -53,6 +54,7 @@ export default function Home() {
         page={page}
         count={Math.ceil(total / 4)}
       />
+      {/* <BestMovies /> */}
       <Fab
         onClick={() => history.push("/createMovie")}
         className={classes.addBtn}

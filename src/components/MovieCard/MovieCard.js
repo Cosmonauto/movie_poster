@@ -7,7 +7,7 @@ import liked from "../../assets/icons/like.png";
 import { movieContext } from "../../contexts/MovieContext";
 import { useHistory } from "react-router";
 import axios from "axios";
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import star2 from "../../assets/icons/star2.png";
 
 function MovieCard({ data }) {
   const {
@@ -20,6 +20,7 @@ function MovieCard({ data }) {
     country,
     genre,
     producer,
+    rating,
     // images,
   } = data;
   const [heart, setHeart] = useState('');
@@ -37,6 +38,7 @@ function MovieCard({ data }) {
     addMovieToFavorite,
     favorite,
     getFavorite,
+    giveRating,
   } = useContext(movieContext);
 
 
@@ -50,11 +52,70 @@ function MovieCard({ data }) {
       </div>
       <div className={classes.productList}>
         <h2>{title}</h2>
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
+        {/* {useEffect(() => (rating ? <h3>{rating}</h3> : null), [rating])} */}
+        {rating ? (
+          <h3>{rating % 1 === 0 ? rating : rating.toFixed(1)}</h3>
+        ) : null}
+        {rating === 1 || rating > 0 || rating > 1 ? (
+          <img src={star2} alt="star" />
+        ) : (
+          <img
+            src={star}
+            alt="star"
+            onClick={() => {
+              giveRating(1, id);
+              console.log(rating);
+            }}
+          />
+        )}
+        {rating === 2 || rating > 1 || rating > 2 ? (
+          <img src={star2} alt="star" />
+        ) : (
+          <img
+            src={star}
+            alt="star"
+            onClick={() => {
+              giveRating(2, id);
+              console.log(rating);
+            }}
+          />
+        )}
+        {rating === 3 || rating > 2 || rating > 3 ? (
+          <img src={star2} alt="star" />
+        ) : (
+          <img
+            src={star}
+            alt="star"
+            onClick={() => {
+              giveRating(3, id);
+              console.log(rating);
+            }}
+          />
+        )}
+        {rating === 4 || rating > 3 || rating > 4 ? (
+          <img src={star2} alt="star" />
+        ) : (
+          <img
+            src={star}
+            alt="star"
+            onClick={() => {
+              giveRating(4, id);
+              console.log(rating);
+            }}
+          />
+        )}
+        {rating === 5 || rating > 4 ? (
+          <img src={star2} alt="star" />
+        ) : (
+          <img
+            src={star}
+            alt="star"
+            onClick={() => {
+              giveRating(5, id);
+              console.log(rating);
+            }}
+          />
+        )}
         <span className={classes.price}>{price} руб</span>
         {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
         <img
@@ -84,7 +145,7 @@ function MovieCard({ data }) {
         В корзину
         <h5
           onClick={() => {
-            history.push("/movie/comments");
+            history.push(`/movie/comments/${id}`);
           }}
         >
           comments
