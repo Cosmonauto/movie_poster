@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import classes from "./movieCard.module.css";
 import star from "../../assets/icons/star.png";
 import cart from "../../assets/icons/shopping-cart.png";
@@ -23,7 +23,8 @@ function MovieCard({ data }) {
     rating,
     // images,
   } = data;
-  const [heart, setHeart] = useState('');
+  console.log(image);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -40,8 +41,6 @@ function MovieCard({ data }) {
     getFavorite,
     giveRating,
   } = useContext(movieContext);
-
-
   return (
     <div className={classes.productItem}>
       <div
@@ -117,15 +116,15 @@ function MovieCard({ data }) {
           />
         )}
         <span className={classes.price}>{price} руб</span>
-        {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
-        <img
-          src={like}
-          alt="like"
-          onClick={(e) => {
-            addMovieToFavorite(data);
-          }}
-        />
-        {/* ) : (
+        {/* {favorite.movies.map((mov) => mov.item === data) ? (
+          <img
+            src={like}
+            alt="like"
+            onClick={(e) => {
+              addMovieToFavorite(data);
+            }}
+          />
+        ) : (
           <img
             src={liked}
             alt="liked"

@@ -10,12 +10,15 @@
   margin-top: 26px;
   border-radius: 10px;
 }
+
 .productImg {
   transition: 1s ease-in-out;
 }
+
 .productImg:hover {
   transform: scale(1.1);
 }
+
 .productImg img {
   display: block;
   width: 290px;
@@ -23,11 +26,13 @@
   margin: 5px;
   border-radius: 3px;
 }
+
 .productList {
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
 }
+
 .productList h2 {
   font-weight: 700;
   color: #39404b;
@@ -37,25 +42,30 @@
   line-height: 2;
   font-family: "Big Shoulders Stencil Display", cursive;
 }
+
 .productList img {
   margin: 0 7px;
 }
+
 .price {
   color: #e34d38;
   display: block;
   margin: 5px;
 }
+
 .stars {
   height: 14px;
   line-height: 14px;
   margin: 7px 0;
 }
+
 .stars:before {
   content: "\f005\f005\f005\f005\f006";
   color: #efb71c;
   font-size: 14px;
   font-family: FontAwesome;
 }
+
 .actions {
   border-top: 1px solid #eee;
   padding-top: 4px;
@@ -63,15 +73,18 @@
   height: 30px;
   line-height: 30px;
 }
+
 .actions:after {
   content: "";
   display: table;
   clear: both;
 }
+
 .addToCart,
 .addToLinks {
   float: left;
 }
+
 .cartButton {
   text-decoration: none;
   color: #8c877c;
@@ -79,34 +92,41 @@
   border-right: 1px solid #ddd;
   transition: 0.4s linear;
 }
+
 .cartButton:before {
   content: "\f07a";
   font-family: FontAwesome;
   margin-right: 10px;
 }
+
 .addToCart:hover .cartButton,
 .wishlist:hover,
 .compare:hover {
   color: #e34d38;
 }
+
 .wishlist,
 .compare {
   color: #8c877c;
   padding-left: 20px;
   transition: 0.4s linear;
 }
+
 .wishlist:after,
 .compare:after {
   display: inline-block;
   font-family: FontAwesome;
   font-size: 13px;
 }
+
 .wishlist:after {
   content: "\f004";
 }
+
 .compare:after {
   content: "\f079";
 }
+
 /* @media only screen a { */
 
 /* } */
