@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./movieCard.module.css";
 import star from "../../assets/icons/star.png";
 import cart from "../../assets/icons/shopping-cart.png";
@@ -7,6 +7,7 @@ import liked from "../../assets/icons/like.png";
 import { movieContext } from "../../contexts/MovieContext";
 import { useHistory } from "react-router";
 import axios from "axios";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function MovieCard({ data }) {
   const {
@@ -21,8 +22,7 @@ function MovieCard({ data }) {
     producer,
     // images,
   } = data;
-  console.log(image);
-
+  const [heart, setHeart] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -38,6 +38,8 @@ function MovieCard({ data }) {
     favorite,
     getFavorite,
   } = useContext(movieContext);
+
+
   return (
     <div className={classes.productItem}>
       <div
@@ -54,15 +56,15 @@ function MovieCard({ data }) {
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <span className={classes.price}>{price} руб</span>
-        {/* {favorite.movies.map((mov) => mov.item === data) ? (
-          <img
-            src={like}
-            alt="like"
-            onClick={(e) => {
-              addMovieToFavorite(data);
-            }}
-          />
-        ) : (
+        {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
+        <img
+          src={like}
+          alt="like"
+          onClick={(e) => {
+            addMovieToFavorite(data);
+          }}
+        />
+        {/* ) : (
           <img
             src={liked}
             alt="liked"

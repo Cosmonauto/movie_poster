@@ -82,6 +82,7 @@ export default function ForgotPasswordSecondPage() {
                         onSubmit={(e) => {
                             e.preventDefault();
                             changePassword(password, token);
+                            history.push('/');
                         }}
                     >
                         <TextField

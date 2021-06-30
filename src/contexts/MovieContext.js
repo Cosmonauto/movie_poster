@@ -57,7 +57,7 @@ const INIT_STATE = {
   movieDetail: null,
   total: 0,
   orderHistory: {},
-  favorite: {},
+  favorite: [],
   genres: [],
   comments: [],
 };
@@ -117,6 +117,11 @@ const reducer = (state = INIT_STATE, action) => {
         ...state,
         favorite: action.payload,
       };
+    case "ADD_FAVORITE":
+      return {
+        ...state,
+        favorite: [...state.favorite, action.payload],
+      };
     case "GET_GENRES":
       return {
         ...state,
@@ -143,7 +148,7 @@ export default function StoreContextProvider(props) {
       const movies = response.data.results;
       const total = response.data.count;
       // console.log(movies);
-
+      console.log(movies);
       dispatch({
         type: "SET_MOVIES",
         payload: {
@@ -408,45 +413,58 @@ export default function StoreContextProvider(props) {
     getOrderHistory();
   };
 
-  const getFavorite = () => {
-    let favorite = JSON.parse(localStorage.getItem("favorite"));
-    if (!favorite) {
-      favorite = {
-        movies: [],
-      };
-    }
+  const getFavorite = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    const token = user.access;
+    const response = await axios.get('http://35.234.80.217/api/v1/movie/favorites/create/',
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+    console.log(response.data);
+    const favorite = response.data;
     dispatch({ type: "GET_FAVORITE", payload: favorite });
   };
-  const addMovieToFavorite = (movie) => {
-    let favorite = JSON.parse(localStorage.getItem("favorite"));
-    if (!favorite) {
-      favorite = {
-        movies: [],
-      };
-    }
-
-    let newMovie = {
-      item: movie,
-
-      subPrice: 0,
-    };
-
-    //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
-    let filteredFavorite = favorite.movies.filter(
-      (elem) => elem.item.id === movie.id
+  const addMovieToFavorite = async (movie) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    const token = user.access;
+    console.log(movie);
+    const response = await axios.post(
+      "http://35.234.80.217/api/v1/movie/favorites/",
+      {
+        movie: movie.id,
+        favorites: true,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
     );
-    if (filteredFavorite.length > 0) {
-      favorite.movies = favorite.movies.filter(
-        (elem) => elem.item.id !== movie.id
-      );
-    } else {
-      favorite.movies.push(newMovie);
-    }
-
-    newMovie.subPrice = calcSubPrice(newMovie);
-
-    localStorage.setItem("favorite", JSON.stringify(favorite));
+    const favoriteMovie = response.data;
+    dispatch({
+      type: "ADD_FAVORITE",
+      payload: favoriteMovie,
+    })
   };
+
+  //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
+  // let filteredFavorite = favorite.movies.filter(
+  //   (elem) => elem.item.id === movie.id
+  // );
+  // if (filteredFavorite.length > 0) {
+  //   favorite.movies = favorite.movies.filter(
+  //     (elem) => elem.item.id !== movie.id
+  //   );
+  // } else {
+  //   favorite.movies.push(newMovie);
+  // }
+
+  // newMovie.subPrice = calcSubPrice(newMovie);
+
+  // localStorage.setItem("favorite", JSON.stringify(favorite));
+  // };
   const fetchGenres = async () => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     const token = user.acces;
