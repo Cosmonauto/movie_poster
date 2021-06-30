@@ -5,7 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
@@ -57,6 +57,7 @@ export default function SignUp() {
   const [last_name, setLast_name] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const history = useHistory();
   const addUser = async (email, first_name, last_name, password, password2) => {
     await axios.post("http://35.234.80.217/api/v1/accounts/register/", {
       email,
@@ -86,6 +87,7 @@ export default function SignUp() {
               e.preventDefault();
               addUser(email, first_name, last_name, password, password2);
               notifySuccess("Вы успешно зарегестрировались!");
+              history.push('/signInServer');
             }}
           >
             <TextField

@@ -98,6 +98,7 @@ export default function CreateMovie() {
     formData.append("quantity", values.quantity);
     createMovie(formData).then(() => {
       actions.resetForm();
+      history.push('/');
       notifySuccess("Продукт был создан!");
     });
   };
@@ -273,7 +274,7 @@ export default function CreateMovie() {
                 Create
               </Button>
             </Form>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </>
         )}
       </Formik>
