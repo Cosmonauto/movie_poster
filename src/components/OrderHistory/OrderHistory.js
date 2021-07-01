@@ -62,6 +62,7 @@ function OrderHistory(props) {
                   <p style={{ fontSize: "13px", fontWeight: "bold" }}>
                     {order.movie.descriptions}
                   </p>
+                  <h5>{order.movie.price} сом</h5>
                   <HighlightOffIcon
                     onClick={() => {
                       deleteOrder(order.id, order.movie.id);
@@ -69,6 +70,7 @@ function OrderHistory(props) {
                     }}
                     color="primary"
                   />
+
                   <p
                     onClick={() => {
                       history.push(`/movie/comments/${order.movie.id}`);
