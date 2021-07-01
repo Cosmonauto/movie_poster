@@ -26,6 +26,7 @@ import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
 import CommentsCreate from "./components/Comments/CommentsCreate";
 import CommentsPage from "./components/Comments/CommentsPage";
 import ForgotPasswordSecondPage from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordSecondPage";
+import BestMovies from "./components/BestMovies/BestMovies";
 
 export default function Routes() {
   return (
@@ -77,6 +78,7 @@ export default function Routes() {
             exact
           />
           <Route path="/movie/comments/:id" component={CommentsPage} exact />
+          <Route path="/best-movies" component={BestMovies} exact />
         </Switch>
       </AuthProvider>
     </Router>

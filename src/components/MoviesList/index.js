@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MovieCard from "../MovieCard/MovieCard";
+import MoviesPagination from "../MoviesPaginationOriginal";
+import { movieContext } from "../../contexts/MovieContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -12,7 +14,12 @@ const useStyles = makeStyles(() => ({
 
 export default function MoviesList({ movies }) {
   const classes = useStyles();
-
+  const [page, setPage] = useState(1);
+  const { total, fetchMovies } =
+    useContext(movieContext);
+  useEffect(() => {
+    fetchMovies(page);
+  }, [page]);
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>

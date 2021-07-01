@@ -116,23 +116,15 @@ function MovieCard({ data }) {
           />
         )}
         <span className={classes.price}>{price} руб</span>
-        {/* {favorite.movies.map((mov) => mov.item === data) ? (
-          <img
-            src={like}
-            alt="like"
-            onClick={(e) => {
-              addMovieToFavorite(data);
-            }}
-          />
-        ) : (
-          <img
-            src={liked}
-            alt="liked"
-            onClick={(e) => {
-              addMovieToFavorite(data);
-            }}
-          />
-        )} */}
+
+        <img
+          src={like}
+          alt="like"
+          onClick={(e) => {
+            addMovieToFavorite(data);
+          }}
+        />
+
         <img
           src={cart}
           alt="cart"

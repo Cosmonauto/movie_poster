@@ -7,6 +7,7 @@ import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { movieContext } from "../../contexts/MovieContext";
 import Navbar from "../Navbar/Navbar";
 import like from "../../assets/icons/heart.png";
+import liked from "../../assets/icons/like.png";
 import classes from "./favorite.module.css";
 import { bottom } from "@popperjs/core";
 import { useHistory } from "react-router";
@@ -44,8 +45,8 @@ export default function Favorite() {
               <span className={classes.price}>{movie.movie.price} руб</span>
               {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
               <img
-                src={like}
-                alt="like"
+                src={liked}
+                alt="liked"
                 onClick={(e) => {
                   addMovieToFavorite(movie.movie.data);
                 }}
