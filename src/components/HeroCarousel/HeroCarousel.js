@@ -16,7 +16,7 @@ export default function HeroCarousel(props) {
     {
       name: "Join us today, and get a discount on your first booking!",
       description: "Or invite your friends and get a platinum member card to never miss a discount",
-      img: "https://wallpaperaccess.com/full/2820572.jpg",
+      img: "https://www.esma-artistique.com/wp-content/uploads/2017/12/1b5c10d82b892ba0f2c2e9b42d5df5fe-inception-1469000805.jpeg",
     },
   ];
 

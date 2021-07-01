@@ -56,24 +56,53 @@ const INIT_STATE = {
   menuItems: [],
   movieDetail: null,
   total: 0,
-  orderHistory: {},
+  orders: [],
   favorite: [],
   genres: [],
   comments: [],
+  halls: [],
+  time: [],
+  places: [],
+  rating: [],
 };
 
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
+    case "SET_RATING":
+      return {
+        ...state,
+        rating: action.payload,
+      };
     case "SET_MOVIES":
       return {
         ...state,
         movies: action.payload.data,
         total: action.payload.total,
       };
+    case "SET_HALLS":
+      return {
+        ...state,
+        halls: action.payload,
+      };
+    case "SET_TIME":
+      return {
+        ...state,
+        time: action.payload,
+      };
+    case "SET_PLACES":
+      return {
+        ...state,
+        places: action.payload,
+      };
     case "SET_COMMENTS":
       return {
         ...state,
         comments: action.payload.data,
+      };
+    case "SET_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
       };
     case "SET_MOVIE_DETAIL":
       return {
@@ -85,6 +114,11 @@ const reducer = (state = INIT_STATE, action) => {
         ...state,
         movies: [...state.movies, action.payload],
       };
+    case "ADD_ORDER":
+      return {
+        ...state,
+        orders: [...state.orders, action.payload],
+      };
     case "ADD_COMMENT":
       return {
         ...state,
@@ -94,6 +128,11 @@ const reducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         movies: state.movies.filter((product) => product.id !== action.payload),
+      };
+    case "REMOVE_FAVORITE":
+      return {
+        ...state,
+        favorite: state.favorite.filter((movie) => movie.id !== action.payload),
       };
     case "CLEAR_MOVIE":
       return {
@@ -178,189 +217,360 @@ export default function StoreContextProvider(props) {
       console.log(error.message);
     }
   };
+  const fetchOrders = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      try {
+        const response = await axios.get(
+          `http://35.234.80.217/api/v1/reserve/book/`,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data);
+        const orders = response.data;
+
+        console.log(orders);
+
+        dispatch({
+          type: "SET_ORDERS",
+          payload: orders,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+  const fetchTime = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      try {
+        const response = await axios.get(
+          `http://35.234.80.217/api/v1/reserve/time/`,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data);
+        const time = response.data;
+
+        // console.log(response);
+
+        dispatch({
+          type: "SET_TIME",
+          payload: time,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+  const fetchRating = async (id) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      try {
+        const response = await axios.get(
+          `http://35.234.80.217/api/v1/movie/rating/${id}`,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data);
+        const rating = response.data;
+
+        // console.log(response);
+
+        dispatch({
+          type: "SET_RATING",
+          payload: rating,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+  const fetchPlaces = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      try {
+        const response = await axios.get(
+          `http://35.234.80.217/api/v1/reserve/places/`,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data);
+        const places = response.data;
+
+        // console.log(places);
+
+        dispatch({
+          type: "SET_PLACES",
+          payload: places,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
 
   const fetchSearchMovies = async (value) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    const response = await axios.get(
-      `http://35.234.80.217/api/v1/movie/?search=${value}`,
-      {
-        headers: {
-          Authorization: ` Token ${token}`,
+    if (user) {
+      const token = user.access;
+      const response = await axios.get(
+        `http://35.234.80.217/api/v1/movie/?search=${value}`,
+        {
+          headers: {
+            Authorization: ` Token ${token}`,
+          },
+        }
+      );
+      const movies = response.data.results;
+      dispatch({
+        type: "SET_MOVIES",
+        payload: {
+          data: movies,
         },
-      }
-    );
-    const movies = response.data.results;
-    dispatch({
-      type: "SET_MOVIES",
-      payload: {
-        data: movies,
-      },
-    });
+      });
+    }
   };
 
   const fetchFilterMovies = async (value, page) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    const response = await axios.get(
-      `http://35.234.80.217/api/v1/movie/?genre=${value}&page=${page}`,
-      {
-        headers: {
-          Authorization: ` Token ${token}`,
+    if (user) {
+      const token = user.access;
+      const response = await axios.get(
+        `http://35.234.80.217/api/v1/movie/?genre=${value}&page=${page}`,
+        {
+          headers: {
+            Authorization: ` Token ${token}`,
+          },
+        }
+      );
+      const movies = response.data.results;
+      const total = response.data.count;
+      dispatch({
+        type: "SET_MOVIES",
+        payload: {
+          data: movies,
+          total,
         },
-      }
-    );
-    const movies = response.data.results;
-    const total = response.data.count;
-    dispatch({
-      type: "SET_MOVIES",
-      payload: {
-        data: movies,
-        total,
-      },
-    });
+      });
+    }
   };
 
   const fetchMovieDetail = async (id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     // console.log(user);
-    const token = user.access;
-    // console.log(token);
-    const response = await axios.get(
-      `http://35.234.80.217/api/v1/movie/${id}/`,
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          // "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    const movieDetail = response.data;
-    console.log(movieDetail);
-    dispatch({
-      type: "SET_MOVIE_DETAIL",
-      payload: movieDetail,
-    });
+    if (user) {
+      const token = user.access;
+      // console.log(token);
+      const response = await axios.get(
+        `http://35.234.80.217/api/v1/movie/${id}/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const movieDetail = response.data;
+      console.log(movieDetail);
+      dispatch({
+        type: "SET_MOVIE_DETAIL",
+        payload: movieDetail,
+      });
+    }
   };
   const giveRating = async (rating, id) => {
     let page = localStorage.getItem("page");
     console.log(page);
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/rating/",
-      {
-        rating_field: rating,
-        movie: id,
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          // "Content-Type": "multipart/form-data",
+    if (user) {
+      const token = user.access;
+      const response = await axios.post(
+        "http://35.234.80.217/api/v1/movie/rating/",
+        {
+          rating_field: rating,
+          movie: id,
         },
-      }
-    );
-    fetchMovies(page);
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      fetchMovies(page);
+    }
   };
 
   const createMovie = async (movie) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/create/",
-      movie,
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          // "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    const createdMovie = response.data;
-    // console.log(createdMovie);
-    dispatch({
-      type: "ADD_MOVIE",
-      payload: createdMovie,
-    });
+    if (user) {
+      const token = user.access;
+      const response = await axios.post(
+        "http://35.234.80.217/api/v1/movie/create/",
+        movie,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const createdMovie = response.data;
+      // console.log(createdMovie);
+      dispatch({
+        type: "ADD_MOVIE",
+        payload: createdMovie,
+      });
 
-    return createdMovie.id;
+      return createdMovie.id;
+    }
   };
 
   const createComment = async (comment, id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    console.log(comment);
-    const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/comments/",
-      {
-        body: comment,
-        movie: id,
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          // "Content-Type": "multipart/form-data",
+    if (user) {
+      const token = user.access;
+      console.log(comment);
+      const response = await axios.post(
+        "http://35.234.80.217/api/v1/movie/comments/",
+        {
+          body: comment,
+          movie: id,
         },
-      }
-    );
-    const createdComment = response.data;
-    // console.log(createdMovie);
-    dispatch({
-      type: "ADD_COMMENT",
-      payload: createdComment,
-    });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const createdComment = response.data;
+      // console.log(createdMovie);
+      dispatch({
+        type: "ADD_COMMENT",
+        payload: createdComment,
+      });
 
-    return createdComment.id;
+      return createdComment.id;
+    }
   };
   const deleteMovie = async (id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
 
-    const token = user.access;
-    await axios.delete(`http://35.234.80.217/api/v1/movie/delete/${id}/`, {
-      headers: {
-        Authorization: `Token ${token}`,
-        // "Content-Type": "multipart/form-data",
-      },
-    });
-    dispatch({
-      type: "REMOVE_MOVIE",
-      payload: id,
-    });
+    if (user) {
+      const token = user.access;
+      await axios.delete(`http://35.234.80.217/api/v1/movie/delete/${id}/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch({
+        type: "REMOVE_MOVIE",
+        payload: id,
+      });
+    }
+  };
+  const deleteFavorite = async (id) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    if (user) {
+      const token = user.access;
+      await axios.delete(
+        `http://35.234.80.217/api/v1/movie/favorites/${id}/`,
+
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      dispatch({
+        type: "REMOVE_MOVIE",
+        payload: id,
+      });
+    }
+  };
+  const fetchAllMovies = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    if (user) {
+      const token = user.access;
+      const total = {};
+      const response = await axios.get(
+        `http://35.234.80.217/api/v1/movie/list/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+      const movies = response.data;
+      // console.log(movies);
+      dispatch({
+        type: "SET_MOVIES",
+        payload: { data: movies, total },
+      });
+    }
   };
 
   const updateMovie = async (id, data) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
     console.log(data);
-    const token = user.access;
-    await axios.patch(
-      `http://35.234.80.217/api/v1/movie/update/${id}/`,
-      {
-        id: data.id,
-        title: data.title,
-        descriptions: data.descriptions,
-        price: data.price,
-        country: data.country,
-        duration: data.duration,
-        images: data.images,
-        year: data.year,
-        producer: data.producer,
-        genre: data.genre,
-        age_limit: data.age_limit,
-        comments: data.comments,
-        quantity: data.quantity,
-        likes: data.likes,
-        image: data.image,
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-          // "Content-Type": "multipart/form-data",
+    if (user) {
+      const token = user.access;
+      await axios.patch(
+        `http://35.234.80.217/api/v1/movie/update/${id}/`,
+        {
+          id: data.id,
+          title: data.title,
+          descriptions: data.descriptions,
+          price: data.price,
+          country: data.country,
+          duration: data.duration,
+          images: data.images,
+          year: data.year,
+          producer: data.producer,
+          genre: data.genre,
+          age_limit: data.age_limit,
+          comments: data.comments,
+          quantity: data.quantity,
+          likes: data.likes,
+          image: data.image,
         },
-      }
-    );
-    dispatch({
-      type: "CLEAR_MOVIE",
-    });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      dispatch({
+        type: "CLEAR_MOVIE",
+      });
+    }
   };
   const fetchMenuItems = async () => {
     const response = await axios.get(`${URL}/menuItems`);
@@ -436,38 +646,44 @@ export default function StoreContextProvider(props) {
 
   const getFavorite = async () => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    const response = await axios.get('http://35.234.80.217/api/v1/movie/favorites/create/',
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-    console.log(response.data);
-    const favorite = response.data;
-    dispatch({ type: "GET_FAVORITE", payload: favorite });
+    if (user) {
+      const token = user.access;
+      const response = await axios.get(
+        "http://35.234.80.217/api/v1/movie/favorites/create/",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      const favorite = response.data;
+      dispatch({ type: "GET_FAVORITE", payload: favorite });
+    }
   };
-  const addMovieToFavorite = async (movie) => {
+  const addMovieToFavorite = async (id) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.access;
-    console.log(movie);
-    const response = await axios.post(
-      "http://35.234.80.217/api/v1/movie/favorites/",
-      {
-        movie: movie.id,
-        favorites: true,
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
+    if (user) {
+      const token = user.access;
+      // console.log(movie);
+      const response = await axios.post(
+        "http://35.234.80.217/api/v1/movie/favorites/",
+        {
+          movie: id,
+          favorites: true,
         },
-      }
-    );
-    const favoriteMovie = response.data;
-    dispatch({
-      type: "ADD_FAVORITE",
-      payload: favoriteMovie,
-    })
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      const favoriteMovie = response.data;
+      dispatch({
+        type: "ADD_FAVORITE",
+        payload: favoriteMovie,
+      });
+    }
   };
 
   //если кликнутый продукт есть в корзине, то удаляем, а если нет то пушим
@@ -488,21 +704,23 @@ export default function StoreContextProvider(props) {
   // };
   const fetchGenres = async () => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    const token = user.acces;
-    const response = await axios.get(
-      "http://35.234.80.217/api/v1/movie/genre/",
-      {
-        headers: {
-          Authorization: `Basic ${token}`,
-        },
-      }
-    );
-    const genres = response.data;
-    console.log(genres);
-    dispatch({
-      type: "GET_GENRES",
-      payload: genres,
-    });
+    if (user) {
+      const token = user.acces;
+      const response = await axios.get(
+        "http://35.234.80.217/api/v1/movie/genre/",
+        {
+          headers: {
+            Authorization: `Basic ${token}`,
+          },
+        }
+      );
+      const genres = response.data;
+      console.log(genres);
+      dispatch({
+        type: "GET_GENRES",
+        payload: genres,
+      });
+    }
   };
   const fetchGenreMovies = async (genreId) => {
     const response = await axios.get(`${URL}/movie/?genre=${genreId}`);
@@ -516,6 +734,49 @@ export default function StoreContextProvider(props) {
         total,
       },
     });
+  };
+  const createOrder = async (order) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      const response = await axios.post(
+        "http://35.234.80.217/api/v1/reserve/book/create/",
+        order,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const createdOrder = response.data;
+      console.log(createdOrder);
+    }
+    // dispatch({
+    //   type: "ADD_ORDER",
+    //   payload: createdOrder,
+    // });
+  };
+  const fetchHalls = async () => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+    if (user) {
+      const token = user.access;
+      const response = await axios.get(
+        "http://35.234.80.217/api/v1/reserve/hall/",
+
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      const halls = response.data;
+      console.log(halls);
+      dispatch({
+        type: "SET_HALLS",
+        payload: halls,
+      });
+    }
   };
 
   return (
@@ -547,6 +808,19 @@ export default function StoreContextProvider(props) {
         fetchComments,
         comments: state.comments,
         giveRating,
+        fetchAllMovies,
+        createOrder,
+        orders: state.orders,
+        fetchHalls,
+        halls: state.halls,
+        fetchOrders,
+        fetchTime,
+        time: state.time,
+        fetchPlaces,
+        places: state.places,
+        deleteFavorite,
+        fetchRating,
+        rating: state.rating,
       }}
     >
       {props.children}

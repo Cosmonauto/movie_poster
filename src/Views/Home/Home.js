@@ -31,38 +31,32 @@ export default function Home() {
   useEffect(() => {
     fetchMovies(page);
   }, [page]);
-  // useEffect(() => {
-  // fetchGenres();
-  // console.log(genres);
-  // }, []);
-
-  // const initialState = {
-  //   movies: movies,
-  //   currentPage: 1,
-  // };
-
+  const user = JSON.parse(`${localStorage.getItem("user")}`);
   return (
     <div>
       <Navbar />
       <HeroCaousel />
       <MoviesList movies={movies} />
-      {/* <MoviesPagination state={state} setState={setState} total={18} /> */}
-      {/* <PaginationSlider /> */}
-      {/* <OwlPagination /> */}
+
       <MoviesPagination
         setPage={setPage}
         page={page}
         count={Math.ceil(total / 4)}
       />
-      {/* <BestMovies /> */}
-      <Fab
-        onClick={() => history.push("/createMovie")}
-        className={classes.addBtn}
-        style={{ backgroundColor: "#47597e", color: "#fff" }}
-        aria-label="add"
-      >
-        <AddIcon />
-      </Fab>
+
+      {user ? (
+        user.email ? (
+          <Fab
+            onClick={() => history.push("/createMovie")}
+            className={classes.addBtn}
+            style={{ backgroundColor: "#47597e", color: "#fff" }}
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
+        ) : null
+      ) : null}
+
       <Footer />
       {/* <h1>{genres[0].name}</h1> */}
     </div>
