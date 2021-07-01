@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { movieContext } from "../../contexts/MovieContext";
-
+import CommentsCreate from "./CommentsCreate";
+import classes from "./commentsPage.module.css";
+import Navbar from "../../components/Navbar/Navbar";
 function CommentsPage(props) {
   const { id } = useParams();
   useEffect(() => {
@@ -13,24 +15,29 @@ function CommentsPage(props) {
 
   console.log(movieDetail);
   return (
-    <div>
-      {movieDetail
-        ? movieDetail.comments.map((comment) => (
-            <>
-              <h1>{comment.owner}</h1>
+    <>
+      <Navbar />
 
-              <p>{comment.body}</p>
-            </>
-          ))
-        : null}
-      <h3
-        onClick={() => {
-          history.push(`/movie/comments/create/${id}`);
-        }}
-      >
-        Create Comment
-      </h3>
-    </div>
+      <div className={classes.container}>
+        <h2>Отзывы к фильму "{movieDetail.title}"</h2>
+        <div className={classes.commentDiv}>
+          <div style={{ padding: "25px 0" }}>
+            <CommentsCreate />
+          </div>
+          <div className={classes.commentItem}>
+            {movieDetail
+              ? movieDetail.comments.map((comment) => (
+                  <>
+                    <h4>автор: {comment.owner}</h4>
+
+                    <h6>{comment.body}</h6>
+                  </>
+                ))
+              : null}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

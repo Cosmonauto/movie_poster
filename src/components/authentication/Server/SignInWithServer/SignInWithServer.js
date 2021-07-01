@@ -15,6 +15,7 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 import Navbar from "../../../Navbar/Navbar";
 import LoginIcon from "../../../../assets/icons/login.png";
+import { notifySuccess } from "../../../../helpers/notifiers";
 
 function Copyright() {
   return (
@@ -71,7 +72,8 @@ export default function SignIn() {
         return response.data;
       });
     console.log(data);
-    history.push('/');
+    notifySuccess("Вы успешно зашли!");
+    history.push("/");
   };
 
   const refreshToken = async () => {
