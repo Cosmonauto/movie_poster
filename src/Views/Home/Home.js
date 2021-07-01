@@ -9,8 +9,8 @@ import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router";
 import MoviesPagination from "../../components/MoviesPaginationOriginal";
-import Footer from "../Footer/Footer";
 import BestMovies from "../../components/BestMovies/BestMovies";
+import Footer from '../../components/Footer/Footer'
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
@@ -43,6 +43,7 @@ export default function Home() {
         page={page}
         count={Math.ceil(total / 4)}
       />
+      <Footer />
 
       {user ? (
         user.email ? (
@@ -56,9 +57,6 @@ export default function Home() {
           </Fab>
         ) : null
       ) : null}
-
-      <Footer />
-      {/* <h1>{genres[0].name}</h1> */}
     </div>
   );
 }

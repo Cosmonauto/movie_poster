@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
     margin: "50px auto",
     display: "flex",
     justifyContent: "center",
+    color: red
   },
 }));
 
@@ -35,6 +36,7 @@ export default function MoviesPagination({ count, page, setPage }) {
         localStoragePageSet(page);
       }}
       count={count}
+      style={{ color: 'inherit' }}
       page={page}
       className={classes.pagination}
     />

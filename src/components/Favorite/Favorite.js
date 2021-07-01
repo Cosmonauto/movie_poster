@@ -33,8 +33,8 @@ export default function Favorite() {
     <>
       <div className={classes.font}>
         <Navbar />
-        <h2 style={{ marginBottom: "40px" }}>Избранное</h2>
-        <h4 style={{ marginBottom: "40px" }}>
+        <h2 style={{ marginBottom: "40px", color: "white" }}>Избранное</h2>
+        <h4 style={{ marginBottom: "40px", color: "white" }}>
           Лайкайте понравившиеся вам фильмы и добавляйте сюда
         </h4>
         {favorite.length
