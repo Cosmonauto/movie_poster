@@ -64,6 +64,30 @@ export default function TemporaryDrawer() {
                         </ListItemIcon>
                     </ListItem>
                 </Link>
+                <Link to='/booking' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Booking" />
+                        <ListItemIcon>
+                            <MovieFilterIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+                <Link to='/booking-history' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Booking History" />
+                        <ListItemIcon>
+                            <MovieFilterIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
+                <Link to='/best-movies' style={{ textDecoration: 'none' }}>
+                    <ListItem button>
+                        <ListItemText secondary="Best Movies" />
+                        <ListItemIcon>
+                            <MovieFilterIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </Link>
                 <Link to='/promotions' style={{ textDecoration: 'none' }}>
                     <ListItem button>
                         <ListItemText secondary="Promotions and Discounts" />

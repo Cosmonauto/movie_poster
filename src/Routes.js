@@ -29,6 +29,7 @@ import ForgotPasswordSecondPage from "./components/authentication/Server/ForgotP
 import OrderForm from "./components/OrderForm/OrderForm";
 import OrderHistory from "./components/OrderHistory/OrderHistory";
 import Account from "./Views/Account/Account";
+import BestMovies from "./components/BestMovies/BestMovies";
 
 export default function Routes() {
   return (
@@ -83,6 +84,7 @@ export default function Routes() {
           <Route path="/orderForm" component={OrderForm} exact />
           <Route path="/orderHistory" component={OrderHistory} exact />
           <Route path="/account" component={Account} exact />
+          <Route path="/best-movies" component={BestMovies} exact />
         </Switch>
       </AuthProvider>
     </Router>
