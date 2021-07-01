@@ -23,7 +23,7 @@ export default function Showing() {
     console.log(genres);
   }, [id, searchValue]);
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Navbar />
       <div
         style={{
@@ -40,7 +40,7 @@ export default function Showing() {
       })}
       <button /> */}
       <Carousal style={{ marginBottom: "40px" }} />
-      <FilterSelect />
-    </>
+      <FilterSelect style={{ alignItem: "center" }} />
+    </div>
   );
 }

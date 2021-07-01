@@ -78,7 +78,20 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
-}));
+  button: {
+    position: "relative",
+    backgroundColor: "#04AA6D",
+    border: "none",
+    fontSize: "28px",
+    color: "#FFFFFF",
+    padding: "20px",
+    width: "200px",
+    textAlign: "center",
+    textDecoration: "none",
+    overflow: "hidden",
+    cursor: "pointer",
+  },
+));
 
 export default function FilterSelect() {
   const classes = useStyles();
@@ -108,23 +121,25 @@ export default function FilterSelect() {
   };
 
   return (
-    <div className={classes.search}>
-      <div>
-        <form onSubmit={handleFilterSubmit} className={classes.form}>
-          <select
-            name="genre"
-            onChange={(e) => {
-              setFilterValue(e.target.value);
-            }}
-            className={classes.select}
-          >
-            <option value="Genre">Genre</option>
-            {genres.map((genre) => (
-              <option value={genre.slug}>{genre.slug}</option>
-            ))}
-          </select>
-          <button type="submit">filter</button>
-        </form>
+    <div style={{ margin: "0 auto", }}>
+      <div className={classes.search}>
+        <div>
+          <form onSubmit={handleFilterSubmit} className={classes.form}>
+            <select
+              name="genre"
+              onChange={(e) => {
+                setFilterValue(e.target.value);
+              }}
+              className={classes.select}
+            >
+              <option value="Genre">Genre</option>
+              {genres.map((genre) => (
+                <option value={genre.slug}>{genre.slug}</option>
+              ))}
+            </select>
+            <button type="submit">filter</button>
+          </form>
+        </div>
       </div>
     </div>
   );

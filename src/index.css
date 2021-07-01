@@ -12,7 +12,29 @@ body {
   -o-background-size: cover; */
 
   background-color: #000000 !important;
+    /* background: linear-gradient(-45deg, #0b7fab, #000000, #f1e4de, #7c7b89);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite; */
   /* font-family: "Big Shoulders Stencil Display", cursive; */
+  /* background-image: url("https://img.pngio.com/cool-hd-space-png-free-cool-hd-spacepng-transparent-images-cool-space-pngs-hd-1920_1080.png");
+  background-size: 650px;
+  background-size: cover;
+  background-position-y: center;
+  background-position-x: center; */
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 code {
