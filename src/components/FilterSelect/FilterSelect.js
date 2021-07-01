@@ -90,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     overflow: "hidden",
     cursor: "pointer",
-  },
+  }
+}
 ));
 
 export default function FilterSelect() {
@@ -137,7 +138,7 @@ export default function FilterSelect() {
                 <option value={genre.slug}>{genre.slug}</option>
               ))}
             </select>
-            <button type="submit">filter</button>
+            <button className="button" type="submit">filter</button>
           </form>
         </div>
       </div>
