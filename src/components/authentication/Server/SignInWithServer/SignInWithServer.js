@@ -8,7 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-
+import Footer from "../../../Footer/Footer"
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -112,7 +112,7 @@ export default function SignIn() {
           <Avatar className={classes.avatar}>
             <img src={LoginIcon} alt="login" />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography style={{ color: "white" }} component="h1" variant="h5">
             Sign in
           </Typography>
           <form
@@ -122,6 +122,7 @@ export default function SignIn() {
               e.preventDefault();
               addUser(email, password);
             }}
+            style={{ backgroundColor: "white", borderRadius: "10px" }}
           >
             <TextField
               variant="outlined"
@@ -180,6 +181,7 @@ export default function SignIn() {
           <Copyright />
         </Box>
       </Container>
+      <Footer />
     </>
   );
 }

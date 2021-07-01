@@ -16,8 +16,9 @@ function BestMovies(props) {
   }, [page]);
   //   console.log(movies[0]);
   return (
-    <div>
+    <div style={{ textAlign: "center", color: "white" }}>
       <Navbar />
+      <h1>All movies that have a rating of 3 and higher</h1>
       {movies.map((movie) =>
         movie.rating >= 3 ? (
           <div className={classes.productItem}>

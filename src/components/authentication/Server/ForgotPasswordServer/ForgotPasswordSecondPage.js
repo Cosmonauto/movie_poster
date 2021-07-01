@@ -14,6 +14,8 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 import Navbar from "../../../Navbar/Navbar";
 import LoginIcon from "../../../../assets/icons/login.png";
+import Footer from "../../../Footer/Footer"
+
 
 function Copyright() {
     return (
@@ -73,7 +75,7 @@ export default function ForgotPasswordSecondPage() {
                     <Avatar className={classes.avatar}>
                         <img src={LoginIcon} alt="login" />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" style={{ color: "white" }}>
                         Confirm Password
                     </Typography>
                     <form
@@ -84,6 +86,7 @@ export default function ForgotPasswordSecondPage() {
                             changePassword(password, token);
                             history.push('/');
                         }}
+                        style={{ backgroundColor: "white", borderRadius: "10px" }}
                     >
                         <TextField
                             variant="outlined"
@@ -141,6 +144,7 @@ export default function ForgotPasswordSecondPage() {
                     <Copyright />
                 </Box>
             </Container>
+            <Footer />
         </>
     );
 }

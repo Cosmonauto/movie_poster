@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router";
 import { movieContext } from "../../contexts/MovieContext";
+import classes from './commentsCreate.module.css';
 
 function CommentsCreate(props) {
   const { createComment } = useContext(movieContext);
@@ -13,6 +14,7 @@ function CommentsCreate(props) {
         // e.preventDefault();
         createComment(comment, id).then("cool!");
       }}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <input
         type="text"
@@ -22,7 +24,7 @@ function CommentsCreate(props) {
         }}
         style={{ width: "400px", height: "150px" }}
       />
-      <button type="submit">Create</button>
+      <button className={classes.button} type="submit">Create</button>
     </form>
   );
 }

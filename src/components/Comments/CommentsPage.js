@@ -23,7 +23,7 @@ function CommentsPage(props) {
         </div>
         {movieDetail ? (
           <>
-            <h2>Отзывы к фильму "{movieDetail.title}"</h2>
+            <h2 style={{ color: "white" }}>Отзывы к фильму "{movieDetail.title}"</h2>
             <div className={classes.commentDiv}>
               <div className={classes.commentItem}>
                 {movieDetail.comments.map((comment) => (
