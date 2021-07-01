@@ -22,11 +22,11 @@ export default function SearchResultPage() {
   }, [searchValue]);
 
   return (
-    <MainLayout>
+    <>
       <Typography className={classes.title} variant="h4">
         Результаты поиска по "{searchValue}"
       </Typography>
       <ProductsList products={products} />
-    </MainLayout>
+    </>
   );
 }

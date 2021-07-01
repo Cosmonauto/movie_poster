@@ -48,11 +48,11 @@ export default function MovieDetailPage() {
           />
           {user.email === "admin@admin.com" ? (
             <div>
-              <IconButton onClick={handleMovieDelete}>
+              <IconButton style={{ color: "white" }} onClick={handleMovieDelete}>
                 <DeleteIcon />
               </IconButton>
 
-              <IconButton onClick={() => history.push(`/movies/${id}/update`)}>
+              <IconButton style={{ color: "white" }} onClick={() => history.push(`/movies/${id}/update`)}>
                 <EditIcon />
               </IconButton>
             </div>

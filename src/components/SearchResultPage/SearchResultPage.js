@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import MoviesList from '../../components/MoviesList/index';
 import { movieContext } from '../../contexts/MovieContext';
 import Navbar from '../Navbar/Navbar'
+import Footer from '../Footer/Footer'
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -28,6 +29,7 @@ export default function SearchResultPage() {
                 Результаты поиска по "{searchValue}"
             </Typography>
             <MoviesList movies={movies} />
+            <Footer />
         </>
     );
 }

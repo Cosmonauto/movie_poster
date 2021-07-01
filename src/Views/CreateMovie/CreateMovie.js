@@ -8,6 +8,7 @@ import TextError from "../../components/TextError/index";
 import { movieContext } from "../../contexts/MovieContext";
 import { notifySuccess } from "../../helpers/notifiers";
 import { useHistory } from "react-router";
+import Footer from '../../components/Footer/Footer';
 
 import ImageDropzone from "../../components/ImageDropzone";
 
@@ -278,6 +279,7 @@ export default function CreateMovie() {
           </>
         )}
       </Formik>
+      <Footer />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import TextError from "../../components/TextError";
 import Navbar from "../../components/Navbar/Navbar";
 import { notifySuccess } from "../../helpers/notifiers";
 import { useHistory, useParams } from "react-router";
-
+import Footer from '../../components/Footer/Footer'
 export default function MovieUpdatePage() {
   const [initialValues, setInitialValues] = useState({
     title: "",
@@ -95,7 +95,7 @@ export default function MovieUpdatePage() {
       >
         {({ values }) => (
           <>
-            <Typography variant="h4">Изменение продукта</Typography>
+            <Typography style={{ color: "white", textAlign: "center" }} variant="h4">Изменение продукта</Typography>
             <Form className={classes.form}>
               <label>Movie Name</label>
               <Field
@@ -250,6 +250,7 @@ export default function MovieUpdatePage() {
           </>
         )}
       </Formik>
+      <Footer />
     </>
   );
 }
