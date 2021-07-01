@@ -36,7 +36,7 @@ export default function MoviesPagination({ count, page, setPage }) {
         localStoragePageSet(page);
       }}
       count={count}
-      style={{ color: 'inherit' }}
+      style={{ backgroundColor: 'white', width: "400px", borderRadius: "20px" }}
       page={page}
       className={classes.pagination}
     />
