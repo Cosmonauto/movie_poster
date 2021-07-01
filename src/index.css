@@ -5,7 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #78dec7;
+  /* background-image: url("../src/assets/images/movie.jpg") no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover; */
+
+  background-color: #444444 !important;
   /* font-family: "Big Shoulders Stencil Display", cursive; */
 }
 

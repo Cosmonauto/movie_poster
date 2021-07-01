@@ -1,0 +1,23 @@
+.commentDiv {
+  width: 80%;
+  text-align: center;
+  background-color: hotpink;
+  margin: 50px auto;
+}
+/* .cotainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+} */
+.commentItem {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 5px;
+  border: 2px solid grey;
+  border-radius: 10px;
+  background-color: grey;
+}
+.container {
+  text-align: center;
+}

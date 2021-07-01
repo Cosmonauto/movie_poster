@@ -10,7 +10,7 @@ function CommentsCreate(props) {
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault();
+        // e.preventDefault();
         createComment(comment, id).then("cool!");
       }}
     >

@@ -26,6 +26,9 @@ import MovieUpdatePage from "./Views/MovieUpdatePage/MovieUpdatePage";
 import CommentsCreate from "./components/Comments/CommentsCreate";
 import CommentsPage from "./components/Comments/CommentsPage";
 import ForgotPasswordSecondPage from "./components/authentication/Server/ForgotPasswordServer/ForgotPasswordSecondPage";
+import OrderForm from "./components/OrderForm/OrderForm";
+import OrderHistory from "./components/OrderHistory/OrderHistory";
+import Account from "./Views/Account/Account";
 
 export default function Routes() {
   return (
@@ -77,6 +80,9 @@ export default function Routes() {
             exact
           />
           <Route path="/movie/comments/:id" component={CommentsPage} exact />
+          <Route path="/orderForm" component={OrderForm} exact />
+          <Route path="/orderHistory" component={OrderHistory} exact />
+          <Route path="/account" component={Account} exact />
         </Switch>
       </AuthProvider>
     </Router>

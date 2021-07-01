@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchList: {
     width: "100%",
-    height: 300,
+    height: 160,
     overflowY: "scroll",
     overflowX: "hidden",
     position: "absolute",
@@ -71,12 +71,14 @@ export default function SearchBar() {
 
   const [searchValue, setSearchValue] = useState("");
   const [fetchedMovies, setFetchedMovies] = useState([]);
-
+  console.log(fetchedMovies.results);
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
 
-  useEffect(() => {}, [searchValue]);
+  useEffect(() => {
+    fetchSearchMovies(searchValue).then((movies) => setFetchedMovies(movies));
+  }, [searchValue]);
 
   const history = useHistory();
 
@@ -113,9 +115,9 @@ export default function SearchBar() {
         />
       </form>
 
-      {fetchedMovies.length ? (
+      {fetchedMovies.results ? (
         <Paper className={classes.searchList}>
-          {fetchedMovies.map((movie) => (
+          {fetchedMovies.results.map((movie) => (
             <Typography
               onClick={() => handleSearchItemClick(movie.id)}
               key={movie.id}
