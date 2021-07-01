@@ -10,7 +10,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router";
 import MoviesPagination from "../../components/MoviesPaginationOriginal";
 import BestMovies from "../../components/BestMovies/BestMovies";
-import Footer from '../../components/Footer/Footer'
+import Footer from "../../components/Footer/Footer";
 
 // import PaginationSlider from "../../components/PaginationSlider/PaginationSlider";
 
@@ -50,7 +50,7 @@ export default function Home() {
           <Fab
             onClick={() => history.push("/createMovie")}
             className={classes.addBtn}
-            style={{ backgroundColor: "#47597e", color: "#fff" }}
+            style={{ backgroundColor: "red", color: "#fff" }}
             aria-label="add"
           >
             <AddIcon />

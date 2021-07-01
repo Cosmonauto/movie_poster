@@ -1,0 +1,34 @@
+.form {
+  width: 70%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  height: 300px;
+  align-items: center !important;
+
+  border-radius: 10px;
+}
+.formDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  text-align: center !important;
+}
+.form select {
+  display: flex;
+  /* flex-direction: column !important; */
+  width: 200px;
+  height: 60px;
+  margin: 150px 15px;
+}
+.form button {
+  width: 200px;
+  height: 50px;
+  margin: 150px 15px;
+}
+.titel {
+  color: #fff;
+  text-align: center;
+}
