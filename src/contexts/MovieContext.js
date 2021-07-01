@@ -492,7 +492,7 @@ export default function StoreContextProvider(props) {
       });
     }
   };
-  const deleteFavorite = async (id) => {
+  const deleteFavorite = async (id, secondId) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
 
     if (user) {
@@ -508,7 +508,27 @@ export default function StoreContextProvider(props) {
       );
       dispatch({
         type: "REMOVE_MOVIE",
-        payload: id,
+        payload: secondId,
+      });
+    }
+  };
+  const deleteOrder = async (id, secondId) => {
+    const user = JSON.parse(`${localStorage.getItem("user")}`);
+
+    if (user) {
+      const token = user.access;
+      await axios.delete(
+        `http://35.234.80.217/api/v1/reserve/book/${id}/`,
+
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      dispatch({
+        type: "REMOVE_MOVIE",
+        payload: secondId,
       });
     }
   };
@@ -737,21 +757,20 @@ export default function StoreContextProvider(props) {
   };
   const createOrder = async (order) => {
     const user = JSON.parse(`${localStorage.getItem("user")}`);
-    if (user) {
-      const token = user.access;
-      const response = await axios.post(
-        "http://35.234.80.217/api/v1/reserve/book/create/",
-        order,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      const createdOrder = response.data;
-      console.log(createdOrder);
-    }
+    // console.log(order);
+    const token = user.access;
+    const response = await axios.post(
+      "http://35.234.80.217/api/v1/reserve/book/create/",
+      order,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    const createdOrder = response.data;
+    console.log(createdOrder);
     // dispatch({
     //   type: "ADD_ORDER",
     //   payload: createdOrder,
@@ -821,6 +840,7 @@ export default function StoreContextProvider(props) {
         deleteFavorite,
         fetchRating,
         rating: state.rating,
+        deleteOrder,
       }}
     >
       {props.children}

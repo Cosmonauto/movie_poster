@@ -20,6 +20,7 @@ function CommentsCreate(props) {
         onChange={(e) => {
           setComment(e.target.value);
         }}
+        style={{ width: "400px", height: "150px" }}
       />
       <button type="submit">Create</button>
     </form>

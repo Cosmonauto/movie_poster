@@ -17,25 +17,26 @@ function CommentsPage(props) {
   return (
     <>
       <Navbar />
-
       <div className={classes.container}>
-        <h2>Отзывы к фильму "{movieDetail.title}"</h2>
-        <div className={classes.commentDiv}>
-          <div style={{ padding: "25px 0" }}>
-            <CommentsCreate />
-          </div>
-          <div className={classes.commentItem}>
-            {movieDetail
-              ? movieDetail.comments.map((comment) => (
+        <div style={{ padding: "25px 0" }}>
+          <CommentsCreate />
+        </div>
+        {movieDetail ? (
+          <>
+            <h2>Отзывы к фильму "{movieDetail.title}"</h2>
+            <div className={classes.commentDiv}>
+              <div className={classes.commentItem}>
+                {movieDetail.comments.map((comment) => (
                   <>
                     <h4>автор: {comment.owner}</h4>
 
                     <h6>{comment.body}</h6>
                   </>
-                ))
-              : null}
-          </div>
-        </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
       </div>
     </>
   );

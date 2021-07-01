@@ -26,7 +26,7 @@ export default function Favorite() {
   const history = useHistory();
   useEffect(() => {
     getFavorite();
-  }, []);
+  }, [favorite]);
 
   console.log(favorite);
   return (
@@ -39,25 +39,25 @@ export default function Favorite() {
         </h4>
         {favorite.length
           ? favorite.map((movie) => (
-            <div className={classes.productItem}>
-              <div
-                onClick={() => history.push(`/movie/${movie.movie.id}`)}
-                className={classes.productImg}
-              >
-                <img src={movie.movie.image} alt="movieCardImage" />
-              </div>
-              <div className={classes.productList}>
-                <h2>{movie.movie.title}</h2>
-                <span className={classes.price}>{movie.movie.price} руб</span>
-                {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
-                <HighlightOffIcon
-                  onClick={() => {
-                    deleteFavorite(movie.movie.id);
-                    console.log(movie.movie.id);
-                  }}
-                  color="primary"
-                />
-                <img
+              <div className={classes.productItem}>
+                <div
+                  onClick={() => history.push(`/movie/${movie.movie.id}`)}
+                  className={classes.productImg}
+                >
+                  <img src={movie.movie.image} alt="movieCardImage" />
+                </div>
+                <div className={classes.productList}>
+                  <h2>{movie.movie.title}</h2>
+                  <span className={classes.price}>{movie.movie.price} руб</span>
+                  {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
+                  <HighlightOffIcon
+                    onClick={() => {
+                      deleteFavorite(movie.id, movie.movie.id);
+                      console.log(movie.id);
+                    }}
+                    color="primary"
+                  />
+                  {/* <img
                   src={cart}
                   alt="cart"
                   onClick={() => {
@@ -65,17 +65,17 @@ export default function Favorite() {
                     // const genreArr = await axios.get("");
                   }}
                 />
-                В корзину
-                <h5
-                  onClick={() => {
-                    history.push("/movie/comments");
-                  }}
-                >
-                  comments
-                </h5>
+                В корзину */}
+                  <h5
+                    onClick={() => {
+                      history.push("/movie/comments");
+                    }}
+                  >
+                    comments
+                  </h5>
+                </div>
               </div>
-            </div>
-          ))
+            ))
           : null}
       </div>
     </>

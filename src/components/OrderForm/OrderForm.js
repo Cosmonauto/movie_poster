@@ -28,123 +28,65 @@ function OrderForm(props) {
   useEffect(() => {
     fetchAllMovies();
     fetchOrders();
-    fetchHalls();
+    // fetchHalls();
     fetchTime();
     fetchPlaces();
   }, []);
+  const [stateMovie, setStateMovie] = useState("");
+  const [stateTime, setStateTime] = useState("");
+  const [statePlace, setStatePlace] = useState("");
 
-  const initialValues = {
-    movie: null,
-    time: null,
-    place: null,
-  };
-
-  const validationSchema = Yup.object({
-    movie: Yup.string().required("Обязательное поле!"),
-    time: Yup.string().required("Обязательное поле!"),
-    // Yup.number()
-    //   .typeError("Введите число!")
-    //   .required("Обязательное поле!"),
-    price: Yup.number()
-      .typeError("Введите число!")
-      .required("Обязательное поле!"),
-  });
-  //   console.log(time);
-  //   console.log(halls);
-
-  const onSubmit = (values, actions) => {
-    const formData = new FormData();
-
-    // console.log(values.images);
-    formData.append("movie", values.movie);
-    formData.append("time", values.time);
-    formData.append("place", values.place);
-    // console.log(values)
-
-    createOrder(formData).then(() => {
-      actions.resetForm();
+  const submit = (movie, time, place) => {
+    createOrder({
+      movie: movie,
+      time: time,
+      place: place,
+    }).then(() => {
       history.push("/");
-      notifySuccess("Бронь успешно выполнена!");
+      notifySuccess("Бронь успешно выполнена!Проверьте историю брони ");
     });
   };
+
   return (
-    <div>
-      <Navbar />
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        submit(stateMovie, stateTime, statePlace);
+      }}
+    >
+      <select
+        onChange={(e) => {
+          setStateMovie(e.target.value);
+        }}
       >
-        {({ values, setFieldValue }) => (
-          <>
-            <Form className={classes.form}>
-              <Typography variant="h3" style={{ fontWeight: "bold" }}>
-                Book
-              </Typography>
-              <label>Movie Name</label>
-              <Field
-                className={classes.input}
-                name="movie"
-                variant="outlined"
-                as="select"
-              >
-                <option>Select Movie</option>
-                {movies.map((movie) => (
-                  <option value={movie.id}>{movie.title}</option>
-                ))}
-              </Field>
-              <ErrorMessage component={TextError} name="movie" />
-
-              <label>Time</label>
-              <Field
-                className={classes.input}
-                name="time"
-                variant="outlined"
-                as="select"
-              >
-                <option>Select Time</option>
-                {time.map((hour) => (
-                  <option value={hour.id}>{hour.time}</option>
-                ))}
-              </Field>
-              <ErrorMessage component={TextError} name="time" />
-
-              <label>Place</label>
-              <Field
-                className={classes.input}
-                name="place"
-                variant="outlined"
-                as="select"
-              >
-                <option>Select Place</option>
-                {places.map((place) => (
-                  <option value={place.place}>{place.place}</option>
-                ))}
-              </Field>
-              <ErrorMessage component={TextError} name="title" />
-              <label>Hall</label>
-              <Field
-                className={classes.input}
-                name="hall"
-                variant="outlined"
-                as="select"
-              >
-                <option>Select Hall</option>
-                {halls.map((hall) => (
-                  <option value={hall.name}>{hall.name}</option>
-                ))}
-              </Field>
-              <ErrorMessage component={TextError} name="title" />
-
-              <Button type="submit" color="primary" variant="contained">
-                Create
-              </Button>
-            </Form>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
-          </>
-        )}
-      </Formik>
-    </div>
+        <option>Select Movie</option>
+        {movies.map((movie) => (
+          <option value={movie.id}>{movie.title}</option>
+        ))}
+      </select>
+      <select
+        onChange={(e) => {
+          setStateTime(e.target.value);
+        }}
+      >
+        <option>Select Time</option>
+        {time.map((hour) => (
+          <option value={hour.id}>{hour.time}</option>
+        ))}
+      </select>
+      <select
+        onChange={(e) => {
+          setStatePlace(e.target.value);
+        }}
+      >
+        {" "}
+        <option>Select Place</option>
+        {places.map((place) => (
+          <option value={place.id}>{place.place}</option>
+        ))}
+      </select>
+      <button type="submit">GO</button>
+    </form>
   );
 }
 
