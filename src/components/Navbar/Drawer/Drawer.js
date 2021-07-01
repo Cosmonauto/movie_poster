@@ -13,6 +13,8 @@ import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import InfoIcon from "@material-ui/icons/Info";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
+import HistoryIcon from '@material-ui/icons/History';
+import TwoWheelerIcon from '@material-ui/icons/TwoWheeler';
 
 const useStyles = makeStyles({
   list: {
@@ -58,14 +60,7 @@ export default function TemporaryDrawer() {
             </ListItemIcon>
           </ListItem>
         </Link>
-        <Link to="/sessions" style={{ textDecoration: "none" }}>
-          <ListItem button>
-            <ListItemText secondary="Sessions" />
-            <ListItemIcon>
-              <MovieFilterIcon />
-            </ListItemIcon>
-          </ListItem>
-        </Link>
+
         <Link to="/orderForm" style={{ textDecoration: "none" }}>
           <ListItem button>
             <ListItemText secondary="Booking" />
@@ -78,7 +73,7 @@ export default function TemporaryDrawer() {
           <ListItem button>
             <ListItemText secondary="Booking History" />
             <ListItemIcon>
-              <MovieFilterIcon />
+              <HistoryIcon />
             </ListItemIcon>
           </ListItem>
         </Link>
@@ -86,31 +81,7 @@ export default function TemporaryDrawer() {
           <ListItem button>
             <ListItemText secondary="Best Movies" />
             <ListItemIcon>
-              <MovieFilterIcon />
-            </ListItemIcon>
-          </ListItem>
-        </Link>
-        <Link to="/promotions" style={{ textDecoration: "none" }}>
-          <ListItem button>
-            <ListItemText secondary="Promotions and Discounts" />
-            <ListItemIcon>
-              <OfflineBoltIcon />
-            </ListItemIcon>
-          </ListItem>
-        </Link>
-        <Link to="/about" style={{ textDecoration: "none" }}>
-          <ListItem button>
-            <ListItemText secondary="About Us" />
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-          </ListItem>
-        </Link>
-        <Link to="/contacts" style={{ textDecoration: "none" }}>
-          <ListItem button>
-            <ListItemText secondary="Contacts" />
-            <ListItemIcon>
-              <ContactPhoneIcon />
+              <TwoWheelerIcon />
             </ListItemIcon>
           </ListItem>
         </Link>

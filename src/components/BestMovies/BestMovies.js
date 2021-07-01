@@ -7,6 +7,8 @@ import cart from '../../assets/icons/shopping-cart.png'
 import { movieContext } from "../../contexts/MovieContext";
 import MoviesPagination from "../MoviesPaginationOriginal";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from '../../components/Footer/Footer'
+
 function BestMovies(props) {
   const { total, fetchMovies, movies, addMovieToFavorite } = useContext(movieContext);
   const [page, setPage] = useState(1);
@@ -16,8 +18,9 @@ function BestMovies(props) {
   }, [page]);
   //   console.log(movies[0]);
   return (
-    <div>
+    <div style={{ textAlign: "center", color: "white" }}>
       <Navbar />
+      <h1>All movies that have a rating of 3 and higher</h1>
       {movies.map((movie) =>
         movie.rating >= 3 ? (
           <div className={classes.productItem}>
@@ -83,6 +86,7 @@ function BestMovies(props) {
         page={page}
         count={Math.ceil(total / 4)}
       /> */}
+      <Footer />
     </div>
   );
 }

@@ -80,16 +80,19 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     position: "relative",
-    backgroundColor: "#04AA6D",
+    backgroundColor: "red",
     border: "none",
-    fontSize: "28px",
+    fontSize: "26px",
     color: "#FFFFFF",
-    padding: "20px",
-    width: "200px",
+    padding: "7px",
+    width: "300px",
     textAlign: "center",
     textDecoration: "none",
     overflow: "hidden",
     cursor: "pointer",
+    height: "50px",
+    marginTop: "30px"
+
   }
 }
 ));
@@ -122,26 +125,22 @@ export default function FilterSelect() {
   };
 
   return (
-    <div style={{ margin: "0 auto", }}>
-      <div className={classes.search}>
-        <div>
-          <form onSubmit={handleFilterSubmit} className={classes.form}>
-            <select
-              name="genre"
-              onChange={(e) => {
-                setFilterValue(e.target.value);
-              }}
-              className={classes.select}
-            >
-              <option value="Genre">Genre</option>
-              {genres.map((genre) => (
-                <option value={genre.slug}>{genre.slug}</option>
-              ))}
-            </select>
-            <button className="button" type="submit">filter</button>
-          </form>
-        </div>
-      </div>
+    <div>
+      <form onSubmit={handleFilterSubmit} className={classes.form} style={{ margin: "0 auto", display: 'flex', flexDirection: "column", alignItems: "center", margin: "50px" }}>
+        <select
+          name="genre"
+          onChange={(e) => {
+            setFilterValue(e.target.value);
+          }}
+          className={classes.select}
+        >
+          <option value="Genre">Genre</option>
+          {genres.map((genre) => (
+            <option value={genre.slug}>{genre.slug}</option>
+          ))}
+        </select>
+        <button className={classes.button} type="submit">filter</button>
+      </form>
     </div>
   );
 }

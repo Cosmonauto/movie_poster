@@ -13,6 +13,8 @@ import { bottom } from "@popperjs/core";
 import { useHistory } from "react-router";
 import star2 from "../../assets/icons/star2.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import Footer from "../Footer/Footer"
+
 export default function Favorite() {
   const {
     favorite,
@@ -39,25 +41,25 @@ export default function Favorite() {
         </h4>
         {favorite.length
           ? favorite.map((movie) => (
-              <div className={classes.productItem}>
-                <div
-                  onClick={() => history.push(`/movie/${movie.movie.id}`)}
-                  className={classes.productImg}
-                >
-                  <img src={movie.movie.image} alt="movieCardImage" />
-                </div>
-                <div className={classes.productList}>
-                  <h2>{movie.movie.title}</h2>
-                  <span className={classes.price}>{movie.movie.price} руб</span>
-                  {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
-                  <HighlightOffIcon
-                    onClick={() => {
-                      deleteFavorite(movie.id, movie.movie.id);
-                      console.log(movie.id);
-                    }}
-                    color="primary"
-                  />
-                  {/* <img
+            <div className={classes.productItem}>
+              <div
+                onClick={() => history.push(`/movie/${movie.movie.id}`)}
+                className={classes.productImg}
+              >
+                <img src={movie.movie.image} alt="movieCardImage" />
+              </div>
+              <div className={classes.productList}>
+                <h2>{movie.movie.title}</h2>
+                <span className={classes.price}>{movie.movie.price} руб</span>
+                {/* {favorite.movies.map((mov) => mov.item === data) ? ( */}
+                <HighlightOffIcon
+                  onClick={() => {
+                    deleteFavorite(movie.id, movie.movie.id);
+                    console.log(movie.id);
+                  }}
+                  color="primary"
+                />
+                {/* <img
                   src={cart}
                   alt="cart"
                   onClick={() => {
@@ -66,18 +68,19 @@ export default function Favorite() {
                   }}
                 />
                 В корзину */}
-                  <h5
-                    onClick={() => {
-                      history.push("/movie/comments");
-                    }}
-                  >
-                    comments
-                  </h5>
-                </div>
+                <h5
+                  onClick={() => {
+                    history.push("/movie/comments");
+                  }}
+                >
+                  comments
+                </h5>
               </div>
-            ))
+            </div>
+          ))
           : null}
       </div>
+      <Footer />
     </>
   );
 }

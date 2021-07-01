@@ -9,6 +9,8 @@ import { notifySuccess } from "../../helpers/notifiers";
 import { useHistory } from "react-router";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import classes from "./orderForm.module.css";
+import Footer from '../Footer/Footer';
+
 
 function OrderForm(props) {
   const {
@@ -103,6 +105,7 @@ function OrderForm(props) {
           <button type="submit">GO</button>
         </form>
       </div>
+      <Footer />
     </>
   );
 }

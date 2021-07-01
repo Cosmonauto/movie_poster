@@ -5,6 +5,10 @@ import MoviesList from "../../components/MoviesList/index";
 import { movieContext } from "../../contexts/MovieContext";
 import Navbar from "../Navbar/Navbar";
 import MoviesPagination from "../MoviesPaginationOriginal";
+import FilterSelect from "../FilterSelect/FilterSelect";
+import Carousal from "../../Views/Showing/3dCarousal/Carousal";
+import Footer from "../Footer/Footer"
+
 const useStyles = makeStyles(() => ({
     title: {
         marginBottom: 40,
@@ -25,15 +29,18 @@ export default function FilterResultPage() {
     return (
         <>
             <Navbar />
-            <Typography className={classes.title} variant="h4">
+            <Typography style={{ color: 'white' }} className={classes.title} variant="h4">
                 Фильмы по жанру "{filterValue}"
             </Typography>
+            <Carousal />
+            <FilterSelect />
             <MoviesList movies={movies} />
             <MoviesPagination
                 setPage={setPage}
                 page={page}
                 count={Math.ceil(total / 4)}
             />
+            <Footer />
         </>
     );
 }
